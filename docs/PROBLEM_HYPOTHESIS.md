@@ -90,3 +90,15 @@ Before treating this hypothesis as validated fact, the following empirical evide
    * How frequently do informal study groups disband within 2–3 weeks of formation?
 
 *The hypothesis will be updated, refined, or pivoted at the conclusion of Module 02 based solely on these empirical findings.*
+
+---
+
+## 8. Current Lifecycle Status & Evidence Linkage
+
+* **Current Status:** `EXPLICITLY UNVALIDATED — INSTRUMENTS PREPARED, EMPIRICAL FIELDWORK PENDING`
+* **Evidence Traceability:** Mapped to [`docs/research/EVIDENCE_REGISTER.md`](research/EVIDENCE_REGISTER.md) under Hypothesis `HYP-01`.
+* **Fieldwork Tracking:** Monitored in real-time via [`docs/research/FIELDWORK_STATUS.md`](research/FIELDWORK_STATUS.md).
+* **Validation Benchmark Criteria:**
+  1. $\ge 70\%$ of interview participants (`INT-01` to `INT-07`) describe significant friction in schedule alignment or finding peers with matching course goals.
+  2. Contextual inquiry (`OBS-01` to `OBS-03`) confirms observed coordination friction, media juggling, or conflicting study modes.
+  3. Mean Likert rating on survey items Q04 (`frict_topic_diff`) and Q05 (`frict_sched_diff`) exceeds 3.0 / 5.0 across valid respondents.

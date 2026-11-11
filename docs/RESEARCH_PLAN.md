@@ -1,19 +1,24 @@
 # Research & Evaluation Plan: CohortCircle
 
 > **Document Status:** OPERATIONAL EXECUTION PLAN FOR MODULE 02 & MODULE 09  
+> **Operational Toolkit:** Detailed operational protocols, interview guides, survey instruments, and codebooks are maintained in [`docs/research/`](research/README.md).
 > **Integrity Notice:** In compliance with project ethics and scientific rigor, this document contains methodology protocols, instruments, and evaluation frameworks. **No participant records, interviews, survey metrics, or usability scores are fabricated.** Actual field research will be executed strictly within Module 02, and summative evaluations within Module 09.
 
 ---
 
 ## 1. Research Objectives & Grounding
 
-The primary goal of the empirical research phase (Module 02) is to investigate the real-world behaviors, motivations, social dynamics, and friction points experienced by students and independent learners when forming and coordinating study groups.
+The primary goal of the empirical research phase (Module 02) is to investigate the real-world behaviors, motivations, social dynamics, and friction points experienced by university students and independent learners when forming, coordinating, and sustaining peer study groups.
 
 Specific research inquiries:
-1. How do learners currently search for, evaluate, and assemble study groups?
-2. What are the primary breakdown points that lead study groups to dissolve or fail?
-3. How critical are factors like study style, availability overlap, and group size to perceived group success?
-4. What are the cognitive, logistical, and social barriers to using existing tools (WhatsApp, Discord, campus boards)?
+1. **RQ-01:** How do learners currently search for, evaluate, and assemble study groups?
+2. **RQ-02:** How do learners initiate, structure, and organize new study groups?
+3. **RQ-03:** What are the root causes of scheduling friction and meeting drop-offs?
+4. **RQ-04:** How do differing study styles (silent vs. collaborative vs. discussion) affect group cohesion and success?
+5. **RQ-05:** Why do informal study groups lose momentum and dissolve after 1–2 sessions?
+6. **RQ-06:** What specific information (syllabus, style, schedule, expectations) do learners require *before* requesting to join a group?
+7. **RQ-07:** How do learners currently navigate communication breakdowns across tools like WhatsApp, Discord, and campus forums?
+8. **RQ-08:** What design mechanisms (transparency, rule explanations, role clarity) would establish user trust in a compatibility-matching platform?
 
 ---
 
@@ -31,9 +36,25 @@ We employ a triangulated, mixed-methods user research framework:
 ┌──────────────────┐         ┌──────────────────┐         ┌──────────────────┐
 │   Contextual     │         │ Semi-Structured  │         │   Exploratory    │
 │    Inquiry       │         │   Interviews     │         │     Survey       │
-│  (3 Field Sites) │         │ (5-7 Students)   │         │ (Broad Sample)   │
+│  (3 Field Sites) │         │ (5-7 Students)   │         │ (Target: 30-50)  │
+│ [OBS-01 to 03]   │         │ [INT-01 to 07]   │         │ [SUR-DATA]       │
 └──────────────────┘         └──────────────────┘         └──────────────────┘
+         │                             │                             │
+         └─────────────────────────────┼─────────────────────────────┘
+                                       ▼
+                  ┌─────────────────────────────────────────┐
+                  │  Evidence Triangulation & Thematic Map  │
+                  │         [EVIDENCE_REGISTER.md]          │
+                  └─────────────────────────────────────────┘
 ```
+
+*For complete operational protocols and field tools, refer to:*
+* Contextual Inquiry Protocol: [`docs/research/CONTEXTUAL_INQUIRY_PROTOCOL.md`](research/CONTEXTUAL_INQUIRY_PROTOCOL.md)
+* Semi-Structured Interview Guide: [`docs/research/INTERVIEW_GUIDE.md`](research/INTERVIEW_GUIDE.md)
+* Exploratory Survey Questionnaire: [`docs/research/SURVEY_INSTRUMENT.md`](research/SURVEY_INSTRUMENT.md)
+* Qualitative Analysis & Codebook: [`docs/research/QUALITATIVE_ANALYSIS_PROTOCOL.md`](research/QUALITATIVE_ANALYSIS_PROTOCOL.md)
+* Master Evidence Register: [`docs/research/EVIDENCE_REGISTER.md`](research/EVIDENCE_REGISTER.md)
+* Real-Time Fieldwork Status: [`docs/research/FIELDWORK_STATUS.md`](research/FIELDWORK_STATUS.md)
 
 ---
 
@@ -57,10 +78,12 @@ Observers will document field notes across five behavioral dimensions:
 
 ## 4. Method 2: Semi-Structured Interview Protocol
 
-### 4.1 Sample Criteria
-* **Target Sample Size:** 5 to 7 actual university students and independent learners.
-* **Participant Diversity:** Balanced representation across STEM, humanities, and self-directed disciplines; mix of commuter and residential students.
-* **Format:** 25–35 minute one-on-one sessions, conducted in-person or via audio call.
+### 4.1 Sample Criteria & Participant Quota
+* **Core Qualitative Sample:** 5 to 7 enrolled university students (`P-01` through `P-07`).
+* **Participant Diversity:** Balanced representation across STEM, humanities, and business fields; mix of commuter students (>30m travel) and on-campus residential students; frequent group study users vs. novices.
+* **Supplementary Sample:** Autonomous independent learners may be included as a separate supplementary cohort, but must never replace the required core student sample.
+* **Session Duration:** 25–35 minutes one-on-one sessions, conducted in-person on campus or via private audio call.
+* **Operational Guide:** See [`docs/research/INTERVIEW_GUIDE.md`](research/INTERVIEW_GUIDE.md) and [`docs/research/RECRUITMENT_AND_SAMPLING.md`](research/RECRUITMENT_AND_SAMPLING.md).
 
 ### 4.2 Interview Guide & Question Script
 

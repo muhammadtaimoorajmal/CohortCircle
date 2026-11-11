@@ -92,6 +92,42 @@
 
 ---
 
+### DEC-009: Public Repository Privacy Boundary & Local Data Isolation
+* **Status:** `[CONFIRMED]`
+* **Context:** Operating research documentation within a public GitHub repository without exposing participant PII, raw recordings, or unredacted transcripts.
+* **Decision:** Strict isolation between public repository files and local-only research assets. Created `private-research-data/` in `.gitignore` for raw audio (`*.raw.audio`), raw transcripts, and signed consent sheets. Public repository files contain only operational protocols, blank templates, and de-identified aggregate summaries using aliases (`P-01`, `INT-01`, `OBS-01`).
+* **Date:** 2026-11-11
+* **Impact:** Full protection of participant privacy; 100% compliance with ethical computing standards and public open-source repository governance.
+
+---
+
+### DEC-010: Triangulated Empirical Research Architecture & 8 Core Research Questions
+* **Status:** `[CONFIRMED]`
+* **Context:** Structuring empirical inquiry to comprehensively evaluate study group behaviors and failure modes.
+* **Decision:** Formulated 8 core research questions (`RQ-01` through `RQ-08`) addressed through triangulated methodology: Contextual Inquiry across 3 sites (`OBS-01` Library, `OBS-02` Lounge, `OBS-03` Cafeteria), Semi-Structured Interviews with 5–7 students (`INT-01` to `INT-07`), and an Exploratory Survey (planning target: 30–50 responses).
+* **Date:** 2026-11-11
+* **Impact:** Multi-method validation preventing single-source bias.
+
+---
+
+### DEC-011: Core Sampling Cohort & Supplementary Group Distinction
+* **Status:** `[CONFIRMED]`
+* **Context:** Defining the qualifying participant cohort for qualitative interviews.
+* **Decision:** The core qualitative sample requires 5 to 7 enrolled university students across STEM, humanities, and business, with balanced representation of residential and commuter students. Independent learners may participate as a supplementary group, but cannot replace the required core student sample.
+* **Date:** 2026-11-11
+* **Impact:** Ensures grounded relevance to university learning realities while accommodating self-paced learners.
+
+---
+
+### DEC-012: Reconciled Non-Functional Requirements Count (15 NFRs)
+* **Status:** `[CONFIRMED]`
+* **Context:** Reconciling discrepancy between some Module 01 summaries stating 11 NFRs and the actual 15 NFRs defined in `docs/PRODUCT_REQUIREMENTS.md`.
+* **Decision:** Confirmed 15 non-functional requirements (4 Accessibility, 2 Responsiveness, 3 Usability, 2 Performance, 1 Reliability, 2 Privacy, 1 Browser Compatibility) and aligned all summary metrics across the repository.
+* **Date:** 2026-11-11
+* **Impact:** Complete internal document consistency and auditability.
+
+---
+
 ## 3. Active Research Questions for Module 02
 
 1. **RQ-01:** What is the relative weight that learners place on schedule availability versus study style compatibility when deciding whether to join a peer group?

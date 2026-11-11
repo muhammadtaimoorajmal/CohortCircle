@@ -3,7 +3,7 @@
 > **Find your people. Learn together.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Status: Foundation Phase](https://img.shields.io/badge/Status-Module%2001%20Foundation-success.svg)](#roadmap)
+[![Status: Research Instrumentation](https://img.shields.io/badge/Status-Module%2002%20Research%20Toolkit-blue.svg)](#project-roadmap)
 [![Target Standard](https://img.shields.io/badge/Accessibility-WCAG%202.2%20AA%20Target-brightgreen.svg)](#accessibility--design-principles)
 
 CohortCircle is an open-source collaborative learning platform created to solve the friction of finding and coordinating compatible study groups. By moving beyond unstructured chat groups and static bulletin boards, CohortCircle empowers university students and independent learners to discover peers with matching goals, aligned schedules, and complementary study habits.
@@ -85,18 +85,18 @@ CohortCircle adheres to human-centered design principles and digital inclusion s
 
 The development of CohortCircle follows an empirical, user-centered 10-module engineering lifecycle:
 
-| Module | Title | Primary Focus |
-|---|---|---|
-| **01** | **Product Foundation & Project Definition** *(Current)* | Scope charter, problem hypothesis, requirements engineering, and governance |
-| **02** | **Real User Research** | Contextual inquiry, semi-structured student interviews, and exploratory survey |
-| **03** | **Research Synthesis & Personas** | Affinity diagrams, empathy maps, and evidence-grounded user personas |
-| **04** | **Ideation & Conceptual Design** | Information architecture, user task flows, and mental model mapping |
-| **05** | **Low-Fidelity Prototyping** | Paper prototypes, interactive wireframes, and usability exploration |
-| **06** | **Formative Usability Evaluation** | Heuristic evaluation, cognitive walkthroughs, and early interaction testing |
-| **07** | **High-Fidelity Design & Application Foundation** | Design tokens, accessible UI component library, and Vite client scaffolding |
-| **08** | **Functional Product Development** | State management, compatibility engine, session scheduling, and local persistence |
-| **09** | **Summative Usability Evaluation** | Rigorous 18-participant task evaluation (SUS, SEQ, completion rate, error analysis) |
-| **10** | **Analysis, Improvements & Final Release** | Evaluation synthesis, interface polish, and open-source release packaging |
+| Module | Title | Primary Focus | Status |
+|---|---|---|---|
+| **01** | **Product Foundation & Project Definition** | Scope charter, problem hypothesis, requirements engineering, and governance | **Completed** |
+| **02** | **Real User Research** | Operational research toolkit, contextual inquiry, student interviews, and exploratory survey | **Active** *(Instruments Prepared; Fieldwork Pending)* |
+| **03** | **Research Synthesis & Personas** | Affinity diagrams, empathy maps, and evidence-grounded user personas | *Not Started* |
+| **04** | **Ideation & Conceptual Design** | Information architecture, user task flows, and mental model mapping | *Not Started* |
+| **05** | **Low-Fidelity Prototyping** | Paper prototypes, interactive wireframes, and usability exploration | *Not Started* |
+| **06** | **Formative Usability Evaluation** | Heuristic evaluation, cognitive walkthroughs, and early interaction testing | *Not Started* |
+| **07** | **High-Fidelity Design & Application Foundation** | Design tokens, accessible UI component library, and Vite client scaffolding | *Not Started* |
+| **08** | **Functional Product Development** | State management, compatibility engine, session scheduling, and local persistence | *Not Started* |
+| **09** | **Summative Usability Evaluation** | Rigorous 18-participant task evaluation (SUS, SEQ, completion rate, error analysis) | *Not Started* |
+| **10** | **Analysis, Improvements & Final Release** | Evaluation synthesis, interface polish, and open-source release packaging | *Not Started* |
 
 ---
 
@@ -105,21 +105,34 @@ The development of CohortCircle follows an empirical, user-centered 10-module en
 ```text
 CohortCircle/
 ├── .editorconfig              # Editor consistency configuration
-├── .gitignore                 # Version control exclusions
+├── .gitignore                 # Version control exclusions (with local private-research-data/)
 ├── LICENSE                    # MIT open-source license
 ├── README.md                  # Project overview and public documentation
 └── docs/                      # Architectural, requirements, and research governance
     ├── ARCHITECTURE.md        # Technical architecture, domain models, and data flows
     ├── DECISION_LOG.md        # Architectural decision records and risk log
     ├── PROBLEM_HYPOTHESIS.md  # Unvalidated problem statement and validation criteria
-    ├── PRODUCT_REQUIREMENTS.md# Functional (FR) and Non-Functional (NFR) specifications
+    ├── PRODUCT_REQUIREMENTS.md# Functional (23 FRs) and Non-Functional (15 NFRs) specs
     ├── PROJECT_CHARTER.md     # Product identity, scope boundaries, and core principles
     ├── PROJECT_ROADMAP.md     # Detailed 10-module execution lifecycle and dependencies
     ├── PROJECT_STATE.md       # Current phase tracking and health indicators
     ├── RESEARCH_ETHICS.md     # Research participant rights, consent protocol, and privacy
-    ├── RESEARCH_PLAN.md       # Contextual inquiry, interview scripts, and survey design
+    ├── RESEARCH_PLAN.md       # Triangulated research methodology and summative plan
+    ├── research/              # Module 02 Operational Research Toolkit
+    │   ├── README.md          # Research toolkit overview and identifier taxonomy
+    │   ├── RECRUITMENT_AND_SAMPLING.md # Sampling matrix, screener, and outreach
+    │   ├── CONTEXTUAL_INQUIRY_PROTOCOL.md # 3-site observation protocol across 5 dimensions
+    │   ├── INTERVIEW_GUIDE.md # 4-phase semi-structured interview script (25-35m)
+    │   ├── SURVEY_INSTRUMENT.md # 8-question exploratory survey questionnaire
+    │   ├── FIELD_NOTE_TEMPLATE.md # Standardized observation recording template
+    │   ├── INTERVIEW_NOTE_TEMPLATE.md # De-identified interview notes and coding sheet
+    │   ├── SURVEY_CODEBOOK.md # Quantitative variable dictionary & Borda ranking
+    │   ├── QUALITATIVE_ANALYSIS_PROTOCOL.md # 9-step thematic analysis & codebook
+    │   ├── EVIDENCE_REGISTER.md # Master traceability matrix connecting RQs to evidence
+    │   └── FIELDWORK_STATUS.md # Real-time recruitment and fieldwork execution monitor
     └── handovers/
-        └── MODULE_01_HANDOFF.md # Module 01 verification, checklist, and phase handoff
+        ├── MODULE_01_HANDOFF.md # Module 01 verification and baseline handoff
+        └── MODULE_02_HANDOFF.md # Module 02 research instrumentation handoff
 ```
 
 ---

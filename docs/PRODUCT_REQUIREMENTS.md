@@ -102,7 +102,7 @@ All functional requirements are assigned stable identifiers (`FR-xxx`) and are d
 
 ## 3. Non-Functional Requirements (NFR)
 
-All non-functional requirements define strict quality, security, and accessibility benchmarks.
+A total of **15 non-functional requirements** across six architectural categories define strict quality, security, and accessibility benchmarks. All NFRs are testable and verifiable during evaluation.
 
 ### 3.1 Accessibility (WCAG 2.2 Level AA)
 * **NFR-A11Y-01 (Contrast Ratio):** All text elements must achieve a contrast ratio of at least 4.5:1 against their background for regular text and 3.0:1 for large text (&ge; 18pt or bold 14pt).

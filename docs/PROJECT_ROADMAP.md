@@ -1,7 +1,7 @@
 # Product Lifecycle Roadmap: CohortCircle
 
 > **Lifecycle Governance:** 10-Module User-Centered Engineering Sequence  
-> **Current Module:** **Module 01 (Completed & Pending Review)**  
+> **Current Module:** **Module 02: Real User Research (Active — Instrumentation Prepared & Fieldwork Pending)**
 > **Stopping Policy:** Work strictly halts at the boundary of each module. Transition to the subsequent module requires owner review and explicit authorization.
 
 ---
@@ -16,9 +16,9 @@
    ┌─────────────────────────────────┴─────────────────────────────────┐
    ▼                                                                   ▼
 [Phase 1: Discovery & Strategy]                        [Phase 2: Interaction Design]
-   M01: Product Foundation (CURRENT)                      M04: Ideation & Conceptual Design
-   M02: Real User Research                                M05: Low-Fidelity Prototyping
-   M03: Research Synthesis & Personas                     M06: Formative Usability Evaluation
+   M01: Product Foundation (COMPLETED)                    M04: Ideation & Conceptual Design
+   M02: Real User Research (ACTIVE)                       M05: Low-Fidelity Prototyping
+   M03: Research Synthesis & Personas (NOT STARTED)       M06: Formative Usability Evaluation
                                      │
    ┌─────────────────────────────────┴─────────────────────────────────┐
    ▼                                                                   ▼
@@ -31,7 +31,7 @@
 
 ## Detailed Module Breakdown
 
-### Module 01: Product Foundation, Problem Definition & Project Governance *(CURRENT)*
+### Module 01: Product Foundation, Problem Definition & Project Governance *(COMPLETED)*
 * **Objective:** Establish the foundational product identity, scope boundaries, problem hypothesis, requirements baseline, architecture blueprint, and open-source repository governance.
 * **Core Deliverables:**
   * Project Charter, Problem Hypothesis, and Requirements Specification.
@@ -41,18 +41,22 @@
   * Module 01 Handoff Report and Decision Log.
 * **Input Dependencies:** Initial domain observations and project charter guidelines.
 * **Acceptance Conditions:** All 15 Module 01 acceptance criteria verified; repository pushed to remote; explicit unvalidated flag on hypothesis; no fabricated research.
+* **Status:** Completed, committed (`560a577`), and pushed to GitHub main branch.
 
 ---
 
-### Module 02: Real User Research
-* **Objective:** Conduct authentic empirical research with target learners to discover real study group behaviors, friction points, and mental models.
+### Module 02: Real User Research *(ACTIVE)*
+* **Objective:** Prepare operational research instruments, recruit authentic student participants, and conduct empirical field investigations into study group behaviors, friction points, and mental models.
 * **Core Deliverables:**
-  * Contextual inquiry field notes from 3 authentic student environments (library, dormitory, cafeteria/common study spaces).
-  * 5–7 completed semi-structured student interview transcripts.
-  * Exploratory survey instrument distribution and quantitative response dataset.
-  * Raw qualitative coding and initial thematic patterns.
+  * Operational Research Toolkit: 11 protocols, guides, templates, codebooks, and registers in [`docs/research/`](research/README.md).
+  * Contextual inquiry protocols and field notes from 3 authentic student environments (`OBS-01` Library, `OBS-02` Lounge, `OBS-03` Cafeteria).
+  * Semi-structured interview guide (25–35 min) and transcribed notes for 5–7 university students (`P-01` to `P-07`, `INT-01` to `INT-07`).
+  * Exploratory survey instrument (8 questions), codebook, and quantitative response dataset (`SUR-DATA`).
+  * Qualitative analysis protocol and master evidence traceability register (`docs/research/EVIDENCE_REGISTER.md`).
+  * Module 02 Handoff Report (`docs/handovers/MODULE_02_HANDOFF.md`).
 * **Input Dependencies:** Module 01 approved research plan and ethics consent protocols.
-* **Acceptance Conditions:** Zero fabricated data; verified consent forms; anonymized participant records; empirical evidence validating or pivoting the working hypothesis.
+* **Acceptance Conditions:** All research instruments prepared and verified; private data isolation in `.gitignore`; zero fabricated data; empirical evidence validating, refining, or pivoting the working hypothesis.
+* **Status:** Research Instrumentation Prepared — Empirical Fieldwork Pending.
 
 ---
 

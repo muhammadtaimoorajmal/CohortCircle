@@ -115,3 +115,8 @@ playwright/.cache/
 ehthumbs.db
 Thumbs.db
 [Dd]esktop.ini
+
+# Private empirical research data (strictly local-only; never commit PII, signed consent forms, or raw recordings to public repository)
+private-research-data/
+*.raw.audio
+*.raw.transcript
