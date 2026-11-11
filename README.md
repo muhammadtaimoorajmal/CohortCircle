@@ -3,7 +3,7 @@
 > **Find your people. Learn together.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Status: Low-Fidelity Prototyping](https://img.shields.io/badge/Status-Module%2005%20Low--Fidelity%20Prototype-blue.svg)](#project-roadmap)
+[![Status: Formative Usability Evaluation](https://img.shields.io/badge/Status-Module%2006%20Formative%20Evaluation-blue.svg)](#project-roadmap)
 [![Target Standard](https://img.shields.io/badge/Accessibility-WCAG%202.2%20AA%20Target-brightgreen.svg)](#accessibility--design-principles)
 
 CohortCircle is an open-source collaborative learning platform created to solve the friction of finding and coordinating compatible study groups. By moving beyond unstructured chat groups and static bulletin boards, CohortCircle empowers university students and independent learners to discover peers with matching goals, aligned schedules, and complementary study habits.
@@ -92,7 +92,7 @@ The development of CohortCircle follows an empirical, user-centered 10-module en
 | **03** | **Research Synthesis & Personas** | Affinity mapping, empathy maps, proto-personas, and user journey flows | **Completed** *(Framework Prepared; Synthesis Pending)* |
 | **04** | **Ideation & Conceptual Design** | Information architecture, user task flows, wireflows, and mental models | **Completed** |
 | **05** | **Low-Fidelity Prototyping** | Standalone interactive digital wireframe (12 screens), tokens, and formative evaluation toolkit | **Completed** |
-| **06** | **Formative Usability Evaluation** | Heuristic evaluation, cognitive walkthroughs, and early interaction testing | *Not Started* |
+| **06** | **Formative Usability Evaluation** | Heuristic evaluation, cognitive walkthroughs, and prototype remediation | **Active** *(Expert Inspected; Participant Validation Pending)* |
 | **07** | **High-Fidelity Design & Application Foundation** | Design tokens, accessible UI component library, and Vite client scaffolding | *Not Started* |
 | **08** | **Functional Product Development** | State management, compatibility engine, session scheduling, and local persistence | *Not Started* |
 | **09** | **Summative Usability Evaluation** | Rigorous 18-participant task evaluation (SUS, SEQ, completion rate, error analysis) | *Not Started* |
@@ -163,12 +163,22 @@ CohortCircle/
     │       ├── FORMATIVE_TEST_SCRIPT.md # 5-task usability evaluation script (Module 06)
     │       ├── OBSERVER_GUIDE.md # Think-Aloud protocol & observation logging sheet
     │       └── ACCESSIBILITY_CHECKLIST.md # Static and interaction WCAG 2.2 AA audit
+    ├── evaluation/            # Module 06 Formative Usability Evaluation
+    │   └── module06/          # Dual-method expert inspection & participant protocols
+    │       ├── README.md      # Evaluation methodology, principles & status declaration
+    │       ├── NIELSEN_HEURISTIC_EVALUATION.md # 10-heuristic audit of Screens 01-12
+    │       ├── COGNITIVE_WALKTHROUGH.md # Wharton's Q1-Q4 walkthrough of Tasks 01-05
+    │       ├── USABILITY_ISSUE_LOG.md # 13 severity-ranked usability issues (UX-001-013)
+    │       ├── DESIGN_REVISION_MATRIX.md # Remediation roadmap (Scope A & Scope B)
+    │       ├── ACCESSIBILITY_REVIEW.md # WCAG 2.2 AA audit & remediation verification
+    │       └── PARTICIPANT_SESSION_TEMPLATE.md # Blank empirical testing packet (P-01 to P-07)
     └── handovers/
         ├── MODULE_01_HANDOFF.md # Module 01 verification and baseline handoff
         ├── MODULE_02_HANDOFF.md # Module 02 research instrumentation handoff
         ├── MODULE_03_HANDOFF.md # Module 03 synthesis framework handoff
         ├── MODULE_04_HANDOFF.md # Module 04 conceptual design handoff
-        └── MODULE_05_HANDOFF.md # Module 05 low-fidelity prototype handoff
+        ├── MODULE_05_HANDOFF.md # Module 05 low-fidelity prototype handoff
+        └── MODULE_06_HANDOFF.md # Module 06 formative usability evaluation handoff
 ```
 
 ---

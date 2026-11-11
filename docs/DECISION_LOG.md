@@ -236,6 +236,42 @@
 
 ---
 
+### DEC-025: Formative Usability Evaluation Methodology & Research Integrity Policy
+* **Status:** `[CONFIRMED]`
+* **Context:** Establishing formative usability evaluation methodology and maintaining strict research integrity boundaries during Module 06.
+* **Decision:** Apply dual-method expert inspection (Nielsen's 10 Heuristics and Persona-Based Analytical Cognitive Walkthroughs) across Screens 01–12 and Tasks 01–05. Maintain explicit distinction between analytical predictions and empirical user observations. Document actual participant testing as pending fieldwork recruitment, and provide blank data-collection templates (`PARTICIPANT_SESSION_TEMPLATE.md`).
+* **Date:** 2026-11-11
+* **Impact:** Absolute scientific integrity; zero fabricated SUS scores or fictitious participant quotes.
+
+---
+
+### DEC-026: Low-Fidelity Prototype Usability Repair Strategy
+* **Status:** `[CONFIRMED]`
+* **Context:** Deciding which formative usability issues should be remediated immediately in the low-fidelity prototype vs. deferred to high-fidelity design.
+* **Decision:** Safely remediate critical interaction and validation issues in `docs/prototypes/module05/index.html` (Scope A: `UX-001` wizard cancel confirmation, `UX-002` applicant decline confirmation, `UX-003` past date prevention, `UX-004` dynamic profile completeness, `UX-005` cell label clarity, `UX-006` CTA standardization, `UX-007` contextual scheduler default, `UX-008` availability presets, `UX-010` `aria-describedby` linkage, `UX-011` policy badge explanations, `UX-012` bottom save CTA, `UX-013` secondary reset) while strictly preserving its grayscale wireframe aesthetic. Defer structural layout and visual styling (`UX-009`) to Module 07.
+* **Date:** 2026-11-11
+* **Impact:** Hardens the prototype for empirical participant testing without premature visual bloat.
+
+---
+
+### DEC-027: Explicit Status Declaration Policy for Incomplete Fieldwork
+* **Status:** `[CONFIRMED]`
+* **Context:** Formally declaring the completion status of Module 06 in handoff and governance documentation when empirical participant testing is pending.
+* **Decision:** Formally declare milestone status as `MODULE 06 EXPERT INSPECTION COMPLETED — PARTICIPANT VALIDATION PENDING`. Prohibit false declarations of complete empirical testing until 5–7 consenting human participants have completed evaluations.
+* **Date:** 2026-11-11
+* **Impact:** Complete transparency; strict compliance with open-source project standards.
+
+---
+
+### DEC-028: Formative Error Severity Taxonomy Standard
+* **Status:** `[CONFIRMED]`
+* **Context:** Standardizing severity ratings for usability defects identified during formative evaluation.
+* **Decision:** Adopt a 4-tier severity taxonomy: CATASTROPHIC (workflow blocked/data loss), MAJOR (key task blocked or heavy workaround required), MINOR (confusion or recoverable friction), and COSMETIC (minor visual/verbal inconsistency).
+* **Date:** 2026-11-11
+* **Impact:** Objective prioritization of design revisions for Module 07.
+
+---
+
 ## 3. Active Research Questions for Module 02
 
 1. **RQ-01:** What is the relative weight that learners place on schedule availability versus study style compatibility when deciding whether to join a peer group?

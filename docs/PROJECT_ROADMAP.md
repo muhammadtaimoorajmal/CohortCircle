@@ -1,7 +1,7 @@
 # Product Lifecycle Roadmap: CohortCircle
 
 > **Lifecycle Governance:** 10-Module User-Centered Engineering Sequence  
-> **Current Module:** **Module 05: Low-Fidelity Prototyping (Completed & Verified)**
+> **Current Module:** **Module 06: Formative Usability Evaluation (Expert Inspection Completed — Participant Validation Pending)**
 > **Stopping Policy:** Work strictly halts at the boundary of each module. Transition to the subsequent module requires owner review and explicit authorization.
 
 ---
@@ -18,12 +18,12 @@
 [Phase 1: Discovery & Strategy]                        [Phase 2: Interaction Design]
    M01: Product Foundation (COMPLETED)                    M04: Ideation & Conceptual Design (COMPLETED)
    M02: Real User Research (ACTIVE - FIELDWORK PENDING)   M05: Low-Fidelity Prototyping (COMPLETED)
-   M03: Research Synthesis & Personas (COMPLETED)         M06: Formative Usability Evaluation (NOT STARTED)
+   M03: Research Synthesis & Personas (COMPLETED)         M06: Formative Usability Evaluation (EXPERT INSPECTED)
                                      │
    ┌─────────────────────────────────┴─────────────────────────────────┐
    ▼                                                                   ▼
 [Phase 3: Implementation]                              [Phase 4: Validation & Release]
-   M07: High-Fidelity Design Foundation                   M09: Summative Usability Evaluation (18 Participants)
+   M07: High-Fidelity Design Foundation (NOT STARTED)     M09: Summative Usability Evaluation (18 Participants)
    M08: Functional Product Development                    M10: Improvements & Open-Source Release
 ```
 
@@ -116,15 +116,19 @@
 
 ---
 
-### Module 06: Formative Usability Evaluation
+### Module 06: Formative Usability Evaluation *(EXPERT INSPECTION COMPLETED — PARTICIPANT VALIDATION PENDING)*
 * **Objective:** Identify early structural flaws, terminology confusion, and layout frictions prior to committing to high-fidelity code.
 * **Core Deliverables:**
-  * Heuristic evaluation report applying Nielsen’s 10 Usability Heuristics.
-  * Cognitive walkthrough results with target representative learners.
-  * Severity-rated usability issue log (Catastrophic, Major, Minor, Cosmetic).
-  * Actionable design revisions matrix for high-fidelity design.
+  * Heuristic evaluation report applying Nielsen’s 10 Usability Heuristics across Screens 01–12 ([`docs/evaluation/module06/NIELSEN_HEURISTIC_EVALUATION.md`](evaluation/module06/NIELSEN_HEURISTIC_EVALUATION.md)).
+  * Persona-grounded cognitive walkthrough results across Tasks 01–05 applying Wharton's Q1–Q4 ([`docs/evaluation/module06/COGNITIVE_WALKTHROUGH.md`](evaluation/module06/COGNITIVE_WALKTHROUGH.md)).
+  * Severity-rated usability issue log with 13 tracked defects (`UX-001`–`UX-013`) ([`docs/evaluation/module06/USABILITY_ISSUE_LOG.md`](evaluation/module06/USABILITY_ISSUE_LOG.md)).
+  * Actionable design revisions matrix with immediate prototype repairs and Module 07 specifications ([`docs/evaluation/module06/DESIGN_REVISION_MATRIX.md`](evaluation/module06/DESIGN_REVISION_MATRIX.md)).
+  * Independent WCAG 2.2 Level AA accessibility review ([`docs/evaluation/module06/ACCESSIBILITY_REVIEW.md`](evaluation/module06/ACCESSIBILITY_REVIEW.md)).
+  * Standardized blank participant session template for 5–7 learners ([`docs/evaluation/module06/PARTICIPANT_SESSION_TEMPLATE.md`](evaluation/module06/PARTICIPANT_SESSION_TEMPLATE.md)).
+  * Module 06 Handoff Report ([`docs/handovers/MODULE_06_HANDOFF.md`](handovers/MODULE_06_HANDOFF.md)).
 * **Input Dependencies:** Clickable low-fidelity prototype from Module 05.
-* **Acceptance Conditions:** All identified Major and Catastrophic issues have verified design remediation proposals.
+* **Acceptance Conditions:** All 10 heuristics evaluated; all 5 cognitive walkthroughs executed; 100% of Major and Catastrophic issues have verified design remediation; minimal prototype repairs verified.
+* **Status:** Expert inspection completed and prototype remediated; empirical participant testing pending fieldwork recruitment.
 
 ---
 

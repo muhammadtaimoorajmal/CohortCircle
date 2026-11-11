@@ -702,7 +702,7 @@
         <div class="card card-wireframe-dashed" style="margin-bottom: 20px;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
             <div>
-              <strong>Profile Setup: 85% Complete</strong>
+              <strong id="dash-profile-progress-text">Profile Setup: 85% Complete</strong>
               <div style="font-size: 13px; color: var(--text-muted); margin-top: 2px;">Your study preferences and weekly availability help calculate explainable compatibility scores.</div>
             </div>
             <button class="btn btn-sm btn-secondary" onclick="navigateTo('screen-profile')">Edit Profile &amp; Preferences</button>
@@ -869,9 +869,13 @@
           <div class="card">
             <div class="card-header">
               <h2 class="card-title">Weekly Availability Matrix (7 &times; 3 Grid)</h2>
-              <button class="btn btn-sm btn-secondary" onclick="toggleAllAvailability(true)">Select Evenings</button>
+              <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                <button class="btn btn-sm btn-secondary" onclick="toggleAllAvailability('evenings')">Select Evenings</button>
+                <button class="btn btn-sm btn-secondary" onclick="toggleAllAvailability('weekdays')">All Weekdays</button>
+                <button class="btn btn-sm btn-secondary" onclick="toggleAllAvailability('clear')">Clear All</button>
+              </div>
             </div>
-            <div class="form-hint" style="margin-bottom: 10px;">Click cells to toggle your availability. Dark cells represent times you are open for study sessions:</div>
+            <div class="form-hint" style="margin-bottom: 10px;">Click cells to toggle your availability. Dark cells represent times you are free for study sessions:</div>
 
             <table class="availability-table" aria-label="Weekly Availability Matrix">
               <thead>
@@ -890,6 +894,17 @@
                 <!-- Dynamically Rendered 3 rows (Morning, Afternoon, Evening) -->
               </tbody>
             </table>
+
+            <!-- Availability Table Legend (UX-005) -->
+            <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px; display: flex; gap: 16px;">
+              <span><strong>■ FREE:</strong> Available for study sessions</span>
+              <span><strong>□ &mdash;:</strong> Busy / Unavailable</span>
+            </div>
+
+            <!-- Bottom Save Action (UX-012) -->
+            <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border-light); text-align: right;">
+              <button class="btn btn-primary" onclick="saveLearnerProfile()">Save Profile &amp; Preferences &rarr;</button>
+            </div>
           </div>
         </div>
       </div>
@@ -970,6 +985,11 @@
             <!-- Capacity Filter -->
             <div class="form-group">
               <label class="form-label"><input type="checkbox" id="filter-has-seats" onchange="applyExploreFilters()"> Has Open Seats Only</label>
+            </div>
+
+            <!-- Bottom Reset Action (UX-013) -->
+            <div style="margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--border-light);">
+              <button class="btn btn-sm btn-secondary" style="width: 100%;" onclick="resetExploreFilters()">Reset All Filters</button>
             </div>
           </div>
         </div>
@@ -1194,7 +1214,7 @@
           <h1 id="heading-wizard" class="page-title">Create a Study Circle</h1>
           <p class="page-description">Step-by-step wizard to define your learning cohort charter, schedule, and joining rules.</p>
         </div>
-        <button class="btn btn-secondary" onclick="navigateTo('screen-host')">Cancel</button>
+        <button class="btn btn-secondary" onclick="promptCancelWizard()">Cancel</button>
       </div>
 
       <!-- 4-Step Progress Indicator -->
@@ -1750,6 +1770,56 @@
     </div>
   </div>
 
+  <!-- WIZARD DRAFT CANCEL CONFIRMATION MODAL (UX-001) -->
+  <div id="modal-wizard-cancel-confirm" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-wiz-cancel-title">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="modal-wiz-cancel-title" class="modal-title">Discard Circle Draft?</h2>
+        <button class="btn btn-sm btn-secondary" onclick="closeModal('modal-wizard-cancel-confirm')" aria-label="Close dialog">&times;</button>
+      </div>
+      <div>
+        <p style="font-size: 14px; margin-bottom: 12px;">
+          You have uncommitted information in this circle creation wizard.
+        </p>
+        <p style="font-size: 13px; color: var(--text-muted);">
+          Are you sure you want to discard your draft? Any title, objectives, or schedules entered will be discarded.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-wizard-cancel-confirm')">Keep Editing</button>
+        <button class="btn btn-danger" onclick="confirmDiscardWizard()">Discard Draft</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DECLINE APPLICANT CONFIRMATION MODAL (UX-002) -->
+  <div id="modal-decline-confirm" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-decline-title">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="modal-decline-title" class="modal-title">Confirm Applicant Decline</h2>
+        <button class="btn btn-sm btn-secondary" onclick="closeModal('modal-decline-confirm')" aria-label="Close dialog">&times;</button>
+      </div>
+      <div>
+        <p style="font-size: 14px; margin-bottom: 12px;">
+          Are you sure you want to decline the membership application from <strong id="decline-modal-applicant-name">Applicant</strong>?
+        </p>
+        <div class="form-group" style="margin-top: 12px;">
+          <label for="decline-reason-select" class="form-label">Decline Reason (Optional Feedback):</label>
+          <select id="decline-reason-select" class="form-select">
+            <option value="Cohort at capacity limit">Cohort is currently at capacity</option>
+            <option value="Schedule availability mismatch">Schedule availability mismatch</option>
+            <option value="Topic background prerequisite">Prerequisite course background difference</option>
+            <option value="Study style preference difference">Different preferred study style</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-decline-confirm')">Cancel</button>
+        <button class="btn btn-danger" onclick="confirmDeclineApplicant()">Confirm Decline</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notification Container -->
   <div id="toast-container" role="status" aria-live="polite"></div>
 
@@ -1988,7 +2058,8 @@
         myCircles: false
       },
       pendingLeaveCircleId: null,
-      pendingRemoveMember: { circleId: null, memberName: null }
+      pendingRemoveMember: { circleId: null, memberName: null },
+      pendingDeclineApplicant: { circleId: null, reqId: null }
     };
 
     /* ----------------------------------------------------------------------
@@ -2080,6 +2151,20 @@
        ---------------------------------------------------------------------- */
     function renderDashboard() {
       document.getElementById("dash-user-name").innerText = appState.currentUser.name;
+
+      // Dynamic Profile Completeness Computation (UX-004)
+      const u = appState.currentUser;
+      let pct = 0;
+      if (u.name && u.name.trim().length > 0) pct += 25;
+      if (u.bio && u.bio.trim().length > 10) pct += 25;
+      if (u.topics && u.topics.length >= 1) pct += 25;
+      let openSlots = 0;
+      Object.values(u.availability || {}).forEach(arr => openSlots += (arr ? arr.length : 0));
+      if (openSlots > 0) pct += 25;
+      const progressElem = document.getElementById("dash-profile-progress-text");
+      if (progressElem) {
+        progressElem.innerText = `Profile Setup: ${pct}% Complete ${pct === 100 ? '(Fully Configured)' : ''}`;
+      }
 
       if (appState.emptyStatePreview.dashboard) {
         document.getElementById("dash-regular-content").style.display = "none";
@@ -2220,7 +2305,7 @@
                 role="button"
                 aria-pressed="${isSelected ? 'true' : 'false'}"
                 aria-label="${d} ${p.label}">
-              ${isSelected ? 'OPEN' : '&mdash;'}
+              ${isSelected ? 'FREE' : '&mdash;'}
             </td>
           `;
         });
@@ -2243,18 +2328,34 @@
       } else {
         arr.push(period);
         tdElem.classList.add("selected");
-        tdElem.innerText = "OPEN";
+        tdElem.innerText = "FREE";
         tdElem.setAttribute("aria-pressed", "true");
       }
     }
 
-    function toggleAllAvailability(eveningsOnly) {
+    function toggleAllAvailability(mode) {
       const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-      days.forEach(d => {
-        appState.currentUser.availability[d] = eveningsOnly ? ["evening"] : ["morning", "afternoon", "evening"];
-      });
+      if (mode === "evenings" || mode === true) {
+        days.forEach(d => {
+          appState.currentUser.availability[d] = ["evening"];
+        });
+        showToast("Preset: Selected all weekday and weekend evenings.");
+      } else if (mode === "weekdays") {
+        days.forEach(d => {
+          if (d === "Sat" || d === "Sun") {
+            appState.currentUser.availability[d] = [];
+          } else {
+            appState.currentUser.availability[d] = ["morning", "afternoon", "evening"];
+          }
+        });
+        showToast("Preset: Selected all weekday slots (Mon–Fri).");
+      } else if (mode === "clear") {
+        days.forEach(d => {
+          appState.currentUser.availability[d] = [];
+        });
+        showToast("Preset: Cleared all availability slots.");
+      }
       renderProfile();
-      showToast(eveningsOnly ? "Preset: Selected all weekday and weekend evenings." : "Preset: Marked all time slots open.");
     }
 
     function saveLearnerProfile() {
@@ -2265,9 +2366,11 @@
       let isValid = true;
       if (!nameInput.value.trim()) {
         nameError.style.display = "block";
+        nameInput.setAttribute("aria-describedby", "prof-name-error");
         isValid = false;
       } else {
         nameError.style.display = "none";
+        nameInput.removeAttribute("aria-describedby");
       }
 
       const selectedTopics = Array.from(document.querySelectorAll("#profile-topics-container input:checked")).map(cb => cb.value);
@@ -2384,7 +2487,7 @@
                   <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
                     <span class="badge">${c.subject}</span>
                     <span class="badge">${c.modality}</span>
-                    <span class="badge">${c.policy}</span>
+                    <span class="badge" title="${c.policy === 'Open' ? 'Open Policy: Instant direct enrollment while seats remain' : 'Moderated Policy: Facilitator reviews introductory note application'}">${c.policy === 'Open' ? 'Open (Instant)' : 'Moderated (Application)'}</span>
                   </div>
                   <h3 style="font-size:18px; font-weight:700;">
                     <a href="javascript:void(0)" onclick="navigateTo('screen-circle-details', {circleId: '${c.id}'})" style="color:var(--text-main); text-decoration:none;">${c.title}</a>
@@ -2525,9 +2628,9 @@
       } else if (isFull) {
         actionContainer.innerHTML = `<button class="btn btn-secondary" disabled>Cohort Full (Capacity Reached)</button>`;
       } else if (c.policy === "Open") {
-        actionContainer.innerHTML = `<button class="btn btn-primary" onclick="directJoinCircle('${c.id}')">Join Study Circle</button>`;
+        actionContainer.innerHTML = `<button class="btn btn-primary" onclick="directJoinCircle('${c.id}')">Join Circle</button>`;
       } else {
-        actionContainer.innerHTML = `<button class="btn btn-primary" onclick="openJoinRequestModal('${c.id}')">Request to Join Circle</button>`;
+        actionContainer.innerHTML = `<button class="btn btn-primary" onclick="openJoinRequestModal('${c.id}')">Request to Join</button>`;
       }
     }
 
@@ -2784,7 +2887,7 @@
                 </div>
                 <div style="display:flex; gap:8px;">
                   <button class="btn btn-sm btn-primary" onclick="approveJoinRequest('${c.id}', '${req.id}')">Approve</button>
-                  <button class="btn btn-sm btn-secondary" onclick="declineJoinRequest('${c.id}', '${req.id}')">Decline</button>
+                  <button class="btn btn-sm btn-secondary" onclick="promptDeclineApplicant('${c.id}', '${req.id}')">Decline</button>
                 </div>
               </div>
               <p style="font-size:13px; color:var(--text-secondary); margin-top:8px; font-style:italic;">"${req.note}"</p>
@@ -2837,16 +2940,38 @@
       }
     }
 
-    function declineJoinRequest(circleId, reqId) {
+    function promptDeclineApplicant(circleId, reqId) {
       const c = appState.circles.find(x => x.id === circleId);
       if (!c) return;
-      const reqIndex = c.requests.findIndex(r => r.id === reqId);
-      if (reqIndex > -1) {
-        const applicantName = c.requests[reqIndex].name;
-        c.requests.splice(reqIndex, 1);
-        showToast(`Declined application for "${applicantName}".`);
-        renderCircleManagement();
+      const req = c.requests.find(r => r.id === reqId);
+      if (!req) return;
+
+      appState.pendingDeclineApplicant = { circleId, reqId };
+      const nameElem = document.getElementById("decline-modal-applicant-name");
+      if (nameElem) nameElem.innerText = req.name;
+      openModal("modal-decline-confirm");
+    }
+
+    function confirmDeclineApplicant() {
+      const { circleId, reqId } = appState.pendingDeclineApplicant;
+      if (!circleId || !reqId) return;
+
+      const c = appState.circles.find(x => x.id === circleId);
+      if (c) {
+        const reqIndex = c.requests.findIndex(r => r.id === reqId);
+        if (reqIndex > -1) {
+          const applicantName = c.requests[reqIndex].name;
+          c.requests.splice(reqIndex, 1);
+          showToast(`Declined application for "${applicantName}".`);
+          renderCircleManagement();
+        }
       }
+      closeModal("modal-decline-confirm");
+      appState.pendingDeclineApplicant = { circleId: null, reqId: null };
+    }
+
+    function declineJoinRequest(circleId, reqId) {
+      promptDeclineApplicant(circleId, reqId);
     }
 
     function promptRemoveMember(circleId, memberName) {
@@ -2934,33 +3059,58 @@
       }
     }
 
+    function promptCancelWizard() {
+      const title = (document.getElementById("wiz-title") ? document.getElementById("wiz-title").value : "").trim();
+      const desc = (document.getElementById("wiz-description") ? document.getElementById("wiz-description").value : "").trim();
+      const obj = (document.getElementById("wiz-objectives") ? document.getElementById("wiz-objectives").value : "").trim();
+      if (title || desc || obj) {
+        openModal("modal-wizard-cancel-confirm");
+      } else {
+        navigateTo("screen-host");
+      }
+    }
+
+    function confirmDiscardWizard() {
+      closeModal("modal-wizard-cancel-confirm");
+      navigateTo("screen-host");
+    }
+
     function nextWizardStep() {
       // Step 1 Validation
       if (appState.wizardStep === 1) {
-        const title = document.getElementById("wiz-title").value.trim();
-        const subject = document.getElementById("wiz-subject").value;
-        const desc = document.getElementById("wiz-description").value.trim();
+        const titleInput = document.getElementById("wiz-title");
+        const title = titleInput.value.trim();
+        const subjectSelect = document.getElementById("wiz-subject");
+        const subject = subjectSelect.value;
+        const descInput = document.getElementById("wiz-description");
+        const desc = descInput.value.trim();
 
         let valid = true;
         if (title.length < 5) {
           document.getElementById("wiz-title-error").style.display = "block";
+          titleInput.setAttribute("aria-describedby", "wiz-title-error");
           valid = false;
         } else {
           document.getElementById("wiz-title-error").style.display = "none";
+          titleInput.removeAttribute("aria-describedby");
         }
 
         if (!subject) {
           document.getElementById("wiz-subject-error").style.display = "block";
+          subjectSelect.setAttribute("aria-describedby", "wiz-subject-error");
           valid = false;
         } else {
           document.getElementById("wiz-subject-error").style.display = "none";
+          subjectSelect.removeAttribute("aria-describedby");
         }
 
         if (desc.length < 15) {
           document.getElementById("wiz-desc-error").style.display = "block";
+          descInput.setAttribute("aria-describedby", "wiz-desc-error");
           valid = false;
         } else {
           document.getElementById("wiz-desc-error").style.display = "none";
+          descInput.removeAttribute("aria-describedby");
         }
 
         if (!valid) return;
@@ -2971,12 +3121,15 @@
       }
       // Step 2 Validation
       else if (appState.wizardStep === 2) {
-        const obj = document.getElementById("wiz-objectives").value.trim();
+        const objInput = document.getElementById("wiz-objectives");
+        const obj = objInput.value.trim();
         if (obj.length < 5) {
           document.getElementById("wiz-obj-error").style.display = "block";
+          objInput.setAttribute("aria-describedby", "wiz-obj-error");
           return;
         }
         document.getElementById("wiz-obj-error").style.display = "none";
+        objInput.removeAttribute("aria-describedby");
 
         appState.wizardData.objectives = obj;
         appState.wizardData.style = document.getElementById("wiz-style").value;
@@ -2985,12 +3138,15 @@
       }
       // Step 3 Validation
       else if (appState.wizardStep === 3) {
-        const sched = document.getElementById("wiz-schedule").value.trim();
+        const schedInput = document.getElementById("wiz-schedule");
+        const sched = schedInput.value.trim();
         if (sched.length < 5) {
           document.getElementById("wiz-sched-error").style.display = "block";
+          schedInput.setAttribute("aria-describedby", "wiz-sched-error");
           return;
         }
         document.getElementById("wiz-sched-error").style.display = "none";
+        schedInput.removeAttribute("aria-describedby");
 
         appState.wizardData.schedule = sched;
         appState.wizardData.modality = document.getElementById("wiz-modality").value;
@@ -3049,10 +3205,26 @@
        ---------------------------------------------------------------------- */
     function openSchedulerModal() {
       populateSchedulerCircleDropdown();
+      const todayStr = new Date().toISOString().split("T")[0];
+      const dateInput = document.getElementById("sched-date-input");
+      if (dateInput) {
+        dateInput.min = todayStr;
+        dateInput.value = todayStr;
+      }
       document.getElementById("sched-title-input").value = "";
-      document.getElementById("sched-date-input").value = new Date().toISOString().split("T")[0];
       document.getElementById("sched-agenda-input").value = "1. 10m Check-in & goal setting\n2. 40m Collaborative problem breakdown\n3. 30m Code & proof review\n4. 10m Wrap-up";
       document.querySelectorAll("#modal-session-scheduler .form-error").forEach(e => e.style.display = "none");
+
+      // Pre-select active circle context if user is an enrolled member (UX-007)
+      const sel = document.getElementById("sched-circle-select");
+      if (sel && appState.selectedCircleId) {
+        for (let i = 0; i < sel.options.length; i++) {
+          if (sel.options[i].value === appState.selectedCircleId) {
+            sel.selectedIndex = i;
+            break;
+          }
+        }
+      }
       openModal("modal-session-scheduler");
     }
 
@@ -3077,33 +3249,45 @@
 
     function submitScheduleSession() {
       const circleId = document.getElementById("sched-circle-select").value;
-      const title = document.getElementById("sched-title-input").value.trim();
-      const date = document.getElementById("sched-date-input").value;
+      const titleInput = document.getElementById("sched-title-input");
+      const title = titleInput.value.trim();
+      const dateInput = document.getElementById("sched-date-input");
+      const date = dateInput.value;
       const time = document.getElementById("sched-time-input").value;
       const duration = parseInt(document.getElementById("sched-duration-select").value, 10);
       const venue = document.getElementById("sched-venue-input").value.trim() || "Virtual Study Space";
-      const agenda = document.getElementById("sched-agenda-input").value.trim();
+      const agendaInput = document.getElementById("sched-agenda-input");
+      const agenda = agendaInput.value.trim();
 
       let valid = true;
       if (!title) {
         document.getElementById("sched-title-error").style.display = "block";
+        titleInput.setAttribute("aria-describedby", "sched-title-error");
         valid = false;
       } else {
         document.getElementById("sched-title-error").style.display = "none";
+        titleInput.removeAttribute("aria-describedby");
       }
 
-      if (!date) {
-        document.getElementById("sched-date-error").style.display = "block";
+      const todayStr = new Date().toISOString().split("T")[0];
+      if (!date || date < todayStr) {
+        const dateErr = document.getElementById("sched-date-error");
+        dateErr.innerText = "Please select a date today or in the future.";
+        dateErr.style.display = "block";
+        dateInput.setAttribute("aria-describedby", "sched-date-error");
         valid = false;
       } else {
         document.getElementById("sched-date-error").style.display = "none";
+        dateInput.removeAttribute("aria-describedby");
       }
 
       if (!agenda) {
         document.getElementById("sched-agenda-error").style.display = "block";
+        agendaInput.setAttribute("aria-describedby", "sched-agenda-error");
         valid = false;
       } else {
         document.getElementById("sched-agenda-error").style.display = "none";
+        agendaInput.removeAttribute("aria-describedby");
       }
 
       if (!valid) return;
