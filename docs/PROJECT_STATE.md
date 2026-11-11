@@ -38,7 +38,7 @@
 | [`docs/PROJECT_ROADMAP.md`](PROJECT_ROADMAP.md) | 10-module engineering sequence & acceptance criteria | COMPLETE |
 | [`docs/DECISION_LOG.md`](DECISION_LOG.md) | Decision register, working assumptions, critical open FYP issue | COMPLETE |
 | [`docs/PROJECT_STATE.md`](PROJECT_STATE.md) | Current project health, milestone tracking, blocker monitor | COMPLETE |
-| [`docs/handovers/MODULE_01_HANDOFF.md`](handovers/MODULE_01_HANDOFF.md) | Formal verification checklist and handoff report | PENDING CREATION |
+| [`docs/handovers/MODULE_01_HANDOFF.md`](handovers/MODULE_01_HANDOFF.md) | Formal verification checklist and handoff report | COMPLETE |
 
 ---
 
