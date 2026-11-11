@@ -1,0 +1,334 @@
+.landingContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-app);
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  width: 100%;
+}
+
+/* Hero */
+.heroSection {
+  padding: var(--space-16) var(--space-6) var(--space-16);
+  background: radial-gradient(circle at 50% 20%, rgba(79, 70, 229, 0.08) 0%, rgba(248, 250, 252, 0) 70%);
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.heroContent {
+  max-width: 820px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heroBadge {
+  margin-bottom: var(--space-4);
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: var(--color-navy-950);
+  margin-bottom: var(--space-5);
+}
+
+.gradientText {
+  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-teal-600) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-8);
+  max-width: 700px;
+}
+
+.heroActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.heroTrustBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  color: var(--color-navy-600);
+  font-size: 0.875rem;
+  font-weight: 600;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.trustIcon {
+  color: var(--color-teal-600);
+}
+
+/* Sections */
+.section {
+  padding: var(--space-16) 0;
+}
+
+.sectionAlt {
+  padding: var(--space-16) 0;
+  background-color: #ffffff;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sectionHeader {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto var(--space-12);
+}
+
+.sectionEyebrow {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--color-primary-600);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+  display: block;
+}
+
+.sectionTitle {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--color-navy-950);
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-3);
+}
+
+.sectionDesc {
+  font-size: 1.0625rem;
+  color: var(--color-text-secondary);
+}
+
+/* Steps Grid */
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+.stepCard {
+  background-color: var(--color-bg-app);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform var(--transition-fast);
+}
+
+.stepCard:hover {
+  transform: translateY(-3px);
+}
+
+.stepNum {
+  font-family: var(--font-family-mono);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primary-600);
+  margin-bottom: var(--space-3);
+}
+
+.stepTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+  color: var(--color-navy-950);
+}
+
+.stepText {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+}
+
+/* Differentiator Box */
+.diffBox {
+  background: var(--color-navy-900);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10);
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--space-10);
+  align-items: center;
+  color: #ffffff;
+  box-shadow: var(--shadow-xl);
+}
+
+.diffHeading {
+  font-size: 2rem;
+  color: #ffffff;
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.03em;
+}
+
+.diffSub {
+  font-size: 1rem;
+  color: var(--color-navy-300);
+  line-height: 1.6;
+  margin-bottom: var(--space-6);
+}
+
+.diffList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.diffList li {
+  font-size: 0.9375rem;
+  color: var(--color-navy-200);
+  line-height: 1.5;
+}
+
+.diffList strong {
+  color: #ffffff;
+}
+
+.diffRight {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.metricCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+}
+
+.metricValue {
+  font-family: var(--font-family-mono);
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--color-teal-400);
+  margin-bottom: 2px;
+}
+
+.metricLabel {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.metricDesc {
+  font-size: 0.8125rem;
+  color: var(--color-navy-400);
+}
+
+/* Featured circles */
+.circlesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  margin-bottom: var(--space-10);
+}
+
+.centerAction {
+  display: flex;
+  justify-content: center;
+}
+
+/* CTA Banner */
+.ctaSection {
+  padding: var(--space-16) 0;
+}
+
+.ctaBox {
+  background: linear-gradient(135deg, var(--color-primary-900) 0%, var(--color-navy-950) 100%);
+  border-radius: var(--radius-xl);
+  padding: var(--space-12);
+  text-align: center;
+  color: #ffffff;
+  box-shadow: var(--shadow-xl);
+}
+
+.ctaTitle {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: var(--space-3);
+  letter-spacing: -0.03em;
+}
+
+.ctaSubtitle {
+  font-size: 1.125rem;
+  color: var(--color-primary-100);
+  max-width: 600px;
+  margin: 0 auto var(--space-8);
+  line-height: 1.6;
+}
+
+.ctaButtons {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+/* Responsiveness */
+@media (max-width: 1024px) {
+  .heroTitle {
+    font-size: 2.75rem;
+  }
+  .stepsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .circlesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .diffBox {
+    grid-template-columns: 1fr;
+    padding: var(--space-8);
+  }
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2.25rem;
+  }
+  .heroSubtitle {
+    font-size: 1.0625rem;
+  }
+  .stepsGrid {
+    grid-template-columns: 1fr;
+  }
+  .circlesGrid {
+    grid-template-columns: 1fr;
+  }
+  .ctaBox {
+    padding: var(--space-8) var(--space-4);
+  }
+}

@@ -1,0 +1,71 @@
+/* Typography Scale */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-sans);
+  color: var(--color-text-primary);
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: 2.25rem; /* 36px */
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-size: 1.75rem; /* 28px */
+}
+
+h3 {
+  font-size: 1.35rem; /* 21.6px */
+}
+
+h4 {
+  font-size: 1.125rem; /* 18px */
+  font-weight: 600;
+}
+
+h5 {
+  font-size: 1rem; /* 16px */
+  font-weight: 600;
+}
+
+p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.text-display {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+.text-lead {
+  font-size: 1.2rem;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+}
+
+.text-body {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.text-sm {
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
+.font-mono {
+  font-family: var(--font-family-mono);
+}

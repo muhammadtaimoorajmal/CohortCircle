@@ -1,0 +1,246 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.topNav {
+  display: flex;
+  align-items: center;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-navy-600);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.backLink:hover {
+  color: var(--color-primary-600);
+}
+
+.headerCard {
+  background-color: var(--color-bg-surface);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.subjectText {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-navy-500);
+}
+
+.circleTitle {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-navy-950);
+  margin: 0;
+}
+
+.circleMeta {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.tabsStrip {
+  display: flex;
+  gap: var(--space-6);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-4);
+  margin-top: var(--space-2);
+  overflow-x: auto;
+}
+
+.tabBtn {
+  background: transparent;
+  border: none;
+  font-family: var(--font-family-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-navy-500);
+  padding-bottom: var(--space-2);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all var(--transition-fast);
+}
+
+.tabBtn:hover {
+  color: var(--color-primary-600);
+}
+
+.tabActive {
+  color: var(--color-primary-600);
+  border-bottom-color: var(--color-primary-600);
+}
+
+.tabContentCard {
+  background-color: var(--color-bg-surface);
+}
+
+.contentHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.tabSectionTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-navy-950);
+  margin: 0;
+}
+
+.capacityMeta {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.membersTable {
+  display: flex;
+  flex-direction: column;
+}
+
+.memberRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.memberRow:last-child {
+  border-bottom: none;
+}
+
+.memberInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 1;
+}
+
+.memberMeta {
+  display: flex;
+  flex-direction: column;
+}
+
+.memberName {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-navy-950);
+}
+
+.memberHandle {
+  font-size: 0.75rem;
+  color: var(--color-navy-500);
+}
+
+.memberRole {
+  margin-right: var(--space-4);
+}
+
+.removeBtn {
+  color: var(--color-danger) !important;
+}
+
+.emptyNotice {
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+}
+
+.applicantsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+.applicantCard {
+  background-color: var(--color-bg-surface);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.applicantTop {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.applicantMeta {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.applicantName {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-navy-950);
+}
+
+.applicantHandle {
+  font-size: 0.75rem;
+  color: var(--color-navy-500);
+}
+
+.applicantNote {
+  font-size: 0.8125rem;
+  color: var(--color-navy-800);
+  background-color: var(--color-navy-50);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-style: italic;
+  margin: 0;
+}
+
+.applicantActions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.declineBtn {
+  color: var(--color-danger) !important;
+}
+
+.settingsForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 500px;
+}
+
+.modalText {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .applicantsGrid {
+    grid-template-columns: 1fr;
+  }
+}

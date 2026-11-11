@@ -1,7 +1,7 @@
-# Software Architecture Proposal: CohortCircle
+# Software Architecture Specification: CohortCircle
 
-> **Document Status:** PROPOSED ARCHITECTURAL SPECIFICATION (MODULE 01)  
-> **Implementation Scope:** Architectural blueprint only. No packages or runtime code are installed in Module 01. Implementation commences in Module 07/08.
+> **Document Status:** ESTABLISHED HIGH-FIDELITY ARCHITECTURAL FOUNDATION (MODULE 07)<br>
+> **Implementation Scope:** Full React 19 + Vite client application foundation established with 12 interactive routes, design tokens, component library, and automated testing suite.
 
 ---
 
@@ -206,4 +206,50 @@ src/
     ├── compatibility.js        # Mathematical matching calculations
     ├── dateUtils.js            # Date formatting & calendar utilities
     └── validators.js           # Form input validation rules
+```
+
+---
+
+## 6. Implemented Module 07 Application Structure
+
+In Module 07, the actual root application was established using React 19, Vite 6, and modern CSS Modules:
+
+```text
+CohortCircle/
+├── index.html                  # HTML5 entry with fonts & meta
+├── package.json                # Project dependencies and npm scripts
+├── package-lock.json           # Deterministic lockfile
+├── vite.config.js              # Vite & Vitest configuration
+├── eslint.config.js            # Flat ESLint configuration
+└── src/
+    ├── main.jsx                # Application DOM entry point
+    ├── App.jsx                 # Top-level Router & Provider wrapper
+    ├── app/
+    │   ├── AppRouter.jsx       # 12-route client routing system
+    │   ├── AppShell.jsx        # Authenticated app shell layout
+    │   └── AppShell.module.css
+    ├── context/
+    │   └── AppContext.jsx      # In-memory reactive state engine
+    ├── components/
+    │   ├── common/             # Button, Card, Badge, Input, Select, Modal, Avatar, Icons
+    │   ├── layout/             # Sidebar, Topbar, PublicNavbar, Footer, MobileNavigation
+    │   ├── circles/            # CircleCard, CompatibilityIndicator, StudyStyleBadge, MemberStack
+    │   └── sessions/           # SessionCard, RSVPControl
+    ├── pages/
+    │   ├── public/             # LandingPage, AboutPage
+    │   ├── dashboard/          # DashboardPage
+    │   ├── learner/            # ProfilePage, ExplorePage, CircleDetailsPage, MyCirclesPage
+    │   ├── host/               # HostDashboardPage, CreateCirclePage, ManageCirclePage
+    │   ├── sessions/           # SessionsPage, SessionDetailsPage
+    │   ├── settings/           # SettingsPage
+    │   └── NotFoundPage.jsx
+    ├── data/
+    │   └── demoData.js         # Realistic synthetic demonstration dataset
+    ├── styles/
+    │   ├── variables.css       # Brand design tokens (8px grid, deep navy, indigo, teal)
+    │   ├── typography.css      # Plus Jakarta Sans & JetBrains Mono scale
+    │   └── global.css          # Global resets, WCAG focus rings, accessibility
+    └── test/
+        ├── setup.js            # Vitest environment setup
+        └── App.test.jsx        # Automated route and component tests
 ```

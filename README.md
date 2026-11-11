@@ -3,7 +3,7 @@
 > **Find your people. Learn together.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Status: Formative Usability Evaluation](https://img.shields.io/badge/Status-Module%2006%20Formative%20Evaluation-blue.svg)](#project-roadmap)
+[![Status: High-Fidelity Foundation](https://img.shields.io/badge/Status-Module%2007%20React%20Foundation-blue.svg)](#project-roadmap)
 [![Target Standard](https://img.shields.io/badge/Accessibility-WCAG%202.2%20AA%20Target-brightgreen.svg)](#accessibility--design-principles)
 
 CohortCircle is an open-source collaborative learning platform created to solve the friction of finding and coordinating compatible study groups. By moving beyond unstructured chat groups and static bulletin boards, CohortCircle empowers university students and independent learners to discover peers with matching goals, aligned schedules, and complementary study habits.
@@ -70,6 +70,51 @@ CohortCircle is built as a responsive, accessible client-side application design
 
 ---
 
+## Getting Started & Development
+
+### Prerequisites
+* **Node.js:** v24.x LTS (compatible with v20+)
+* **npm:** v11.x (or modern npm)
+
+### Installation
+Clone the repository and install dependencies:
+```bash
+git clone https://github.com/muhammadtaimoorajmal/CohortCircle.git
+cd CohortCircle
+npm install
+```
+
+### Running the Local Development Server
+Launch the Vite development server with instant Hot Module Replacement (HMR):
+```bash
+npm run dev
+```
+The application will launch and be available at:
+```text
+http://localhost:5173
+```
+
+### Running Automated Tests
+Run the Vitest route and component test suite:
+```bash
+npm run test
+```
+
+### Static Analysis & Linting
+Run ESLint flat configuration check:
+```bash
+npm run lint
+```
+
+### Building for Production
+Generate the optimized production bundle in `dist/`:
+```bash
+npm run build
+npm run preview
+```
+
+---
+
 ## Accessibility & Design Principles
 
 CohortCircle adheres to human-centered design principles and digital inclusion standards:
@@ -92,8 +137,8 @@ The development of CohortCircle follows an empirical, user-centered 10-module en
 | **03** | **Research Synthesis & Personas** | Affinity mapping, empathy maps, proto-personas, and user journey flows | **Completed** *(Framework Prepared; Synthesis Pending)* |
 | **04** | **Ideation & Conceptual Design** | Information architecture, user task flows, wireflows, and mental models | **Completed** |
 | **05** | **Low-Fidelity Prototyping** | Standalone interactive digital wireframe (12 screens), tokens, and formative evaluation toolkit | **Completed** |
-| **06** | **Formative Usability Evaluation** | Heuristic evaluation, cognitive walkthroughs, and prototype remediation | **Active** *(Expert Inspected; Participant Validation Pending)* |
-| **07** | **High-Fidelity Design & Application Foundation** | Design tokens, accessible UI component library, and Vite client scaffolding | *Not Started* |
+| **06** | **Formative Usability Evaluation** | Heuristic evaluation, cognitive walkthroughs, and prototype remediation | **Completed** *(Expert Inspected; Participant Validation Pending)* |
+| **07** | **High-Fidelity Design & Application Foundation** | Real React 19 + Vite client app, design system tokens, 12 interactive routes | **Active** *(Foundation Established & Verified)* |
 | **08** | **Functional Product Development** | State management, compatibility engine, session scheduling, and local persistence | *Not Started* |
 | **09** | **Summative Usability Evaluation** | Rigorous 18-participant task evaluation (SUS, SEQ, completion rate, error analysis) | *Not Started* |
 | **10** | **Analysis, Improvements & Final Release** | Evaluation synthesis, interface polish, and open-source release packaging | *Not Started* |
@@ -104,13 +149,30 @@ The development of CohortCircle follows an empirical, user-centered 10-module en
 
 ```text
 CohortCircle/
+├── index.html                 # HTML5 entry with fonts & meta
+├── package.json               # Project dependencies and scripts
+├── package-lock.json          # Deterministic lockfile
+├── vite.config.js             # Vite & Vitest configuration
+├── eslint.config.js           # Modern ESLint configuration
 ├── .editorconfig              # Editor consistency configuration
-├── .gitignore                 # Version control exclusions (with local private-research-data/)
+├── .gitignore                 # Version control exclusions
 ├── LICENSE                    # MIT open-source license
 ├── README.md                  # Project overview and public documentation
+├── src/                       # High-fidelity React application source
+│   ├── main.jsx               # Application DOM entry mount
+│   ├── App.jsx                # Router & AppProvider wrapper
+│   ├── app/                   # AppRouter (12 routes) & AppShell layout
+│   ├── components/            # Atomic primitives (Button, Card, Modal, Input)
+│   ├── context/               # In-memory reactive state engine (AppContext)
+│   ├── data/                  # Synthetic demo dataset (demoData.js)
+│   ├── pages/                 # 12 core screen interfaces (public, learner, host, sessions)
+│   ├── styles/                # CSS custom properties & global typography
+│   └── test/                  # Automated Vitest test suite (setup.js, App.test.jsx)
 └── docs/                      # Architectural, requirements, and research governance
     ├── ARCHITECTURE.md        # Technical architecture, domain models, and data flows
-    ├── DECISION_LOG.md        # Architectural decision records and risk log
+    ├── DECISION_LOG.md        # Architectural decision records (DEC-001 through DEC-032)
+    ├── DESIGN_SYSTEM.md       # High-fidelity design tokens, contrast audits & components
+    ├── TESTING.md             # Automated test strategy and verification results
     ├── PROBLEM_HYPOTHESIS.md  # Unvalidated problem statement and validation criteria
     ├── PRODUCT_REQUIREMENTS.md# Functional (23 FRs) and Non-Functional (15 NFRs) specs
     ├── PROJECT_CHARTER.md     # Product identity, scope boundaries, and core principles
@@ -118,68 +180,31 @@ CohortCircle/
     ├── PROJECT_STATE.md       # Current phase tracking and health indicators
     ├── RESEARCH_ETHICS.md     # Research participant rights, consent protocol, and privacy
     ├── RESEARCH_PLAN.md       # Triangulated research methodology and summative plan
-    ├── research/              # Module 02 Operational Research Toolkit
-    │   ├── README.md          # Research toolkit overview and identifier taxonomy
-    │   ├── RECRUITMENT_AND_SAMPLING.md # Sampling matrix, screener, and outreach
-    │   ├── CONTEXTUAL_INQUIRY_PROTOCOL.md # 3-site observation protocol across 5 dimensions
-    │   ├── INTERVIEW_GUIDE.md # 4-phase semi-structured interview script (25-35m)
-    │   ├── SURVEY_INSTRUMENT.md # 8-question exploratory survey questionnaire
-    │   ├── FIELD_NOTE_TEMPLATE.md # Standardized observation recording template
-    │   ├── INTERVIEW_NOTE_TEMPLATE.md # De-identified interview notes and coding sheet
-    │   ├── SURVEY_CODEBOOK.md # Quantitative variable dictionary & Borda ranking
-    │   ├── QUALITATIVE_ANALYSIS_PROTOCOL.md # 9-step thematic analysis & codebook
-    │   ├── EVIDENCE_REGISTER.md # Master traceability matrix connecting RQs to evidence
-    │   └── FIELDWORK_STATUS.md # Real-time recruitment and fieldwork execution monitor
-    ├── synthesis/             # Module 03 Synthesis & Persona Framework
-    │   ├── README.md          # Synthesis overview and audit summary
-    │   ├── EVIDENCE_AUDIT.md  # Audit of local research records & gate decision
-    │   ├── AFFINITY_MAPPING.md# 10-dimension clustering framework & card schema
-    │   ├── EMPATHY_MAPS.md    # Learner & Host empathy maps with hypothesis pointers
-    │   ├── PERSONA_DEVELOPMENT.md # 6 behavioral axes & anti-fictionalization rules
-    │   ├── PERSONA_CATALOG.md # Unvalidated proto-personas (PROTO-01, 02, Host)
-    │   ├── USER_JOURNEY_MAPS.md # End-to-end 8-stage peer learning journey & Mermaid
-    │   ├── NEEDS_TRACEABILITY.md # Traceability matrix (RQs -> Needs -> FRs)
-    │   ├── SYNTHESIS_LIMITATIONS.md # Boundary disclosure & risk mitigation
-    │   └── PERSONA_VALIDATION_PLAN.md # Protocol for empirical elevation
-    ├── conceptual-design/     # Module 04 Conceptual Design & Architecture
-    │   ├── README.md          # Conceptual design overview & decision taxonomy
-    │   ├── CONCEPT_ALTERNATIVES.md # 4 distinct concept models evaluated
-    │   ├── CONCEPT_SELECTION.md # 8-criteria trade-off matrix & selection rationale
-    │   ├── STORYBOARDS.md     # 4 visual narrative storyboards (6 frames each)
-    │   ├── USER_SCENARIOS.md  # 4 operational scenarios (SCEN-01 to SCEN-04)
-    │   ├── INFORMATION_ARCHITECTURE.md # Unified sitemap, navigation & role access
-    │   ├── USER_TASK_FLOWS.md # 5 complete core task flows (FLOW-01 to FLOW-05)
-    │   ├── WIREFLOWS.md       # 5 Mermaid wireflow diagrams with full error paths
-    │   ├── MENTAL_MODEL_MAPPING.md # Translation matrix across 8 core domain concepts
-    │   ├── DESIGN_TRACEABILITY.md # 100% bidirectional coverage (23 FRs & 15 NFRs)
-    │   └── DESIGN_LIMITATIONS.md # Assumptions & formative test inquiries
-    ├── prototypes/            # Module 05 Low-Fidelity Interactive Wireframes
-    │   └── module05/          # Standalone client prototype and evaluation instruments
-    │       ├── README.md      # Prototype architecture, execution & printing specs
-    │       ├── index.html     # Standalone digital wireframe application (12 screens)
-    │       ├── WIREFRAME_SPECIFICATION.md # Grayscale design tokens & component anatomy
-    │       ├── SCREEN_INVENTORY.md # Functional specification for Screens 01 to 12
-    │       ├── TASK_COVERAGE_MATRIX.md # Traceability for 23 FRs, 15 NFRs & Flows 01-05
-    │       ├── FORMATIVE_TEST_SCRIPT.md # 5-task usability evaluation script (Module 06)
-    │       ├── OBSERVER_GUIDE.md # Think-Aloud protocol & observation logging sheet
-    │       └── ACCESSIBILITY_CHECKLIST.md # Static and interaction WCAG 2.2 AA audit
-    ├── evaluation/            # Module 06 Formative Usability Evaluation
-    │   └── module06/          # Dual-method expert inspection & participant protocols
-    │       ├── README.md      # Evaluation methodology, principles & status declaration
-    │       ├── NIELSEN_HEURISTIC_EVALUATION.md # 10-heuristic audit of Screens 01-12
-    │       ├── COGNITIVE_WALKTHROUGH.md # Wharton's Q1-Q4 walkthrough of Tasks 01-05
-    │       ├── USABILITY_ISSUE_LOG.md # 13 severity-ranked usability issues (UX-001-013)
-    │       ├── DESIGN_REVISION_MATRIX.md # Remediation roadmap (Scope A & Scope B)
-    │       ├── ACCESSIBILITY_REVIEW.md # WCAG 2.2 AA audit & remediation verification
-    │       └── PARTICIPANT_SESSION_TEMPLATE.md # Blank empirical testing packet (P-01 to P-07)
-    └── handovers/
-        ├── MODULE_01_HANDOFF.md # Module 01 verification and baseline handoff
-        ├── MODULE_02_HANDOFF.md # Module 02 research instrumentation handoff
-        ├── MODULE_03_HANDOFF.md # Module 03 synthesis framework handoff
-        ├── MODULE_04_HANDOFF.md # Module 04 conceptual design handoff
-        ├── MODULE_05_HANDOFF.md # Module 05 low-fidelity prototype handoff
-        └── MODULE_06_HANDOFF.md # Module 06 formative usability evaluation handoff
+    ├── research/              # Module 02 Operational Research Toolkit (11 files)
+    ├── synthesis/             # Module 03 Synthesis & Persona Framework (10 files)
+    ├── conceptual-design/     # Module 04 Conceptual Design & Architecture (11 files)
+    ├── prototypes/            # Module 05 Low-Fidelity Interactive Wireframes (8 files)
+    ├── evaluation/            # Module 06 Formative Usability Evaluation (7 files)
+    └── handovers/             # Verified module handoff reports (MODULE_01 to 07)
 ```
+
+---
+
+## Project Limitations & Research Boundaries
+
+* **Local-First In-Memory Demonstration:** In Module 07, application state (circles, sessions, applicants, profile modifications) is maintained in-memory via React Context. Data modifications persist across client navigation but reset upon full browser reload unless restored via the Demo Data Console. Full persistent local storage synchronization will be implemented in Module 08.
+* **Deterministic Matching:** Compatibility scores are computed using explicit mathematical weight heuristics rather than non-deterministic machine learning.
+* **Empirical Fieldwork Status:** Research protocols and formative usability testing packets are prepared; empirical participant trials remain pending physical recruitment.
+
+---
+
+## Contributing
+
+CohortCircle is an open-source project welcoming contributions that uphold our core design principles:
+1. Ensure all new components comply with WCAG 2.2 AA accessibility standards.
+2. Maintain zero external runtime UI frameworks; use CSS Modules and local SVGs.
+3. Write automated unit/integration tests with Vitest for new feature journeys.
+4. Run `npm run lint` and `npm run test` before submitting pull requests.
 
 ---
 

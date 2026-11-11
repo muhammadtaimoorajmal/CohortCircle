@@ -1,0 +1,37 @@
+.stackContainer {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.avatars {
+  display: inline-flex;
+  align-items: center;
+}
+
+.stackedAvatar {
+  margin-left: -8px;
+  box-shadow: 0 0 0 2px #ffffff;
+}
+
+.stackedAvatar:first-child {
+  margin-left: 0;
+}
+
+.text {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+}
+
+.current {
+  color: var(--color-text-primary);
+}
+
+.slash {
+  margin: 0 2px;
+  color: var(--color-navy-400);
+}
+
+.max {
+  color: var(--color-navy-500);
+}

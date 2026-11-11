@@ -1,0 +1,142 @@
+.footer {
+  background-color: var(--color-navy-950);
+  color: var(--color-navy-300);
+  padding: var(--space-12) 0 var(--space-8);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 1.5fr 2.5fr;
+  gap: var(--space-12);
+  margin-bottom: var(--space-12);
+}
+
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: #ffffff;
+}
+
+.brandName {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  font-size: 0.9375rem;
+  color: var(--color-navy-400);
+  line-height: 1.6;
+  max-width: 360px;
+}
+
+.licensePill {
+  display: inline-flex;
+  font-size: 0.75rem;
+  color: var(--color-teal-400);
+  background: rgba(13, 148, 136, 0.12);
+  border: 1px solid rgba(13, 148, 136, 0.25);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  align-self: flex-start;
+  margin-top: var(--space-2);
+}
+
+.linksGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-8);
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.colTitle {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-2);
+}
+
+.footerLink {
+  color: var(--color-navy-400);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color var(--transition-fast);
+}
+
+.footerLink:hover {
+  color: #ffffff;
+}
+
+.principleItem {
+  font-size: 0.8125rem;
+  color: var(--color-navy-400);
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-8);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.copy {
+  font-size: 0.8125rem;
+  color: var(--color-navy-500);
+}
+
+.bottomLinks {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-teal-400);
+  box-shadow: 0 0 8px var(--color-teal-400);
+}
+
+.statusText {
+  font-size: 0.75rem;
+  color: var(--color-navy-400);
+}
+
+@media (max-width: 900px) {
+  .top {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+}
+
+@media (max-width: 600px) {
+  .linksGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}

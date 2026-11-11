@@ -1,0 +1,120 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition: all var(--transition-fast);
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.dateBadge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.dateText {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-primary-700);
+  background-color: var(--color-primary-50);
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--color-primary-100);
+}
+
+.timeText {
+  font-size: 0.8125rem;
+  color: var(--color-navy-600);
+  font-weight: 500;
+}
+
+.metaBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78125rem;
+  color: var(--color-navy-500);
+  font-weight: 500;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.circleLink a {
+  font-size: 0.78125rem;
+  color: var(--color-navy-500);
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.circleLink a:hover {
+  color: var(--color-primary-600);
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.titleLink {
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.titleLink:hover {
+  color: var(--color-primary-600);
+}
+
+.bottomRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+  flex-wrap: wrap;
+}
+
+.attendeesArea {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.avatarStack {
+  display: inline-flex;
+  align-items: center;
+}
+
+.stackedAvatar {
+  margin-left: -6px;
+  box-shadow: 0 0 0 2px #ffffff;
+}
+
+.stackedAvatar:first-child {
+  margin-left: 0;
+}
+
+.attendeeCount {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+}
+
+.actionArea {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}

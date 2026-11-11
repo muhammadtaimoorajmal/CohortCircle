@@ -272,6 +272,42 @@
 
 ---
 
+### DEC-029: React 19 & Vite Architecture Baseline for Module 07
+* **Status:** `[CONFIRMED]`
+* **Context:** Selecting the production technology stack and build tooling for the real CohortCircle frontend application.
+* **Decision:** Implement the application using React 19, Vite 6, and React Router 7. Provide full client-side routing across 12 required interfaces with Node 24 target compatibility.
+* **Date:** 2026-11-11
+* **Impact:** Modern ESM performance, fast dev server startup, robust automated testing via Vitest and Testing Library.
+
+---
+
+### DEC-030: Component-Scoped Styling via CSS Modules & Brand Tokens
+* **Status:** `[CONFIRMED]`
+* **Context:** Implementing the visual design system without heavy external CSS frameworks or vendor lock-in.
+* **Decision:** Adopt CSS Modules (`*.module.css`) paired with standard CSS custom properties in `src/styles/variables.css`. Incorporate deep navy/dark ink (`#0f172a`), fresh violet/indigo (`#4f46e5`), subtle teal (`#0d9488`), and an 8px spatial grid.
+* **Date:** 2026-11-11
+* **Impact:** 100% encapsulated styles, zero runtime CSS-in-JS overhead, WCAG 2.2 AA compliant contrast (18.7:1 for body copy).
+
+---
+
+### DEC-031: Local In-Memory State Engine with Synthetic Demonstration Dataset
+* **Status:** `[CONFIRMED]`
+* **Context:** Providing responsive client-side state across 12 screens before backend integration in Module 08.
+* **Decision:** Implement a centralized `AppContext` provider initialized with realistic synthetic demo data (`src/data/demoData.js`) covering varied subjects (Algorithms, HCI Studio, Distributed Systems, Math Proofs, Language Exchange). Provide factory reset and seed restoration in the Settings page.
+* **Date:** 2026-11-11
+* **Impact:** Zero external backend dependency; fluid interactivity; absolute privacy isolation with synthetic identities.
+
+---
+
+### DEC-032: Resolution of Tablet Layout Defect UX-009 via Adaptive Layouts
+* **Status:** `[CONFIRMED]`
+* **Context:** Resolving usability defect `UX-009` (tablet viewport column crowding) identified during Module 06.
+* **Decision:** Implement responsive CSS breakpoints where tablet viewports (768px–1024px) automatically collapse the sidebar to an icon-only rail (76px), stack dashboard and profile columns, and wrap multi-criteria filters cleanly.
+* **Date:** 2026-11-11
+* **Impact:** Fluid tablet usability across iPad portrait and landscape orientations without horizontal scroll or layout collision.
+
+---
+
 ## 3. Active Research Questions for Module 02
 
 1. **RQ-01:** What is the relative weight that learners place on schedule availability versus study style compatibility when deciding whether to join a peer group?

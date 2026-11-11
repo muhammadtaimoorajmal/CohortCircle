@@ -1,0 +1,230 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.headerRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.pageTitle {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-navy-950);
+  margin: 0;
+  letter-spacing: -0.025em;
+}
+
+.pageSubtitle {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  margin: 4px 0 0;
+}
+
+/* Stepper */
+.stepperContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-bg-surface);
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.stepItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-navy-400);
+  font-weight: 600;
+  font-size: 0.8125rem;
+}
+
+.stepCircle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--color-navy-300);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.stepCurrent {
+  color: var(--color-primary-600);
+}
+
+.stepCurrent .stepCircle {
+  border-color: var(--color-primary-600);
+  background-color: var(--color-primary-50);
+  color: var(--color-primary-700);
+}
+
+.stepDone {
+  color: var(--color-teal-700);
+}
+
+.stepDone .stepCircle {
+  border-color: var(--color-teal-600);
+  background-color: var(--color-teal-600);
+  color: #ffffff;
+}
+
+.stepConnector {
+  flex: 1;
+  height: 2px;
+  background-color: var(--color-navy-200);
+  margin: 0 var(--space-3);
+}
+
+/* Form Card */
+.formCard {
+  background-color: var(--color-bg-surface);
+}
+
+.stepContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.stepTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-navy-950);
+  margin: 0;
+}
+
+.stepDesc {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.fieldGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+}
+
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.textareaGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.textarea {
+  width: 100%;
+  padding: 10px 14px;
+  font-family: var(--font-family-sans);
+  font-size: 0.9375rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  outline: none;
+}
+
+.textarea:focus {
+  border-color: var(--color-primary-600);
+  box-shadow: 0 0 0 3px var(--color-primary-100);
+}
+
+.textarea.hasError {
+  border-color: var(--color-danger);
+}
+
+.errorText {
+  font-size: 0.8125rem;
+  color: var(--color-danger);
+}
+
+.tipBox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background-color: var(--color-teal-50);
+  border: 1px solid var(--color-teal-100);
+  color: var(--color-teal-800);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: 0.8125rem;
+}
+
+.tipIcon {
+  color: var(--color-teal-600);
+  flex-shrink: 0;
+}
+
+.reviewBox {
+  background-color: var(--color-navy-50);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.reviewHeading {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-navy-950);
+  margin-bottom: var(--space-1);
+}
+
+.reviewItem {
+  font-size: 0.875rem;
+  color: var(--color-navy-800);
+}
+
+.wizardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+  margin-top: var(--space-6);
+}
+
+.rightNav {
+  margin-left: auto;
+}
+
+.modalText {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .twoCol {
+    grid-template-columns: 1fr;
+  }
+  .stepLabel {
+    display: none;
+  }
+}

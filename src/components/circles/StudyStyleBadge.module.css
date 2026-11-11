@@ -1,0 +1,53 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.78125rem;
+  font-weight: 600;
+  line-height: 1;
+  border: 1px solid transparent;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.default {
+  background-color: var(--color-navy-100);
+  color: var(--color-navy-700);
+}
+
+.collab {
+  background-color: var(--color-primary-50);
+  color: var(--color-primary-700);
+  border-color: var(--color-primary-100);
+}
+
+.discussion {
+  background-color: var(--color-teal-50);
+  color: var(--color-teal-700);
+  border-color: var(--color-teal-100);
+}
+
+.silent {
+  background-color: #f5f3ff;
+  color: #6d28d9;
+  border-color: #ede9fe;
+}
+
+.teaching {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  border-color: #dbeafe;
+}
+
+.exam {
+  background-color: #fff7ed;
+  color: #c2410c;
+  border-color: #ffedd5;
+}

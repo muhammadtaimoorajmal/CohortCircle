@@ -1,0 +1,35 @@
+{
+  "name": "cohortcircle",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "An open-source platform for discovering compatible study circles, matching learning goals and schedules, and organizing focused peer-learning sessions.",
+  "author": "Muhammad Taimoor Ajmal",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.1.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.18.0",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.18",
+    "globals": "^15.14.0",
+    "jsdom": "^26.0.0",
+    "vite": "^6.0.7",
+    "vitest": "^3.0.0"
+  }
+}

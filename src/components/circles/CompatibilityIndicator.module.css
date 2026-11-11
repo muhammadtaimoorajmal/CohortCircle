@@ -1,0 +1,73 @@
+.indicator {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-family-sans);
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  line-height: 1;
+  user-select: none;
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
+}
+
+.clickable {
+  cursor: pointer;
+}
+.clickable:hover {
+  transform: scale(1.04);
+}
+
+.sm {
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  gap: 4px;
+}
+
+.md {
+  padding: 4px 10px;
+  font-size: 0.8125rem;
+  gap: 5px;
+}
+
+.lg {
+  padding: 6px 14px;
+  font-size: 0.9375rem;
+  gap: 6px;
+}
+
+/* Tiers */
+.high {
+  background-color: var(--color-teal-50);
+  color: var(--color-teal-700);
+  border-color: var(--color-teal-100);
+}
+
+.medium {
+  background-color: var(--color-primary-50);
+  color: var(--color-primary-700);
+  border-color: var(--color-primary-100);
+}
+
+.low {
+  background-color: var(--color-navy-100);
+  color: var(--color-navy-700);
+  border-color: var(--color-navy-200);
+}
+
+.icon {
+  display: inline-flex;
+  color: currentColor;
+}
+
+.score {
+  font-family: var(--font-family-mono);
+  font-weight: 700;
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.85;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}

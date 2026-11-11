@@ -1,0 +1,147 @@
+.topbar {
+  height: var(--topbar-height);
+  background-color: var(--color-bg-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: 0 var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  box-shadow: var(--shadow-xs);
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.mobileMenuBtn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--color-text-primary);
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.contextArea {
+  display: flex;
+  align-items: center;
+}
+
+.pageTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.searchLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background-color: var(--color-navy-50);
+  border: 1px solid var(--color-border);
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--color-navy-500);
+  font-size: 0.8125rem;
+  transition: all var(--transition-fast);
+  width: 260px;
+}
+
+.searchLink:hover {
+  background-color: #ffffff;
+  border-color: var(--color-border-hover);
+  color: var(--color-text-primary);
+}
+
+.searchPlaceholder {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kbd {
+  font-family: var(--font-family-mono);
+  font-size: 0.6875rem;
+  background-color: var(--color-navy-100);
+  border: 1px solid var(--color-navy-200);
+  border-radius: 4px;
+  padding: 1px 4px;
+  color: var(--color-navy-500);
+}
+
+.roleToggle {
+  display: flex;
+  background-color: var(--color-navy-100);
+  padding: 3px;
+  border-radius: var(--radius-full);
+  gap: 2px;
+}
+
+.rolePill {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--color-navy-600);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.rolePill:hover {
+  color: var(--color-navy-950);
+}
+
+.roleActive {
+  background-color: #ffffff;
+  color: var(--color-primary-700);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.demoBadge {
+  display: flex;
+  align-items: center;
+}
+
+.avatarLink {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .searchLink {
+    width: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobileMenuBtn {
+    display: flex;
+  }
+  .searchLink, .roleToggle, .demoBadge {
+    display: none;
+  }
+  .topbar {
+    padding: 0 var(--space-4);
+  }
+}
