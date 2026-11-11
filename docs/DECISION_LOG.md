@@ -200,6 +200,42 @@
 
 ---
 
+### DEC-021: Low-Fidelity Digital Wireframe Implementation Strategy
+* **Status:** `[CONFIRMED]`
+* **Context:** Choosing the implementation technology stack for the Module 05 low-fidelity prototype.
+* **Decision:** Implement the prototype as a standalone, self-contained single-page HTML document (`docs/prototypes/module05/index.html`) using semantic HTML5, embedded CSS, and vanilla JavaScript without external npm packages, Node runtime dependencies, or backend infrastructure. Keep the repository root clean for production React application establishment in Module 07.
+* **Date:** 2026-11-11
+* **Impact:** Immediate portability; executes via `file:///` protocol in any browser; zero installation or build overhead for usability testing.
+
+---
+
+### DEC-022: Grayscale Aesthetic System & No Color-Only Communication
+* **Status:** `[CONFIRMED]`
+* **Context:** Defining the visual language and accessibility parameters for low-fidelity prototyping.
+* **Decision:** Strictly restrict interface styling to neutral grayscale design tokens (`#ffffff` through `#212529`), explicit 1px/2px structural borders, and boxy wireframe placeholders. All status indicators, tags, and validation states must incorporate explicit textual labels in strict compliance with WCAG 2.2 Level AA Criterion 1.4.1 (Use of Color).
+* **Date:** 2026-11-11
+* **Impact:** Prevents superficial aesthetic bias during user evaluation; maximizes testing focus on layout, hierarchy, and interaction mechanics.
+
+---
+
+### DEC-023: In-Memory Demonstration Data Engine with Togglable Empty States
+* **Status:** `[CONFIRMED]`
+* **Context:** Managing state transitions, data mutations, and empty-state evaluations without a persistent database.
+* **Decision:** Implement a centralized in-memory reactive state engine pre-seeded with 5 illustrative study circles, active memberships, and upcoming sessions. Equip the prototype with Screen 12 (Demo Data Engine) allowing 1-click state reset, initial seed restoration, and togglable empty-state views for Dashboard and My Circles.
+* **Date:** 2026-11-11
+* **Impact:** Enables deterministic, repeatable test sessions during usability studies with zero data leakage or session cross-contamination.
+
+---
+
+### DEC-024: Formative Evaluation Instrumentation Without Fabricated Results
+* **Status:** `[CONFIRMED]`
+* **Context:** Preparing evaluation instruments for formative usability testing.
+* **Decision:** Author comprehensive benchmark task scripts (Tasks 01–05), Think-Aloud facilitator guidelines, observation sheets, and SUS questionnaires in Module 05, while strictly prohibiting the fabrication of completed test scores, participant observations, or survey results. Empirical evaluation is reserved exclusively for Module 06.
+* **Date:** 2026-11-11
+* **Impact:** Preserves absolute scientific integrity; establishes clear lifecycle phase boundaries.
+
+---
+
 ## 3. Active Research Questions for Module 02
 
 1. **RQ-01:** What is the relative weight that learners place on schedule availability versus study style compatibility when deciding whether to join a peer group?

@@ -1,0 +1,3281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CohortCircle — Low-Fidelity Wireframe Prototype (Module 05)</title>
+  <style>
+    /* ==========================================================================
+       CohortCircle Low-Fidelity Wireframe System Stylesheet
+       Aesthetic: Deliberately low-fidelity grayscale wireframes for structural
+       and interaction testing. No color-only meaning. High contrast, WCAG AA.
+       ========================================================================== */
+    :root {
+      --bg: #f8f9fa;
+      --surface: #ffffff;
+      --surface-alt: #f1f3f5;
+      --surface-hover: #e9ecef;
+      --border-light: #dee2e6;
+      --border-mid: #adb5bd;
+      --border-dark: #343a40;
+      --text-main: #212529;
+      --text-muted: #6c757d;
+      --text-inverse: #ffffff;
+      --focus-ring: #000000;
+      --radius-sm: 3px;
+      --radius-md: 4px;
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      --container-max: 1140px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-stack);
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--text-main);
+      background-color: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Accessibility Skip Link */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 10px;
+      background: var(--border-dark);
+      color: var(--text-inverse);
+      padding: 8px 14px;
+      z-index: 1000;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+    }
+    .skip-link:focus {
+      top: 10px;
+      outline: 3px solid var(--focus-ring);
+    }
+
+    /* Interactive Element Focus Indicator */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    [tabindex="0"]:focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    /* Top Prototype Disclosure Banner */
+    .prototype-banner {
+      background: var(--border-dark);
+      color: var(--text-inverse);
+      font-size: 13px;
+      padding: 6px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 2px solid #000;
+    }
+    .prototype-banner strong {
+      letter-spacing: 0.5px;
+    }
+    .banner-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+    }
+    .role-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      background: #495057;
+      border: 1px solid #ced4da;
+      border-radius: var(--radius-sm);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    /* Application Shell Header */
+    .app-header {
+      background: var(--surface);
+      border-bottom: 2px solid var(--border-mid);
+      padding: 0 16px;
+    }
+    .header-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 60px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+    .brand-wire-mark {
+      width: 32px;
+      height: 32px;
+      border: 2px dashed var(--border-dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      background: var(--surface-alt);
+    }
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .brand-tagline {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Navigation Bar */
+    .main-nav ul {
+      display: flex;
+      list-style: none;
+      gap: 4px;
+    }
+    .main-nav a {
+      display: block;
+      padding: 10px 14px;
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      border-bottom: 3px solid transparent;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    }
+    .main-nav a:hover {
+      background: var(--surface-alt);
+    }
+    .main-nav a.active {
+      border-bottom-color: var(--border-dark);
+      background: var(--surface-alt);
+    }
+
+    /* Layout Containers */
+    .app-main {
+      max-width: var(--container-max);
+      margin: 24px auto;
+      padding: 0 16px;
+      min-height: 650px;
+    }
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-mid);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .page-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .page-description {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .breadcrumb {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      display: flex;
+      gap: 6px;
+    }
+    .breadcrumb a {
+      color: var(--text-muted);
+      text-decoration: underline;
+    }
+
+    /* Wireframe Components: Cards, Grids & Panels */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border-mid);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+    .card-wireframe-dashed {
+      border: 1px dashed var(--border-dark);
+      background: var(--surface-alt);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .grid-sidebar {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 24px;
+    }
+
+    /* Low-Fidelity UI Badges & Tags */
+    .badge {
+      display: inline-block;
+      padding: 2px 7px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid var(--border-dark);
+      background: var(--surface-alt);
+      border-radius: var(--radius-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .badge-inverse {
+      background: var(--border-dark);
+      color: var(--text-inverse);
+    }
+    .badge-dashed {
+      border-style: dashed;
+    }
+
+    /* Buttons & Interactive Controls */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      color: var(--text-main);
+      background: var(--surface);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.1s ease, border-color 0.1s ease;
+    }
+    .btn:hover {
+      background: var(--surface-hover);
+    }
+    .btn-primary {
+      background: var(--border-dark);
+      color: var(--text-inverse);
+      border-color: #000;
+    }
+    .btn-primary:hover {
+      background: #000;
+    }
+    .btn-sm {
+      padding: 4px 10px;
+      font-size: 12px;
+    }
+    .btn-secondary {
+      background: var(--surface-alt);
+      border-color: var(--border-mid);
+    }
+    .btn-danger {
+      background: #343a40;
+      color: #fff;
+      border-color: #000;
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      border-color: var(--border-mid);
+    }
+
+    /* Form Fields & Controls */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-label {
+      display: block;
+      font-weight: 600;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+    .form-label .req {
+      color: #000;
+      font-weight: bold;
+    }
+    .form-hint {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+    .form-error {
+      font-size: 12px;
+      color: #000;
+      font-weight: bold;
+      background: #f8d7da;
+      padding: 2px 6px;
+      margin-top: 4px;
+      display: none;
+      border: 1px solid #721c24;
+      border-radius: var(--radius-sm);
+    }
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 14px;
+      font-family: inherit;
+      border: 1px solid var(--border-mid);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+    }
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: var(--border-dark);
+    }
+    .form-textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    /* Availability Grid (7x3 Table) */
+    .availability-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 12px;
+    }
+    .availability-table th,
+    .availability-table td {
+      border: 1px solid var(--border-mid);
+      padding: 6px;
+      text-align: center;
+    }
+    .availability-table th {
+      background: var(--surface-alt);
+      font-weight: 600;
+    }
+    .avail-cell {
+      cursor: pointer;
+      user-select: none;
+      background: #fff;
+    }
+    .avail-cell:hover {
+      background: #e2e6ea;
+    }
+    .avail-cell.selected {
+      background: #343a40;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    /* Empty States */
+    .empty-state {
+      padding: 48px 24px;
+      text-align: center;
+      background: var(--surface);
+      border: 2px dashed var(--border-mid);
+      border-radius: var(--radius-md);
+      margin: 16px 0;
+    }
+    .empty-state-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+      display: inline-block;
+      width: 54px;
+      height: 54px;
+      line-height: 50px;
+      border: 2px dashed var(--border-dark);
+      border-radius: 50%;
+    }
+    .empty-state h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    .empty-state p {
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 16px;
+    }
+
+    /* Toast Notification Container */
+    #toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .toast {
+      background: #212529;
+      color: #fff;
+      border: 1px solid #000;
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+    .toast-icon {
+      font-family: var(--font-mono);
+      font-weight: bold;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Accessible Modal Backdrop & Dialog */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1500;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-backdrop.open {
+      display: flex;
+    }
+    .modal-box {
+      background: var(--surface);
+      border: 2px solid var(--border-dark);
+      border-radius: var(--radius-md);
+      max-width: 580px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      padding: 24px;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+    .modal-title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      border-top: 1px solid var(--border-light);
+      padding-top: 16px;
+      margin-top: 20px;
+    }
+
+    /* Segmented Controls for RSVP & Modality */
+    .segmented-control {
+      display: inline-flex;
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: var(--surface);
+    }
+    .segmented-control button {
+      border: none;
+      background: transparent;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border-right: 1px solid var(--border-mid);
+    }
+    .segmented-control button:last-child {
+      border-right: none;
+    }
+    .segmented-control button.selected {
+      background: var(--border-dark);
+      color: #fff;
+    }
+
+    /* Progress Indicators for Multi-Step Wizard */
+    .wizard-steps {
+      display: flex;
+      border: 1px solid var(--border-mid);
+      margin-bottom: 24px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .wizard-step-item {
+      flex: 1;
+      padding: 10px 8px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--surface-alt);
+      border-right: 1px solid var(--border-mid);
+      color: var(--text-muted);
+    }
+    .wizard-step-item:last-child {
+      border-right: none;
+    }
+    .wizard-step-item.active {
+      background: var(--border-dark);
+      color: var(--text-inverse);
+    }
+    .wizard-step-item.done {
+      background: #e9ecef;
+      color: var(--text-main);
+    }
+
+    /* Footer */
+    .app-footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border-mid);
+      padding: 24px 16px;
+      margin-top: 48px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .footer-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* Print Stylesheet for Low-Fidelity Wireframes */
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+      }
+      .prototype-banner,
+      .main-nav,
+      .app-footer,
+      .btn,
+      #toast-container {
+        display: none !important;
+      }
+      .app-main {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .card {
+        border: 1px solid #000 !important;
+        break-inside: avoid;
+        margin-bottom: 20px;
+      }
+      .view-section {
+        display: block !important;
+        page-break-after: always;
+      }
+    }
+
+    /* Mobile and Responsive Overrides */
+    @media (max-width: 860px) {
+      .grid-sidebar {
+        grid-template-columns: 1fr;
+      }
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 0;
+      }
+      .main-nav ul {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Skip Navigation for Accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Top Prototype Status & Disclosure Banner -->
+  <aside class="prototype-banner" role="complementary" aria-label="Prototype Disclosure">
+    <div>
+      <strong>COHORTCIRCLE WIREFRAME PROTOTYPE</strong> &bull; Module 05 Low-Fidelity Interactive Model &bull; Open-Source Architecture
+    </div>
+    <div class="banner-controls">
+      <span>Role: <span id="current-role-badge" class="role-badge">LEARNER</span></span>
+      <button id="toggle-role-btn" class="btn btn-sm btn-secondary" onclick="toggleActiveRole()" title="Switch between Learner and Host context">Switch to Host View</button>
+      <button class="btn btn-sm btn-secondary" onclick="navigateTo('screen-demo-data')" title="Manage demo state and sample data">Demo Data Engine</button>
+    </div>
+  </aside>
+
+  <!-- Application Shell Header -->
+  <header class="app-header" role="banner">
+    <div class="header-inner">
+      <a href="javascript:void(0)" onclick="navigateTo('screen-dashboard')" class="brand" title="CohortCircle Home">
+        <div class="brand-wire-mark">CC</div>
+        <div>
+          <div class="brand-title">CohortCircle</div>
+          <div class="brand-tagline">Find your people. Learn together.</div>
+        </div>
+      </a>
+
+      <!-- Primary Application Navigation (No Dead Links) -->
+      <nav class="main-nav" role="navigation" aria-label="Main Navigation">
+        <ul>
+          <li><a href="javascript:void(0)" id="nav-dashboard" class="active" onclick="navigateTo('screen-dashboard')">Dashboard</a></li>
+          <li><a href="javascript:void(0)" id="nav-explore" onclick="navigateTo('screen-explore')">Explore Circles</a></li>
+          <li><a href="javascript:void(0)" id="nav-my-circles" onclick="navigateTo('screen-my-circles')">My Circles</a></li>
+          <li><a href="javascript:void(0)" id="nav-host" onclick="navigateTo('screen-host')">Host Workspace</a></li>
+          <li><a href="javascript:void(0)" id="nav-profile" onclick="navigateTo('screen-profile')">My Profile</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main View Container -->
+  <main id="main-content" class="app-main" role="main">
+
+    <!-- ====================================================================
+         SCREEN 01: LEARNER DASHBOARD
+         ==================================================================== -->
+    <section id="screen-dashboard" class="view-section" aria-labelledby="heading-dashboard">
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">Home &gt; <strong>Dashboard</strong></div>
+          <h1 id="heading-dashboard" class="page-title">Learner Dashboard</h1>
+          <p class="page-description">Welcome back, <span id="dash-user-name">Alex Rivera</span>! Here is your peer learning summary.</p>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button class="btn btn-secondary btn-sm" onclick="toggleDashboardEmptyState()">Toggle Empty Dashboard</button>
+          <button class="btn btn-primary" onclick="navigateTo('screen-explore')">+ Find New Circles</button>
+        </div>
+      </div>
+
+      <!-- Dashboard Regular Content -->
+      <div id="dash-regular-content">
+        <!-- Profile Completion Card -->
+        <div class="card card-wireframe-dashed" style="margin-bottom: 20px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <strong>Profile Setup: 85% Complete</strong>
+              <div style="font-size: 13px; color: var(--text-muted); margin-top: 2px;">Your study preferences and weekly availability help calculate explainable compatibility scores.</div>
+            </div>
+            <button class="btn btn-sm btn-secondary" onclick="navigateTo('screen-profile')">Edit Profile &amp; Preferences</button>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Active Joined Circles -->
+          <div>
+            <div class="card-header">
+              <h2 class="card-title">Active Study Circles (<span id="dash-circle-count">2</span>)</h2>
+              <a href="javascript:void(0)" onclick="navigateTo('screen-my-circles')" style="font-size: 13px; color: var(--text-dark);">View All &rarr;</a>
+            </div>
+            <div id="dash-circles-list">
+              <!-- Dynamically Populated -->
+            </div>
+          </div>
+
+          <!-- Upcoming Study Sessions -->
+          <div>
+            <div class="card-header">
+              <h2 class="card-title">Upcoming Study Sessions (<span id="dash-session-count">2</span>)</h2>
+              <button class="btn btn-sm btn-secondary" onclick="openSchedulerModal()">+ Schedule Session</button>
+            </div>
+            <div id="dash-sessions-list">
+              <!-- Dynamically Populated -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Pending Join Applications -->
+        <div class="card" style="margin-top: 20px;">
+          <div class="card-header">
+            <h2 class="card-title">Pending Circle Applications (<span id="dash-pending-count">1</span>)</h2>
+            <span class="badge badge-dashed">Under Host Review</span>
+          </div>
+          <div id="dash-pending-list">
+            <!-- Dynamically Populated -->
+          </div>
+        </div>
+
+        <!-- Quick Actions Footer -->
+        <div class="card card-wireframe-dashed" style="margin-top: 20px; text-align: center; padding: 24px;">
+          <h3 style="font-size: 16px; margin-bottom: 8px;">Explore More Learning Opportunities</h3>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Search from dozens of active peer cohorts or initiate your own study circle as a facilitator.</p>
+          <div style="display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+            <button class="btn btn-primary" onclick="navigateTo('screen-explore')">Explore Directory</button>
+            <button class="btn btn-secondary" onclick="startCircleWizard()">Create New Circle</button>
+            <button class="btn btn-secondary" onclick="navigateTo('screen-profile')">Update Study Preferences</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Empty State (Toggled for Demonstration) -->
+      <div id="dash-empty-content" style="display: none;">
+        <div class="empty-state">
+          <div class="empty-state-icon">0</div>
+          <h3>You Haven't Joined Any Circles Yet</h3>
+          <p>CohortCircle connects you with peer learners studying similar subjects. Explore active circles or configure your preferences to get matched.</p>
+          <div style="display: flex; gap: 10px; justify-content: center;">
+            <button class="btn btn-primary" onclick="navigateTo('screen-explore')">Explore Study Circles</button>
+            <button class="btn btn-secondary" onclick="navigateTo('screen-profile')">Setup Your Preferences</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 02: LEARNER PROFILE & STUDY PREFERENCES
+         ==================================================================== -->
+    <section id="screen-profile" class="view-section" style="display: none;" aria-labelledby="heading-profile">
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb"><a href="javascript:void(0)" onclick="navigateTo('screen-dashboard')">Dashboard</a> &gt; <strong>Profile &amp; Preferences</strong></div>
+          <h1 id="heading-profile" class="page-title">Learner Profile &amp; Preferences</h1>
+          <p class="page-description">Configure your learning profile, study habits, and weekly availability for rule-based matching.</p>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-secondary" onclick="discardProfileChanges()">Discard</button>
+          <button class="btn btn-primary" onclick="saveLearnerProfile()">Save Profile</button>
+        </div>
+      </div>
+
+      <div class="grid-sidebar">
+        <!-- Left: Basic Profile & Modality -->
+        <div>
+          <div class="card">
+            <h2 class="card-title" style="margin-bottom: 16px;">Personal Information</h2>
+
+            <div class="form-group">
+              <label for="prof-name" class="form-label">Full Name <span class="req">*</span></label>
+              <input type="text" id="prof-name" class="form-input" value="Alex Rivera" placeholder="Your display name">
+              <div id="prof-name-error" class="form-error">Name is required.</div>
+            </div>
+
+            <div class="form-group">
+              <label for="prof-bio" class="form-label">Bio &amp; Learning Goals</label>
+              <textarea id="prof-bio" class="form-textarea" placeholder="Describe your study objectives, technical background, and what you hope to achieve.">Junior studying Computer Science and Systems. Interested in distributed systems, dynamic programming, and collaborative problem-solving.</textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="prof-language" class="form-label">Primary Study Language</label>
+              <select id="prof-language" class="form-select">
+                <option value="English" selected>English</option>
+                <option value="Urdu">Urdu</option>
+                <option value="Bilingual">Bilingual (English / Urdu)</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="prof-modality" class="form-label">Preferred Modality</label>
+              <select id="prof-modality" class="form-select">
+                <option value="Hybrid" selected>Hybrid (Online + Physical)</option>
+                <option value="Online">Online Only (Virtual Calls)</option>
+                <option value="In-Person">In-Person Only (Campus / Library)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="prof-max-group" class="form-label">Preferred Group Size (2 to 8)</label>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <input type="range" id="prof-max-group" min="2" max="8" value="6" style="flex:1;" oninput="document.getElementById('prof-group-val').innerText = this.value">
+                <span id="prof-group-val" style="font-weight: 700; min-width: 24px; text-align: center;">6</span>
+              </div>
+              <div class="form-hint">Rule-based matches prioritize cohorts matching your size preference.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Topics, Study Styles, and Availability Grid -->
+        <div>
+          <!-- Study Styles & Topics -->
+          <div class="card">
+            <h2 class="card-title" style="margin-bottom: 12px;">Study Styles &amp; Topics</h2>
+            <div class="form-group">
+              <label class="form-label">Primary Subjects / Topics of Interest <span class="req">*</span></label>
+              <div class="form-hint" style="margin-bottom: 8px;">Select topics you are actively studying:</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;" id="profile-topics-container">
+                <label><input type="checkbox" name="prof-topic" value="Algorithms" checked> Algorithms &amp; DS</label>
+                <label><input type="checkbox" name="prof-topic" value="Discrete Math" checked> Discrete Mathematics</label>
+                <label><input type="checkbox" name="prof-topic" value="Systems Programming" checked> Web &amp; Distributed Systems</label>
+                <label><input type="checkbox" name="prof-topic" value="AI & ML"> AI &amp; Machine Learning</label>
+                <label><input type="checkbox" name="prof-topic" value="Ethics in Tech"> Ethics in Computing</label>
+                <label><input type="checkbox" name="prof-topic" value="Computer Networks"> Computer Networks</label>
+              </div>
+              <div id="prof-topic-error" class="form-error">Please select at least one study topic.</div>
+            </div>
+
+            <div class="form-group" style="margin-top: 16px;">
+              <label class="form-label">Dominant Study Style Preferences</label>
+              <div class="form-hint" style="margin-bottom: 8px;">Used for compatibility scoring with circle charters:</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;" id="profile-styles-container">
+                <label><input type="checkbox" name="prof-style" value="Problem-Solving" checked> Problem-Solving (Hands-on)</label>
+                <label><input type="checkbox" name="prof-style" value="Discussion-Heavy" checked> Discussion-Heavy (Socratic)</label>
+                <label><input type="checkbox" name="prof-style" value="Silent Co-Working"> Silent Co-Working (Pomodoro)</label>
+                <label><input type="checkbox" name="prof-style" value="Visual Breakdown"> Visual / Concept Mapping</label>
+                <label><input type="checkbox" name="prof-style" value="Exam Drills"> Exam / Timed Drills</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Weekly Availability Grid (7 Days x 3 Periods) -->
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Weekly Availability Matrix (7 &times; 3 Grid)</h2>
+              <button class="btn btn-sm btn-secondary" onclick="toggleAllAvailability(true)">Select Evenings</button>
+            </div>
+            <div class="form-hint" style="margin-bottom: 10px;">Click cells to toggle your availability. Dark cells represent times you are open for study sessions:</div>
+
+            <table class="availability-table" aria-label="Weekly Availability Matrix">
+              <thead>
+                <tr>
+                  <th>Period</th>
+                  <th>Mon</th>
+                  <th>Tue</th>
+                  <th>Wed</th>
+                  <th>Thu</th>
+                  <th>Fri</th>
+                  <th>Sat</th>
+                  <th>Sun</th>
+                </tr>
+              </thead>
+              <tbody id="availability-grid-body">
+                <!-- Dynamically Rendered 3 rows (Morning, Afternoon, Evening) -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 03: EXPLORE CIRCLES
+         ==================================================================== -->
+    <section id="screen-explore" class="view-section" style="display: none;" aria-labelledby="heading-explore">
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb"><a href="javascript:void(0)" onclick="navigateTo('screen-dashboard')">Dashboard</a> &gt; <strong>Explore Circles</strong></div>
+          <h1 id="heading-explore" class="page-title">Explore Study Circles</h1>
+          <p class="page-description">Discover peer learning cohorts matched by subject, schedule, modality, and study habits.</p>
+        </div>
+        <button class="btn btn-primary" onclick="startCircleWizard()">+ Host a New Circle</button>
+      </div>
+
+      <div class="grid-sidebar">
+        <!-- Sidebar Filters -->
+        <div>
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title" style="font-size: 15px;">Search &amp; Filters</h2>
+              <button class="btn btn-sm btn-secondary" onclick="resetExploreFilters()">Reset</button>
+            </div>
+
+            <!-- Real-time Text Search (< 100ms) -->
+            <div class="form-group">
+              <label for="filter-search" class="form-label">Search Keywords</label>
+              <input type="text" id="filter-search" class="form-input" placeholder="Title, topic, or keyword..." oninput="handleSearchInput()">
+            </div>
+
+            <!-- Subject Filter -->
+            <div class="form-group">
+              <label for="filter-subject" class="form-label">Subject Domain</label>
+              <select id="filter-subject" class="form-select" onchange="applyExploreFilters()">
+                <option value="All">All Subjects</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Artificial Intelligence">Artificial Intelligence</option>
+                <option value="General">General / Productivity</option>
+              </select>
+            </div>
+
+            <!-- Study Style Filter -->
+            <div class="form-group">
+              <label for="filter-style" class="form-label">Study Style</label>
+              <select id="filter-style" class="form-select" onchange="applyExploreFilters()">
+                <option value="All">All Study Styles</option>
+                <option value="Problem-Solving">Problem-Solving</option>
+                <option value="Discussion-Heavy">Discussion-Heavy</option>
+                <option value="Silent Co-Working">Silent Co-Working</option>
+              </select>
+            </div>
+
+            <!-- Modality Filter -->
+            <div class="form-group">
+              <label for="filter-modality" class="form-label">Modality</label>
+              <select id="filter-modality" class="form-select" onchange="applyExploreFilters()">
+                <option value="All">All Formats</option>
+                <option value="Online">Online</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="In-Person">In-Person</option>
+              </select>
+            </div>
+
+            <!-- Availability Filter -->
+            <div class="form-group">
+              <label for="filter-policy" class="form-label">Joining Policy</label>
+              <select id="filter-policy" class="form-select" onchange="applyExploreFilters()">
+                <option value="All">All Policies</option>
+                <option value="Open">Open (Direct Join)</option>
+                <option value="Moderated">Moderated (Application)</option>
+              </select>
+            </div>
+
+            <!-- Capacity Filter -->
+            <div class="form-group">
+              <label class="form-label"><input type="checkbox" id="filter-has-seats" onchange="applyExploreFilters()"> Has Open Seats Only</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Directory Listing -->
+        <div>
+          <!-- Directory Controls & Sorting Bar -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; background: var(--surface); padding: 10px 14px; border: 1px solid var(--border-mid); border-radius: var(--radius-sm);">
+            <div>
+              <strong id="explore-results-count">Showing 5 of 5 circles</strong>
+              <span style="font-size: 12px; color: var(--text-muted); margin-left: 8px;">(Ranked by explainable compatibility)</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <label for="sort-select" style="font-size: 13px; font-weight: 600;">Sort By:</label>
+              <select id="sort-select" class="form-select" style="width: auto; padding: 4px 8px; font-size: 13px;" onchange="applyExploreFilters()">
+                <option value="compatibility">Compatibility (High to Low)</option>
+                <option value="title">Title (A - Z)</option>
+                <option value="members">Member Count</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Cards Grid -->
+          <div id="explore-cards-container">
+            <!-- Dynamically Populated -->
+          </div>
+
+          <!-- Zero-Results Empty State -->
+          <div id="explore-empty-state" class="empty-state" style="display: none;">
+            <div class="empty-state-icon">?</div>
+            <h3>No Matching Study Circles Found</h3>
+            <p>No active study circles match your current combination of keyword, subject, style, and modality filters.</p>
+            <button class="btn btn-secondary" onclick="resetExploreFilters()">Clear All Filters</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 04: CIRCLE DETAILS
+         ==================================================================== -->
+    <section id="screen-circle-details" class="view-section" style="display: none;" aria-labelledby="heading-circle-details">
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <a href="javascript:void(0)" onclick="navigateTo('screen-explore')">Explore</a> &gt; <strong id="cd-breadcrumb-title">Circle Details</strong>
+          </div>
+          <h1 id="heading-circle-details" class="page-title"><span id="cd-title">Algorithms Problem Solvers</span></h1>
+          <p class="page-description" id="cd-tagline">Computer Science &bull; Problem-Solving &bull; Online</p>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <button class="btn btn-secondary" onclick="navigateTo('screen-explore')">&larr; Back to Directory</button>
+          <div id="cd-action-button-container">
+            <!-- Dynamically populated: Join Circle, Request to Join, or Already Member -->
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-sidebar">
+        <!-- Main Details (Left/Center) -->
+        <div>
+          <!-- Charter & Objectives -->
+          <div class="card">
+            <h2 class="card-title" style="margin-bottom: 8px;">Circle Charter &amp; Overview</h2>
+            <p id="cd-description" style="color: var(--text-main); margin-bottom: 16px; line-height: 1.6;">
+              Rigorous focus on algorithmic paradigms, LeetCode medium/hard patterns, and whiteboard problem breakdowns. Members rotate preparing problems.
+            </p>
+
+            <h3 style="font-size: 14px; margin-bottom: 6px; font-weight: 700;">Core Learning Objectives:</h3>
+            <ul id="cd-objectives" style="padding-left: 20px; margin-bottom: 16px; font-size: 14px; line-height: 1.6;">
+              <li>Master graph algorithms and dynamic programming paradigms</li>
+              <li>Practice mock technical interview problem breakdown and verbalization</li>
+            </ul>
+
+            <h3 style="font-size: 14px; margin-bottom: 6px; font-weight: 700;">Code of Conduct &amp; Ground Rules:</h3>
+            <ul id="cd-rules" style="padding-left: 20px; font-size: 14px; line-height: 1.6; color: var(--text-secondary);">
+              <li>Come prepared having attempted the assigned problem set</li>
+              <li>Active participation during whiteboard breakdown sessions</li>
+              <li>Respectful, constructive peer critique</li>
+            </ul>
+          </div>
+
+          <!-- Upcoming Study Sessions for this Circle -->
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Scheduled Sessions</h2>
+              <button class="btn btn-sm btn-secondary" id="cd-add-session-btn" onclick="openSchedulerModalForCurrentCircle()">+ Propose Session</button>
+            </div>
+            <div id="cd-sessions-container">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar: Logistics, Host Info & Explainable Compatibility -->
+        <div>
+          <!-- Compatibility Explanation Card -->
+          <div class="card card-wireframe-dashed" style="border-width: 2px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <span class="badge badge-inverse">Compatibility Match</span>
+              <strong id="cd-compat-score" style="font-size: 20px;">94%</strong>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+              Estimated compatibility calculated transparently using your study habits, subject overlap, and schedule:
+            </p>
+            <div style="font-size: 13px; line-height: 1.6; margin-bottom: 12px;">
+              <div>&bull; Subject Alignment: <strong>100%</strong></div>
+              <div>&bull; Study Style Match: <strong>95%</strong> (Problem-Solving)</div>
+              <div>&bull; Schedule Overlap: <strong>90%</strong> (Weekday Evenings)</div>
+              <div>&bull; Modality Preference: <strong>100%</strong> (Online)</div>
+            </div>
+            <button class="btn btn-sm btn-secondary" style="width: 100%;" onclick="openCompatibilityBreakdownModal()">Inspect Factor Breakdown &rarr;</button>
+          </div>
+
+          <!-- Circle Logistics Card -->
+          <div class="card">
+            <h2 class="card-title" style="margin-bottom: 12px;">Cohort Logistics</h2>
+            <div style="font-size: 13px; line-height: 1.8;">
+              <div><strong>Meeting Schedule:</strong> <span id="cd-schedule">Tue, Thu 6:00 PM - 7:30 PM</span></div>
+              <div><strong>Modality:</strong> <span id="cd-modality">Online</span></div>
+              <div><strong>Facilitator:</strong> <span id="cd-host">Alex Rivera</span> <span class="badge">Host</span></div>
+              <div><strong>Capacity:</strong> <span id="cd-seats">4 of 6 seats filled</span></div>
+              <div><strong>Policy:</strong> <span id="cd-policy">Moderated</span></div>
+            </div>
+          </div>
+
+          <!-- Active Members List -->
+          <div class="card">
+            <h2 class="card-title" style="margin-bottom: 10px;">Cohort Members (<span id="cd-member-count">4</span>)</h2>
+            <ul id="cd-member-list" style="list-style: none; font-size: 13px;">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 05: MY CIRCLES
+         ==================================================================== -->
+    <section id="screen-my-circles" class="view-section" style="display: none;" aria-labelledby="heading-my-circles">
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb"><a href="javascript:void(0)" onclick="navigateTo('screen-dashboard')">Dashboard</a> &gt; <strong>My Circles</strong></div>
+          <h1 id="heading-my-circles" class="page-title">My Study Circles</h1>
+          <p class="page-description">Circles you have joined or are actively facilitating.</p>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-secondary btn-sm" onclick="toggleMyCirclesEmptyState()">Toggle Empty View</button>
+          <button class="btn btn-primary" onclick="navigateTo('screen-explore')">+ Discover Circles</button>
+        </div>
+      </div>
+
+      <!-- My Circles Regular Content -->
+      <div id="my-circles-regular-content">
+        <div id="my-circles-container">
+          <!-- Dynamically populated joined circles -->
+        </div>
+      </div>
+
+      <!-- My Circles Empty State -->
+      <div id="my-circles-empty-content" style="display: none;">
+        <div class="empty-state">
+          <div class="empty-state-icon">0</div>
+          <h3>You Are Not Enrolled in Any Circles</h3>
+          <p>Join an active learning circle to participate in scheduled group study sessions and collaborate with peers.</p>
+          <button class="btn btn-primary" onclick="navigateTo('screen-explore')">Explore Active Circles</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 07: HOST DASHBOARD / WORKSPACE
+         ==================================================================== -->
+    <section id="screen-host" class="view-section" style="display: none;" aria-labelledby="heading-host">
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb"><a href="javascript:void(0)" onclick="navigateTo('screen-dashboard')">Dashboard</a> &gt; <strong>Host Workspace</strong></div>
+          <h1 id="heading-host" class="page-title">Facilitator &amp; Host Workspace</h1>
+          <p class="page-description">Manage study circles you host, review join requests, and coordinate study sessions.</p>
+        </div>
+        <button class="btn btn-primary" onclick="startCircleWizard()">+ Create New Study Circle</button>
+      </div>
+
+      <!-- Facilitator Stats Overview -->
+      <div class="grid-3" style="margin-bottom: 24px;">
+        <div class="card card-wireframe-dashed">
+          <div style="font-size: 12px; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Hosted Circles</div>
+          <div id="host-stat-circles" style="font-size: 28px; font-weight: 700; margin-top: 4px;">1</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Active learning groups</div>
+        </div>
+
+        <div class="card card-wireframe-dashed">
+          <div style="font-size: 12px; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Pending Applications</div>
+          <div id="host-stat-pending" style="font-size: 28px; font-weight: 700; margin-top: 4px;">1</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Applicants awaiting decision</div>
+        </div>
+
+        <div class="card card-wireframe-dashed">
+          <div style="font-size: 12px; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Upcoming Hosted Sessions</div>
+          <div id="host-stat-sessions" style="font-size: 28px; font-weight: 700; margin-top: 4px;">1</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Scheduled in next 7 days</div>
+        </div>
+      </div>
+
+      <!-- Hosted Circles List -->
+      <div class="card-header">
+        <h2 class="card-title">Study Circles Under Your Management</h2>
+      </div>
+      <div id="hosted-circles-container">
+        <!-- Dynamically Populated with Host Controls -->
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 08: CIRCLE CREATION WIZARD (4 PROGRESSIVE STEPS)
+         ==================================================================== -->
+    <section id="screen-circle-wizard" class="view-section" style="display: none;" aria-labelledby="heading-wizard">
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb"><a href="javascript:void(0)" onclick="navigateTo('screen-host')">Host Workspace</a> &gt; <strong>Create Circle</strong></div>
+          <h1 id="heading-wizard" class="page-title">Create a Study Circle</h1>
+          <p class="page-description">Step-by-step wizard to define your learning cohort charter, schedule, and joining rules.</p>
+        </div>
+        <button class="btn btn-secondary" onclick="navigateTo('screen-host')">Cancel</button>
+      </div>
+
+      <!-- 4-Step Progress Indicator -->
+      <div class="wizard-steps" role="navigation" aria-label="Wizard Steps">
+        <div id="step-tab-1" class="wizard-step-item active">1. Basics &amp; Subject</div>
+        <div id="step-tab-2" class="wizard-step-item">2. Charter &amp; Style</div>
+        <div id="step-tab-3" class="wizard-step-item">3. Logistics &amp; Schedule</div>
+        <div id="step-tab-4" class="wizard-step-item">4. Capacity &amp; Review</div>
+      </div>
+
+      <div class="card" style="max-width: 800px; margin: 0 auto;">
+        <!-- STEP 1: BASICS -->
+        <div id="wizard-step-1" class="wizard-panel">
+          <h2 style="font-size: 18px; margin-bottom: 16px;">Step 1: Circle Basics &amp; Subject Focus</h2>
+
+          <div class="form-group">
+            <label for="wiz-title" class="form-label">Circle Name / Title <span class="req">*</span></label>
+            <input type="text" id="wiz-title" class="form-input" placeholder="e.g. Distributed Database Architecture Reading Group">
+            <div id="wiz-title-error" class="form-error">Circle title is required (min 5 characters).</div>
+          </div>
+
+          <div class="form-group">
+            <label for="wiz-subject" class="form-label">Subject Domain <span class="req">*</span></label>
+            <select id="wiz-subject" class="form-select">
+              <option value="">-- Select Subject Domain --</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Mathematics">Mathematics</option>
+              <option value="Artificial Intelligence">Artificial Intelligence</option>
+              <option value="General">General / Productivity</option>
+            </select>
+            <div id="wiz-subject-error" class="form-error">Please select a subject domain.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="wiz-description" class="form-label">Summary Overview <span class="req">*</span></label>
+            <textarea id="wiz-description" class="form-textarea" placeholder="Briefly describe what this circle is about, the target topics, and the preparation required."></textarea>
+            <div id="wiz-desc-error" class="form-error">Please enter an overview description (min 20 characters).</div>
+          </div>
+        </div>
+
+        <!-- STEP 2: CHARTER & STUDY STYLE -->
+        <div id="wizard-step-2" class="wizard-panel" style="display: none;">
+          <h2 style="font-size: 18px; margin-bottom: 16px;">Step 2: Learning Charter &amp; Study Style</h2>
+
+          <div class="form-group">
+            <label for="wiz-objectives" class="form-label">Primary Learning Objectives (one per line) <span class="req">*</span></label>
+            <textarea id="wiz-objectives" class="form-textarea" placeholder="Master Raft consensus protocol&#10;Implement a toy key-value store&#10;Analyze latency trade-offs"></textarea>
+            <div id="wiz-obj-error" class="form-error">Please provide at least one learning objective.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="wiz-style" class="form-label">Primary Study Style <span class="req">*</span></label>
+            <select id="wiz-style" class="form-select">
+              <option value="Problem-Solving">Problem-Solving (Hands-on problem breakdown)</option>
+              <option value="Discussion-Heavy">Discussion-Heavy (Socratic paper review)</option>
+              <option value="Silent Co-Working">Silent Co-Working (Pomodoro accountability)</option>
+            </select>
+            <div class="form-hint">Used for compatibility matching against learner profiles.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="wiz-rules" class="form-label">Circle Code of Conduct &amp; Expectations</label>
+            <textarea id="wiz-rules" class="form-textarea" placeholder="Read the chapter before every Sunday session; contribute code on GitHub; give constructive peer feedback.">Read assigned materials before the weekly meeting. Active collaboration and respectful communication.</textarea>
+          </div>
+        </div>
+
+        <!-- STEP 3: LOGISTICS & SCHEDULE -->
+        <div id="wizard-step-3" class="wizard-panel" style="display: none;">
+          <h2 style="font-size: 18px; margin-bottom: 16px;">Step 3: Meeting Logistics &amp; Schedule</h2>
+
+          <div class="form-group">
+            <label for="wiz-modality" class="form-label">Meeting Modality <span class="req">*</span></label>
+            <select id="wiz-modality" class="form-select">
+              <option value="Online">Online Only (Virtual call via Jitsi/Meet)</option>
+              <option value="Hybrid">Hybrid (Flexible virtual &amp; physical)</option>
+              <option value="In-Person">In-Person Only</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="wiz-schedule" class="form-label">Recurring Meeting Time <span class="req">*</span></label>
+            <input type="text" id="wiz-schedule" class="form-input" placeholder="e.g. Sundays 4:00 PM - 5:30 PM">
+            <div id="wiz-sched-error" class="form-error">Meeting schedule description is required.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="wiz-location" class="form-label">Location / Meeting URL</label>
+            <input type="text" id="wiz-location" class="form-input" placeholder="e.g. meet.jit.si/cohort-ds or Library Room 3B">
+          </div>
+        </div>
+
+        <!-- STEP 4: CAPACITY, POLICY & REVIEW -->
+        <div id="wizard-step-4" class="wizard-panel" style="display: none;">
+          <h2 style="font-size: 18px; margin-bottom: 16px;">Step 4: Cohort Capacity &amp; Joining Policy</h2>
+
+          <div class="form-group">
+            <label for="wiz-capacity" class="form-label">Cohort Capacity Limit (2 to 8 learners) <span class="req">*</span></label>
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <input type="range" id="wiz-capacity" min="2" max="8" value="6" style="flex:1;" oninput="document.getElementById('wiz-cap-val').innerText = this.value">
+              <span id="wiz-cap-val" style="font-weight: 700; font-size: 18px; min-width: 30px;">6</span>
+            </div>
+            <div class="form-hint">Research indicates small cohorts (2–8) optimize active peer accountability.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Membership Policy <span class="req">*</span></label>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
+              <label>
+                <input type="radio" name="wiz-policy" value="Moderated" checked>
+                <strong>Moderated:</strong> Learners submit an introductory note; host approves or declines.
+              </label>
+              <label>
+                <input type="radio" name="wiz-policy" value="Open">
+                <strong>Open:</strong> Any compatible learner may join directly while seats remain.
+              </label>
+            </div>
+          </div>
+
+          <!-- Summary Review Box -->
+          <div class="card card-wireframe-dashed" style="margin-top: 20px;">
+            <h3 style="font-size: 15px; margin-bottom: 8px;">Review Circle Configuration:</h3>
+            <div id="wiz-review-summary" style="font-size: 13px; line-height: 1.6;">
+              <!-- Dynamically populated before submit -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Wizard Navigation Footer -->
+        <div style="display: flex; justify-content: space-between; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-light);">
+          <button id="wiz-prev-btn" class="btn btn-secondary" onclick="prevWizardStep()" disabled>&larr; Previous</button>
+          <button id="wiz-next-btn" class="btn btn-primary" onclick="nextWizardStep()">Next &rarr;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 09: CIRCLE MANAGEMENT CONSOLE (HOST ONLY)
+         ==================================================================== -->
+    <section id="screen-circle-management" class="view-section" style="display: none;" aria-labelledby="heading-mgmt">
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <a href="javascript:void(0)" onclick="navigateTo('screen-host')">Host Workspace</a> &gt; <strong id="mgmt-breadcrumb-title">Management</strong>
+          </div>
+          <h1 id="heading-mgmt" class="page-title">Manage Study Circle: <span id="mgmt-circle-title">Algorithms Problem Solvers</span></h1>
+          <p class="page-description">Review applicant requests, manage roster, update settings, and schedule sessions.</p>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-secondary" onclick="navigateTo('screen-host')">&larr; Back to Host Workspace</button>
+          <button class="btn btn-primary" onclick="openSchedulerModalForCurrentCircle()">+ Schedule Session</button>
+        </div>
+      </div>
+
+      <div class="grid-sidebar">
+        <!-- Main: Join Requests & Member Roster -->
+        <div>
+          <!-- Pending Join Requests Queue -->
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Pending Membership Applications (<span id="mgmt-pending-count">1</span>)</h2>
+              <span class="badge badge-inverse">Review Queue</span>
+            </div>
+            <div id="mgmt-requests-container">
+              <!-- Dynamically populated applicant cards -->
+            </div>
+          </div>
+
+          <!-- Active Member Roster -->
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Current Member Roster (<span id="mgmt-member-count">4</span> / <span id="mgmt-capacity">6</span>)</h2>
+              <span id="mgmt-roster-status" class="badge">2 Seats Remaining</span>
+            </div>
+            <div id="mgmt-roster-container">
+              <!-- Dynamically populated roster list with Remove actions -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar: Circle Settings & Summary -->
+        <div>
+          <div class="card">
+            <h2 class="card-title" style="margin-bottom: 12px;">Circle Properties</h2>
+            <div style="font-size: 13px; line-height: 1.8;">
+              <div><strong>Domain:</strong> <span id="mgmt-subject">Computer Science</span></div>
+              <div><strong>Study Style:</strong> <span id="mgmt-style">Problem-Solving</span></div>
+              <div><strong>Modality:</strong> <span id="mgmt-modality">Online</span></div>
+              <div><strong>Schedule:</strong> <span id="mgmt-schedule">Tue, Thu 6:00 PM - 7:30 PM</span></div>
+              <div><strong>Policy:</strong> <span id="mgmt-policy">Moderated</span></div>
+            </div>
+            <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-light);">
+              <button class="btn btn-sm btn-secondary" style="width: 100%;" onclick="showToast('Circle settings modification prototype placeholder.')">Edit Settings</button>
+            </div>
+          </div>
+
+          <div class="card card-wireframe-dashed">
+            <h3 style="font-size: 14px; margin-bottom: 8px;">Host Responsibilities:</h3>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+              As facilitator, you review applications against the circle's charter, schedule meetings, and foster an inclusive, structured learning environment.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 11: SESSION DETAILS & RSVP
+         ==================================================================== -->
+    <section id="screen-session-details" class="view-section" style="display: none;" aria-labelledby="heading-session-details">
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <a href="javascript:void(0)" onclick="navigateTo('screen-dashboard')">Dashboard</a> &gt; <strong>Session Details</strong>
+          </div>
+          <h1 id="heading-session-details" class="page-title"><span id="sd-title">Dynamic Programming: Knapsack &amp; Matrix Chain</span></h1>
+          <p class="page-description">Hosted by <span id="sd-circle-name">Algorithms Problem Solvers</span></p>
+        </div>
+        <button class="btn btn-secondary" onclick="navigateTo('screen-dashboard')">&larr; Back to Dashboard</button>
+      </div>
+
+      <div class="grid-sidebar">
+        <!-- Main: Agenda & Details -->
+        <div>
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Session Agenda &amp; Checkpoints</h2>
+              <span class="badge" id="sd-status-badge">Confirmed</span>
+            </div>
+            <div id="sd-agenda" style="white-space: pre-line; line-height: 1.7; font-size: 14px; color: var(--text-main);">
+              <!-- Dynamically populated agenda -->
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="card-title" style="margin-bottom: 12px;">Participant Preparation Notes</h2>
+            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">
+              Please review the 0/1 Knapsack recursive memoization formulation and bring your questions to the whiteboard segment.
+            </p>
+          </div>
+        </div>
+
+        <!-- Sidebar: Logistics & RSVP Controls -->
+        <div>
+          <!-- Interactive RSVP Card -->
+          <div class="card card-wireframe-dashed">
+            <h2 class="card-title" style="margin-bottom: 10px;">Your RSVP Attendance</h2>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+              Update your attendance status to help peer members prepare:
+            </p>
+
+            <div class="segmented-control" style="width: 100%; display: flex; margin-bottom: 12px;">
+              <button id="rsvp-btn-attending" style="flex:1;" onclick="updateSessionRSVP('attending')">Attending</button>
+              <button id="rsvp-btn-tentative" style="flex:1;" onclick="updateSessionRSVP('tentative')">Tentative</button>
+              <button id="rsvp-btn-declined" style="flex:1;" onclick="updateSessionRSVP('declined')">Decline</button>
+            </div>
+
+            <div style="font-size: 13px;">
+              Current Status: <strong id="sd-current-rsvp-text">Attending</strong>
+            </div>
+          </div>
+
+          <!-- Session Logistics -->
+          <div class="card">
+            <h2 class="card-title" style="margin-bottom: 10px;">Date &amp; Location</h2>
+            <div style="font-size: 13px; line-height: 1.8;">
+              <div><strong>Date:</strong> <span id="sd-date">Tuesday, Nov 17, 2026</span></div>
+              <div><strong>Time:</strong> <span id="sd-time">6:00 PM (90 mins)</span></div>
+              <div><strong>Location:</strong> <span id="sd-venue">meet.jit.si/cohort-dp</span></div>
+            </div>
+          </div>
+
+          <!-- Attendee Roster -->
+          <div class="card">
+            <h2 class="card-title" style="margin-bottom: 10px;">Responses (<span id="sd-attendee-count">4</span>)</h2>
+            <div id="sd-attendee-list" style="font-size: 13px; line-height: 1.6;">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 12: LOCAL DEMO DATA UTILITY
+         ==================================================================== -->
+    <section id="screen-demo-data" class="view-section" style="display: none;" aria-labelledby="heading-demo-data">
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb"><a href="javascript:void(0)" onclick="navigateTo('screen-dashboard')">Dashboard</a> &gt; <strong>Demo Data Engine</strong></div>
+          <h1 id="heading-demo-data" class="page-title">Prototype Demonstration Data Engine</h1>
+          <p class="page-description">Inspect, reset, and configure in-memory test states for usability evaluation.</p>
+        </div>
+        <button class="btn btn-secondary" onclick="navigateTo('screen-dashboard')">&larr; Return to Dashboard</button>
+      </div>
+
+      <div class="card card-wireframe-dashed" style="margin-bottom: 20px;">
+        <h2 class="card-title" style="margin-bottom: 8px;">Prototype Architecture &amp; Data Disclosure</h2>
+        <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">
+          This low-fidelity wireframe prototype operates <strong>entirely in-memory</strong> inside your local browser session. No database or external server is connected. All sample circles, simulated learner profiles, compatibility scores, and study sessions are provided for UX structure and interaction evaluation.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h2 class="card-title" style="margin-bottom: 12px;">Restore Illustrative State</h2>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+            Re-seeds the in-memory store with 5 realistic sample study circles across Computer Science, Mathematics, AI, and Productivity, along with active memberships and upcoming sessions.
+          </p>
+          <button class="btn btn-primary" onclick="resetToInitialSeedData()">Restore Illustrative Demonstration Data</button>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title" style="margin-bottom: 12px;">Clear In-Memory State</h2>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+            Clears all joined circles, scheduled sessions, and pending applications to allow direct testing of zero-state empty screens across Dashboard and My Circles.
+          </p>
+          <button class="btn btn-danger" onclick="openResetConfirmationModal()">Clear All Data (Test Empty States)</button>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 20px;">
+        <h2 class="card-title" style="margin-bottom: 12px;">In-Memory State Summary</h2>
+        <div style="font-size: 13px; line-height: 1.8;">
+          <div>&bull; Total Circles in Directory: <strong id="debug-circle-count">5</strong></div>
+          <div>&bull; User Joined Circles: <strong id="debug-joined-count">2</strong></div>
+          <div>&bull; Scheduled Sessions: <strong id="debug-session-count">2</strong></div>
+          <div>&bull; Active Role: <strong id="debug-role">Learner</strong></div>
+          <div>&bull; Profile Configured: <strong>Yes (Alex Rivera)</strong></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====================================================================
+       ACCESSIBLE MODALS (SCREEN 06, SCREEN 10 & CONFIRMATIONS)
+       ==================================================================== -->
+
+  <!-- SCREEN 06: JOIN REQUEST MODAL -->
+  <div id="modal-join-request" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-join-title">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="modal-join-title" class="modal-title">Request to Join Circle</h2>
+        <button class="btn btn-sm btn-secondary" onclick="closeModal('modal-join-request')" aria-label="Close dialog">&times;</button>
+      </div>
+      <div>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+          Circle: <strong id="join-modal-circle-name">Web Systems &amp; Distributed APIs</strong> &bull; Facilitator: <span id="join-modal-host">Devon Lee</span>
+        </p>
+        <div class="badge badge-inverse" style="margin-bottom: 16px;">Moderated Membership Policy</div>
+
+        <div class="form-group">
+          <label for="join-note-input" class="form-label">Introductory Note to Facilitator <span class="req">*</span></label>
+          <div class="form-hint" style="margin-bottom: 6px;">Share your learning goals, background in this subject, and your commitment to the weekly schedule:</div>
+          <textarea id="join-note-input" class="form-textarea" placeholder="Hello! I am actively studying distributed architectures and would like to collaborate on the weekly papers and API demos..." oninput="updateJoinNoteCharCount()"></textarea>
+          <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-top: 4px;">
+            <span id="join-char-count">0 / 500 characters</span>
+            <span>Min 15 characters</span>
+          </div>
+          <div id="join-note-error" class="form-error">Please write a brief note (at least 15 characters).</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-join-request')">Cancel</button>
+        <button class="btn btn-primary" onclick="submitJoinRequest()">Submit Join Request</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 10: SESSION SCHEDULER MODAL -->
+  <div id="modal-session-scheduler" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-sched-title">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="modal-sched-title" class="modal-title">Schedule Study Session</h2>
+        <button class="btn btn-sm btn-secondary" onclick="closeModal('modal-session-scheduler')" aria-label="Close dialog">&times;</button>
+      </div>
+      <div>
+        <div class="form-group">
+          <label for="sched-circle-select" class="form-label">Target Study Circle <span class="req">*</span></label>
+          <select id="sched-circle-select" class="form-select">
+            <!-- Dynamically populated with hosted and joined circles -->
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="sched-title-input" class="form-label">Session Topic / Title <span class="req">*</span></label>
+          <input type="text" id="sched-title-input" class="form-input" placeholder="e.g. Graph Algorithms: Dijkstra &amp; Bellman-Ford">
+          <div id="sched-title-error" class="form-error">Session title is required.</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="sched-date-input" class="form-label">Session Date <span class="req">*</span></label>
+            <input type="date" id="sched-date-input" class="form-input">
+            <div id="sched-date-error" class="form-error">Please select a valid date.</div>
+          </div>
+          <div class="form-group">
+            <label for="sched-time-input" class="form-label">Start Time <span class="req">*</span></label>
+            <input type="time" id="sched-time-input" class="form-input" value="18:00">
+            <div id="sched-time-error" class="form-error">Please select a start time.</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="sched-duration-select" class="form-label">Duration</label>
+            <select id="sched-duration-select" class="form-select">
+              <option value="60">60 Minutes (1 Hour)</option>
+              <option value="90" selected>90 Minutes (1.5 Hours)</option>
+              <option value="120">120 Minutes (2 Hours)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="sched-venue-input" class="form-label">Location / URL</label>
+            <input type="text" id="sched-venue-input" class="form-input" value="Online Room (meet.jit.si/cohort-algo)">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="sched-agenda-input" class="form-label">Structured Session Agenda <span class="req">*</span></label>
+          <textarea id="sched-agenda-input" class="form-textarea" placeholder="1. 10m Check-in&#10;2. 40m Problem walkthrough&#10;3. 30m Whiteboard coding&#10;4. 10m Q&amp;A"></textarea>
+          <div id="sched-agenda-error" class="form-error">Please outline a brief agenda.</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-session-scheduler')">Cancel</button>
+        <button class="btn btn-primary" onclick="submitScheduleSession()">Publish Session</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPATIBILITY FACTOR BREAKDOWN MODAL -->
+  <div id="modal-compat-breakdown" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-compat-title">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="modal-compat-title" class="modal-title">Explainable Compatibility Breakdown</h2>
+        <button class="btn btn-sm btn-secondary" onclick="closeModal('modal-compat-breakdown')" aria-label="Close dialog">&times;</button>
+      </div>
+      <div>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+          CohortCircle uses transparent, rule-based weights rather than black-box algorithms. Here is how your score was computed:
+        </p>
+
+        <div class="card" style="margin-bottom: 12px; background: var(--surface-alt);">
+          <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:4px;">
+            <span>1. Subject Domain Overlap (Weight: 30%)</span>
+            <span>100% Match</span>
+          </div>
+          <p style="font-size: 12px; color: var(--text-secondary);">Your profile interests (Algorithms, Discrete Math) match the circle's primary subject.</p>
+        </div>
+
+        <div class="card" style="margin-bottom: 12px; background: var(--surface-alt);">
+          <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:4px;">
+            <span>2. Study Style Alignment (Weight: 25%)</span>
+            <span>95% Match</span>
+          </div>
+          <p style="font-size: 12px; color: var(--text-secondary);">Your preferred style (Problem-Solving hands-on) directly matches the circle charter.</p>
+        </div>
+
+        <div class="card" style="margin-bottom: 12px; background: var(--surface-alt);">
+          <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:4px;">
+            <span>3. Schedule Availability (Weight: 20%)</span>
+            <span>90% Match</span>
+          </div>
+          <p style="font-size: 12px; color: var(--text-secondary);">Your availability grid indicates open evening slots on Tuesdays and Thursdays.</p>
+        </div>
+
+        <div class="card" style="margin-bottom: 12px; background: var(--surface-alt);">
+          <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:4px;">
+            <span>4. Meeting Modality Fit (Weight: 15%)</span>
+            <span>100% Match</span>
+          </div>
+          <p style="font-size: 12px; color: var(--text-secondary);">You prefer Hybrid/Online sessions, which satisfies this online circle.</p>
+        </div>
+
+        <div class="card" style="background: var(--surface-alt);">
+          <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:4px;">
+            <span>5. Cohort Size Preference (Weight: 10%)</span>
+            <span>85% Match</span>
+          </div>
+          <p style="font-size: 12px; color: var(--text-secondary);">Circle capacity is 6; your preferred group size slider is configured at 6.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="closeModal('modal-compat-breakdown')">Close Breakdown</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEAVE CIRCLE CONFIRMATION MODAL -->
+  <div id="modal-leave-confirm" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-leave-title">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="modal-leave-title" class="modal-title">Confirm Leaving Circle</h2>
+        <button class="btn btn-sm btn-secondary" onclick="closeModal('modal-leave-confirm')" aria-label="Close dialog">&times;</button>
+      </div>
+      <div>
+        <p style="font-size: 14px; margin-bottom: 12px;">
+          Are you sure you want to leave <strong id="leave-modal-circle-name">this study circle</strong>?
+        </p>
+        <p style="font-size: 13px; color: var(--text-muted);">
+          Your seat will be relinquished to the cohort capacity pool. You will no longer receive session calendar invites for this circle.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-leave-confirm')">Keep Membership</button>
+        <button class="btn btn-danger" onclick="confirmLeaveCircle()">Leave Circle</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REMOVE MEMBER CONFIRMATION MODAL -->
+  <div id="modal-remove-member" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-remove-title">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="modal-remove-title" class="modal-title">Remove Cohort Member</h2>
+        <button class="btn btn-sm btn-secondary" onclick="closeModal('modal-remove-member')" aria-label="Close dialog">&times;</button>
+      </div>
+      <div>
+        <p style="font-size: 14px; margin-bottom: 12px;">
+          Are you sure you want to remove <strong id="remove-modal-member-name">Member</strong> from this study circle?
+        </p>
+        <p style="font-size: 13px; color: var(--text-muted);">
+          Their seat will be reopened in the directory. As facilitator, you should provide constructive feedback if appropriate.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-remove-member')">Cancel</button>
+        <button class="btn btn-danger" onclick="confirmRemoveMember()">Confirm Removal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESTRUCTIVE DATA RESET CONFIRMATION MODAL -->
+  <div id="modal-reset-confirm" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-reset-title">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="modal-reset-title" class="modal-title">Reset Demo State to Empty</h2>
+        <button class="btn btn-sm btn-secondary" onclick="closeModal('modal-reset-confirm')" aria-label="Close dialog">&times;</button>
+      </div>
+      <div>
+        <p style="font-size: 14px; margin-bottom: 12px;">
+          This action will clear all joined circles, scheduled sessions, and pending applications in your browser session.
+        </p>
+        <p style="font-size: 13px; color: var(--text-muted);">
+          This allows testing empty state displays. You can restore the illustrative demonstration dataset at any time using the Demo Data Engine.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-reset-confirm')">Cancel</button>
+        <button class="btn btn-danger" onclick="confirmClearDemoState()">Clear State</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" role="status" aria-live="polite"></div>
+
+  <!-- Application Footer -->
+  <footer class="app-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div>
+        <strong>CohortCircle</strong> &bull; Find your people. Learn together.
+        <div style="font-size: 12px; margin-top: 4px;">Open-source peer learning platform. Low-fidelity prototype (Module 05).</div>
+      </div>
+      <div>
+        <span>Keyboard accessible &bull; High-contrast wireframe &bull; In-memory state</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ====================================================================
+       IN-MEMORY APPLICATION ENGINE (VANILLA JAVASCRIPT)
+       ==================================================================== -->
+  <script>
+    /* ----------------------------------------------------------------------
+       PROTOTYPE INITIAL SEED STATE
+       ---------------------------------------------------------------------- */
+    const INITIAL_USER = {
+      name: "Alex Rivera",
+      bio: "Junior studying Computer Science and Systems. Interested in distributed systems, dynamic programming, and collaborative problem-solving.",
+      language: "English",
+      modality: "Hybrid",
+      maxGroup: 6,
+      topics: ["Algorithms", "Discrete Math", "Systems Programming"],
+      styles: ["Problem-Solving", "Discussion-Heavy"],
+      availability: {
+        Mon: ["evening"],
+        Tue: ["evening"],
+        Wed: ["evening"],
+        Thu: ["evening"],
+        Fri: [],
+        Sat: ["morning", "afternoon"],
+        Sun: ["afternoon", "evening"]
+      }
+    };
+
+    const INITIAL_CIRCLES = [
+      {
+        id: "circle-algo",
+        title: "Algorithms Problem Solvers",
+        subject: "Computer Science",
+        modality: "Online",
+        schedule: "Tue, Thu 6:00 PM - 7:30 PM",
+        capacity: 6,
+        host: "Alex Rivera",
+        style: "Problem-Solving",
+        policy: "Moderated",
+        compatibilityScore: 94,
+        description: "Rigorous focus on algorithmic paradigms, LeetCode medium/hard patterns, and whiteboard problem breakdowns. Members rotate preparing problems.",
+        objectives: [
+          "Master graph algorithms and dynamic programming paradigms",
+          "Practice mock technical interview problem breakdown and verbalization",
+          "Develop collaborative whiteboarding communication habits"
+        ],
+        rules: [
+          "Come prepared having attempted the assigned problem set",
+          "Active participation during whiteboard breakdown sessions",
+          "Constructive peer feedback and code review"
+        ],
+        members: ["Alex Rivera", "Devon Lee", "Samira K.", "Marcus Vance"],
+        requests: [
+          {
+            id: "req-jordan",
+            name: "Jordan Brooks",
+            note: "Preparing for systems and software engineering technical interviews. Completed Data Structures coursework.",
+            score: 88,
+            date: "2026-11-10"
+          }
+        ]
+      },
+      {
+        id: "circle-discrete",
+        title: "Discrete Mathematics & Logic Lab",
+        subject: "Mathematics",
+        modality: "Hybrid",
+        schedule: "Wed 4:00 PM - 6:00 PM",
+        capacity: 5,
+        host: "Elena Rostova",
+        style: "Discussion-Heavy",
+        policy: "Open",
+        compatibilityScore: 91,
+        description: "Weekly theorem proofs, combinatorics, graph theory, and formal reasoning. Collaborative whiteboard proof walkthroughs.",
+        objectives: [
+          "Deconstruct difficult weekly theorem proofs collaboratively",
+          "Peer review mathematical proof writing clarity and rigor"
+        ],
+        rules: [
+          "Respect constructive proof critique",
+          "Rotate scribe role weekly for group summary notes"
+        ],
+        members: ["Elena Rostova", "Marcus Vance", "Samira K."],
+        requests: []
+      },
+      {
+        id: "circle-ai-ethics",
+        title: "Ethics & Governance in AI",
+        subject: "Artificial Intelligence",
+        modality: "Online",
+        schedule: "Mon 7:00 PM - 8:30 PM",
+        capacity: 8,
+        host: "Priya Patel",
+        style: "Discussion-Heavy",
+        policy: "Moderated",
+        compatibilityScore: 82,
+        description: "Interdisciplinary seminar discussing AI safety, algorithmic bias, regulatory frameworks, and societal impact research papers.",
+        objectives: [
+          "Analyze primary papers on frontier AI governance and safety",
+          "Debate policy and ethical trade-offs from multiple technical angles"
+        ],
+        rules: [
+          "Read assigned paper before the weekly discussion",
+          "Maintain academic collegiality and structured argumentation"
+        ],
+        members: ["Priya Patel", "Devon Lee", "Tariq Al-Mansoor", "Maya Chen"],
+        requests: []
+      },
+      {
+        id: "circle-silent",
+        title: "Silent Focus & Pomodoro Co-Working",
+        subject: "General",
+        modality: "Online",
+        schedule: "Daily 8:00 AM - 10:00 AM",
+        capacity: 8,
+        host: "Maya Chen",
+        style: "Silent Co-Working",
+        policy: "Open",
+        compatibilityScore: 78,
+        description: "Structured accountability: 50m work blocks, 10m breaks with cameras on and mics muted. Daily goal setting in chat.",
+        objectives: [
+          "Maintain consistent deep work habits and study accountability",
+          "Shared peer focus without conversational interruption"
+        ],
+        rules: [
+          "Microphones muted during 50-minute focus blocks",
+          "Post single concrete study goal in chat before each block"
+        ],
+        members: ["Maya Chen", "Liam O'Connor", "Jordan Brooks", "Zoe Saldana", "Alex Rivera"],
+        requests: []
+      },
+      {
+        id: "circle-web",
+        title: "Web Systems & Distributed APIs",
+        subject: "Computer Science",
+        modality: "Hybrid",
+        schedule: "Sat 10:00 AM - 12:30 PM",
+        capacity: 4,
+        host: "Devon Lee",
+        style: "Problem-Solving",
+        policy: "Moderated",
+        compatibilityScore: 89,
+        description: "Hands-on architectural review of distributed web backends, microservices, gRPC, and database sharding patterns.",
+        objectives: [
+          "Build a resilient multi-tier demo service collaboratively",
+          "Analyze distributed system failure modes and concurrency bugs"
+        ],
+        rules: [
+          "Active GitHub participation",
+          "Bring functional demo code or architectural diagrams"
+        ],
+        members: ["Devon Lee", "Kavita Rao", "Tariq Al-Mansoor"],
+        requests: []
+      }
+    ];
+
+    const INITIAL_SESSIONS = [
+      {
+        id: "sess-algo-dp",
+        circleId: "circle-algo",
+        title: "Dynamic Programming: Knapsack & Matrix Chain",
+        date: "2026-11-17",
+        time: "18:00",
+        duration: 90,
+        venue: "meet.jit.si/cohort-algo",
+        agenda: "1. 10m Check-in & problem selection\n2. 40m Pair problem breakdown & whiteboard formulation\n3. 30m Code walkthrough & edge case stress testing\n4. 10m Next week topic assignment",
+        rsvp: {
+          attending: ["Alex Rivera", "Devon Lee", "Marcus Vance"],
+          tentative: ["Samira K."],
+          declined: []
+        }
+      },
+      {
+        id: "sess-focus-morning",
+        circleId: "circle-silent",
+        title: "Morning Deep Focus Block (2x 50m)",
+        date: "2026-11-18",
+        time: "08:00",
+        duration: 120,
+        venue: "Voice Space (Focus Room 1)",
+        agenda: "1. 5m Individual goal sharing in chat\n2. 50m Focus block 1\n3. 10m Stretch break\n4. 50m Focus block 2\n5. 5m Reflection & wrap-up",
+        rsvp: {
+          attending: ["Alex Rivera", "Maya Chen", "Liam O'Connor"],
+          tentative: [],
+          declined: []
+        }
+      }
+    ];
+
+    /* ----------------------------------------------------------------------
+       REACTIVE APPLICATION STATE
+       ---------------------------------------------------------------------- */
+    let appState = {
+      currentUser: JSON.parse(JSON.stringify(INITIAL_USER)),
+      activeRole: "learner", // 'learner' or 'host'
+      currentView: "screen-dashboard",
+      selectedCircleId: "circle-algo",
+      selectedSessionId: "sess-algo-dp",
+      circles: JSON.parse(JSON.stringify(INITIAL_CIRCLES)),
+      sessions: JSON.parse(JSON.stringify(INITIAL_SESSIONS)),
+      userPendingRequests: [
+        {
+          circleId: "circle-web",
+          circleTitle: "Web Systems & Distributed APIs",
+          submittedDate: "2026-11-10",
+          status: "Under Host Review"
+        }
+      ],
+      filterState: {
+        search: "",
+        subject: "All",
+        style: "All",
+        modality: "All",
+        policy: "All",
+        hasSeatsOnly: false,
+        sortBy: "compatibility"
+      },
+      wizardStep: 1,
+      wizardData: {},
+      emptyStatePreview: {
+        dashboard: false,
+        myCircles: false
+      },
+      pendingLeaveCircleId: null,
+      pendingRemoveMember: { circleId: null, memberName: null }
+    };
+
+    /* ----------------------------------------------------------------------
+       ROUTING AND NAVIGATION CONTROLLER
+       ---------------------------------------------------------------------- */
+    function navigateTo(viewId, params = {}) {
+      if (params.circleId) appState.selectedCircleId = params.circleId;
+      if (params.sessionId) appState.selectedSessionId = params.sessionId;
+
+      const views = document.querySelectorAll(".view-section");
+      views.forEach(v => {
+        v.style.display = "none";
+      });
+
+      const target = document.getElementById(viewId);
+      if (target) {
+        target.style.display = "block";
+        appState.currentView = viewId;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+
+        // Update nav active states
+        const navMap = {
+          "screen-dashboard": "nav-dashboard",
+          "screen-explore": "nav-explore",
+          "screen-my-circles": "nav-my-circles",
+          "screen-host": "nav-host",
+          "screen-profile": "nav-profile"
+        };
+        document.querySelectorAll(".main-nav a").forEach(a => a.classList.remove("active"));
+        if (navMap[viewId]) {
+          const navElem = document.getElementById(navMap[viewId]);
+          if (navElem) navElem.classList.add("active");
+        }
+
+        renderCurrentView();
+      }
+    }
+
+    function toggleActiveRole() {
+      if (appState.activeRole === "learner") {
+        appState.activeRole = "host";
+        document.getElementById("current-role-badge").innerText = "HOST / FACILITATOR";
+        document.getElementById("toggle-role-btn").innerText = "Switch to Learner View";
+        showToast("Switched active view context to Host / Facilitator Mode.");
+        navigateTo("screen-host");
+      } else {
+        appState.activeRole = "learner";
+        document.getElementById("current-role-badge").innerText = "LEARNER";
+        document.getElementById("toggle-role-btn").innerText = "Switch to Host View";
+        showToast("Switched active view context to Learner Mode.");
+        navigateTo("screen-dashboard");
+      }
+    }
+
+    function renderCurrentView() {
+      switch (appState.currentView) {
+        case "screen-dashboard":
+          renderDashboard();
+          break;
+        case "screen-profile":
+          renderProfile();
+          break;
+        case "screen-explore":
+          applyExploreFilters();
+          break;
+        case "screen-circle-details":
+          renderCircleDetails();
+          break;
+        case "screen-my-circles":
+          renderMyCircles();
+          break;
+        case "screen-host":
+          renderHostWorkspace();
+          break;
+        case "screen-circle-management":
+          renderCircleManagement();
+          break;
+        case "screen-session-details":
+          renderSessionDetails();
+          break;
+        case "screen-demo-data":
+          renderDemoDataView();
+          break;
+      }
+    }
+
+    /* ----------------------------------------------------------------------
+       SCREEN 01: LEARNER DASHBOARD RENDERER
+       ---------------------------------------------------------------------- */
+    function renderDashboard() {
+      document.getElementById("dash-user-name").innerText = appState.currentUser.name;
+
+      if (appState.emptyStatePreview.dashboard) {
+        document.getElementById("dash-regular-content").style.display = "none";
+        document.getElementById("dash-empty-content").style.display = "block";
+        return;
+      }
+      document.getElementById("dash-regular-content").style.display = "block";
+      document.getElementById("dash-empty-content").style.display = "none";
+
+      // Joined circles
+      const joined = appState.circles.filter(c => c.members.includes(appState.currentUser.name));
+      document.getElementById("dash-circle-count").innerText = joined.length;
+      const circleListElem = document.getElementById("dash-circles-list");
+      circleListElem.innerHTML = "";
+
+      if (joined.length === 0) {
+        circleListElem.innerHTML = `<div class="card card-wireframe-dashed" style="padding:16px; text-align:center; color:var(--text-muted);">No active circles joined. <a href="javascript:void(0)" onclick="navigateTo('screen-explore')">Find one &rarr;</a></div>`;
+      } else {
+        joined.forEach(c => {
+          const isHost = c.host === appState.currentUser.name;
+          circleListElem.innerHTML += `
+            <div class="card" style="margin-bottom:12px;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                <div>
+                  <h3 style="font-size:15px; font-weight:700;">
+                    <a href="javascript:void(0)" onclick="navigateTo('screen-circle-details', {circleId: '${c.id}'})" style="color:var(--text-main); text-decoration:none;">${c.title}</a>
+                  </h3>
+                  <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">${c.subject} &bull; ${c.modality} &bull; ${c.members.length}/${c.capacity} Members</div>
+                </div>
+                <span class="badge ${isHost ? 'badge-inverse' : ''}">${isHost ? 'Host' : 'Member'}</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; font-size:12px;">
+                <span>Schedule: <strong>${c.schedule}</strong></span>
+                <button class="btn btn-sm btn-secondary" onclick="navigateTo('screen-circle-details', {circleId: '${c.id}'})">View Details</button>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      // Upcoming Sessions
+      const myCircleIds = joined.map(c => c.id);
+      const userSessions = appState.sessions.filter(s => myCircleIds.includes(s.circleId));
+      document.getElementById("dash-session-count").innerText = userSessions.length;
+      const sessionListElem = document.getElementById("dash-sessions-list");
+      sessionListElem.innerHTML = "";
+
+      if (userSessions.length === 0) {
+        sessionListElem.innerHTML = `<div class="card card-wireframe-dashed" style="padding:16px; text-align:center; color:var(--text-muted);">No upcoming study sessions scheduled.</div>`;
+      } else {
+        userSessions.forEach(s => {
+          const circle = appState.circles.find(c => c.id === s.circleId);
+          const userRsvp = s.rsvp.attending.includes(appState.currentUser.name) ? "Attending" : (s.rsvp.tentative.includes(appState.currentUser.name) ? "Tentative" : "Declined");
+          sessionListElem.innerHTML += `
+            <div class="card" style="margin-bottom:12px;">
+              <div style="display:flex; justify-content:space-between;">
+                <div>
+                  <h3 style="font-size:15px; font-weight:700;">
+                    <a href="javascript:void(0)" onclick="navigateTo('screen-session-details', {sessionId: '${s.id}'})" style="color:var(--text-main); text-decoration:none;">${s.title}</a>
+                  </h3>
+                  <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">${circle ? circle.title : 'Study Circle'} &bull; ${s.venue}</div>
+                </div>
+                <span class="badge">${userRsvp}</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; font-size:12px;">
+                <span><strong>${s.date}</strong> at ${s.time} (${s.duration}m)</span>
+                <button class="btn btn-sm btn-secondary" onclick="navigateTo('screen-session-details', {sessionId: '${s.id}'})">View &amp; RSVP</button>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      // Pending Applications
+      document.getElementById("dash-pending-count").innerText = appState.userPendingRequests.length;
+      const pendingElem = document.getElementById("dash-pending-list");
+      pendingElem.innerHTML = "";
+      if (appState.userPendingRequests.length === 0) {
+        pendingElem.innerHTML = `<div style="font-size:13px; color:var(--text-muted); padding:8px 0;">No active pending join requests.</div>`;
+      } else {
+        appState.userPendingRequests.forEach(req => {
+          pendingElem.innerHTML += `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border-light);">
+              <div>
+                <strong>${req.circleTitle}</strong>
+                <div style="font-size:12px; color:var(--text-muted);">Submitted on ${req.submittedDate} &bull; Status: ${req.status}</div>
+              </div>
+              <button class="btn btn-sm btn-secondary" onclick="cancelPendingRequest('${req.circleId}')">Withdraw</button>
+            </div>
+          `;
+        });
+      }
+    }
+
+    function toggleDashboardEmptyState() {
+      appState.emptyStatePreview.dashboard = !appState.emptyStatePreview.dashboard;
+      renderDashboard();
+      showToast(appState.emptyStatePreview.dashboard ? "Displaying Empty Dashboard State" : "Restored Regular Dashboard");
+    }
+
+    function cancelPendingRequest(circleId) {
+      appState.userPendingRequests = appState.userPendingRequests.filter(r => r.circleId !== circleId);
+      renderDashboard();
+      showToast("Join application withdrawn.");
+    }
+
+    /* ----------------------------------------------------------------------
+       SCREEN 02: PROFILE & PREFERENCES RENDERER
+       ---------------------------------------------------------------------- */
+    function renderProfile() {
+      const u = appState.currentUser;
+      document.getElementById("prof-name").value = u.name;
+      document.getElementById("prof-bio").value = u.bio;
+      document.getElementById("prof-language").value = u.language;
+      document.getElementById("prof-modality").value = u.modality;
+      document.getElementById("prof-max-group").value = u.maxGroup;
+      document.getElementById("prof-group-val").innerText = u.maxGroup;
+
+      // Render Availability Matrix (7 days x 3 periods)
+      const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+      const periods = [
+        { id: "morning", label: "Morning (8am - 12pm)" },
+        { id: "afternoon", label: "Afternoon (12pm - 5pm)" },
+        { id: "evening", label: "Evening (5pm - 9pm)" }
+      ];
+
+      const tbody = document.getElementById("availability-grid-body");
+      tbody.innerHTML = "";
+
+      periods.forEach(p => {
+        let tr = `<tr><td style="font-weight:600; text-align:left; background:var(--surface-alt);">${p.label}</td>`;
+        days.forEach(d => {
+          const isSelected = u.availability[d] && u.availability[d].includes(p.id);
+          tr += `
+            <td class="avail-cell ${isSelected ? 'selected' : ''}"
+                onclick="toggleCellAvailability('${d}', '${p.id}', this)"
+                tabindex="0"
+                role="button"
+                aria-pressed="${isSelected ? 'true' : 'false'}"
+                aria-label="${d} ${p.label}">
+              ${isSelected ? 'OPEN' : '&mdash;'}
+            </td>
+          `;
+        });
+        tr += `</tr>`;
+        tbody.innerHTML += tr;
+      });
+    }
+
+    function toggleCellAvailability(day, period, tdElem) {
+      if (!appState.currentUser.availability[day]) {
+        appState.currentUser.availability[day] = [];
+      }
+      const arr = appState.currentUser.availability[day];
+      const index = arr.indexOf(period);
+      if (index > -1) {
+        arr.splice(index, 1);
+        tdElem.classList.remove("selected");
+        tdElem.innerText = "—";
+        tdElem.setAttribute("aria-pressed", "false");
+      } else {
+        arr.push(period);
+        tdElem.classList.add("selected");
+        tdElem.innerText = "OPEN";
+        tdElem.setAttribute("aria-pressed", "true");
+      }
+    }
+
+    function toggleAllAvailability(eveningsOnly) {
+      const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+      days.forEach(d => {
+        appState.currentUser.availability[d] = eveningsOnly ? ["evening"] : ["morning", "afternoon", "evening"];
+      });
+      renderProfile();
+      showToast(eveningsOnly ? "Preset: Selected all weekday and weekend evenings." : "Preset: Marked all time slots open.");
+    }
+
+    function saveLearnerProfile() {
+      const nameInput = document.getElementById("prof-name");
+      const nameError = document.getElementById("prof-name-error");
+      const topicError = document.getElementById("prof-topic-error");
+
+      let isValid = true;
+      if (!nameInput.value.trim()) {
+        nameError.style.display = "block";
+        isValid = false;
+      } else {
+        nameError.style.display = "none";
+      }
+
+      const selectedTopics = Array.from(document.querySelectorAll("#profile-topics-container input:checked")).map(cb => cb.value);
+      if (selectedTopics.length === 0) {
+        topicError.style.display = "block";
+        isValid = false;
+      } else {
+        topicError.style.display = "none";
+      }
+
+      if (!isValid) return;
+
+      appState.currentUser.name = nameInput.value.trim();
+      appState.currentUser.bio = document.getElementById("prof-bio").value.trim();
+      appState.currentUser.language = document.getElementById("prof-language").value;
+      appState.currentUser.modality = document.getElementById("prof-modality").value;
+      appState.currentUser.maxGroup = parseInt(document.getElementById("prof-max-group").value, 10);
+      appState.currentUser.topics = selectedTopics;
+      appState.currentUser.styles = Array.from(document.querySelectorAll("#profile-styles-container input:checked")).map(cb => cb.value);
+
+      showToast("Profile and study preferences updated successfully!");
+      navigateTo("screen-explore");
+    }
+
+    function discardProfileChanges() {
+      renderProfile();
+      showToast("Unsaved profile modifications discarded.");
+      navigateTo("screen-dashboard");
+    }
+
+    /* ----------------------------------------------------------------------
+       SCREEN 03: EXPLORE CIRCLES DIRECTORY RENDERER
+       ---------------------------------------------------------------------- */
+    let searchDebounceTimer = null;
+    function handleSearchInput() {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        applyExploreFilters();
+      }, 50); // Real-time (< 100ms response)
+    }
+
+    function applyExploreFilters() {
+      const query = (document.getElementById("filter-search") ? document.getElementById("filter-search").value : "").toLowerCase().trim();
+      const subject = document.getElementById("filter-subject") ? document.getElementById("filter-subject").value : "All";
+      const style = document.getElementById("filter-style") ? document.getElementById("filter-style").value : "All";
+      const modality = document.getElementById("filter-modality") ? document.getElementById("filter-modality").value : "All";
+      const policy = document.getElementById("filter-policy") ? document.getElementById("filter-policy").value : "All";
+      const hasSeatsOnly = document.getElementById("filter-has-seats") ? document.getElementById("filter-has-seats").checked : false;
+      const sortBy = document.getElementById("sort-select") ? document.getElementById("sort-select").value : "compatibility";
+
+      let filtered = appState.circles.filter(c => {
+        // Keyword Search across title, subject, and description
+        if (query) {
+          const matchTitle = c.title.toLowerCase().includes(query);
+          const matchSubject = c.subject.toLowerCase().includes(query);
+          const matchDesc = c.description.toLowerCase().includes(query);
+          if (!matchTitle && !matchSubject && !matchDesc) return false;
+        }
+
+        // Subject
+        if (subject !== "All" && c.subject !== subject) return false;
+
+        // Style
+        if (style !== "All" && c.style !== style) return false;
+
+        // Modality
+        if (modality !== "All" && c.modality !== modality) return false;
+
+        // Policy
+        if (policy !== "All" && c.policy !== policy) return false;
+
+        // Open seats
+        if (hasSeatsOnly && c.members.length >= c.capacity) return false;
+
+        return true;
+      });
+
+      // Sorting
+      if (sortBy === "compatibility") {
+        filtered.sort((a, b) => b.compatibilityScore - a.compatibilityScore);
+      } else if (sortBy === "title") {
+        filtered.sort((a, b) => a.title.localeCompare(b.title));
+      } else if (sortBy === "members") {
+        filtered.sort((a, b) => b.members.length - a.members.length);
+      }
+
+      // Update Result Count
+      const countElem = document.getElementById("explore-results-count");
+      if (countElem) {
+        countElem.innerText = `Showing ${filtered.length} of ${appState.circles.length} circles`;
+      }
+
+      // Render Cards
+      const container = document.getElementById("explore-cards-container");
+      const emptyState = document.getElementById("explore-empty-state");
+
+      if (filtered.length === 0) {
+        container.style.display = "none";
+        emptyState.style.display = "block";
+      } else {
+        container.style.display = "block";
+        emptyState.style.display = "none";
+        container.innerHTML = "";
+
+        filtered.forEach(c => {
+          const isMember = c.members.includes(appState.currentUser.name);
+          const isHost = c.host === appState.currentUser.name;
+          const openSeats = c.capacity - c.members.length;
+
+          container.innerHTML += `
+            <div class="card" style="margin-bottom:16px;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;">
+                <div>
+                  <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                    <span class="badge">${c.subject}</span>
+                    <span class="badge">${c.modality}</span>
+                    <span class="badge">${c.policy}</span>
+                  </div>
+                  <h3 style="font-size:18px; font-weight:700;">
+                    <a href="javascript:void(0)" onclick="navigateTo('screen-circle-details', {circleId: '${c.id}'})" style="color:var(--text-main); text-decoration:none;">${c.title}</a>
+                  </h3>
+                </div>
+                <div style="text-align:right;">
+                  <span class="badge badge-inverse" title="Explainable Match: Calculated from your profile preferences">
+                    ${c.compatibilityScore}% Match
+                  </span>
+                  <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Illustrative Score</div>
+                </div>
+              </div>
+
+              <p style="font-size:13px; color:var(--text-secondary); margin:10px 0; line-height:1.5;">${c.description}</p>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:13px; padding-top:10px; border-top:1px solid var(--border-light);">
+                <div>
+                  <span>Schedule: <strong>${c.schedule}</strong></span> &bull;
+                  <span>Seats: <strong>${c.members.length} / ${c.capacity}</strong> (${openSeats > 0 ? openSeats + ' open' : 'Full'})</span>
+                </div>
+                <div style="display:flex; gap:8px;">
+                  <button class="btn btn-sm btn-secondary" onclick="navigateTo('screen-circle-details', {circleId: '${c.id}'})">Inspect Details</button>
+                  ${isMember
+                    ? `<span class="badge" style="padding:6px 10px;">${isHost ? 'You are Host' : 'Enrolled'}</span>`
+                    : (openSeats === 0
+                        ? `<button class="btn btn-sm btn-secondary" disabled>Circle Full</button>`
+                        : (c.policy === 'Open'
+                            ? `<button class="btn btn-sm btn-primary" onclick="directJoinCircle('${c.id}')">Join Circle</button>`
+                            : `<button class="btn btn-sm btn-primary" onclick="openJoinRequestModal('${c.id}')">Request to Join</button>`
+                          )
+                      )
+                  }
+                </div>
+              </div>
+            </div>
+          `;
+        });
+      }
+    }
+
+    function resetExploreFilters() {
+      if (document.getElementById("filter-search")) document.getElementById("filter-search").value = "";
+      if (document.getElementById("filter-subject")) document.getElementById("filter-subject").value = "All";
+      if (document.getElementById("filter-style")) document.getElementById("filter-style").value = "All";
+      if (document.getElementById("filter-modality")) document.getElementById("filter-modality").value = "All";
+      if (document.getElementById("filter-policy")) document.getElementById("filter-policy").value = "All";
+      if (document.getElementById("filter-has-seats")) document.getElementById("filter-has-seats").checked = false;
+      if (document.getElementById("sort-select")) document.getElementById("sort-select").value = "compatibility";
+      applyExploreFilters();
+      showToast("Directory search and filters reset to default.");
+    }
+
+    /* ----------------------------------------------------------------------
+       SCREEN 04: CIRCLE DETAILS RENDERER
+       ---------------------------------------------------------------------- */
+    function renderCircleDetails() {
+      const c = appState.circles.find(x => x.id === appState.selectedCircleId);
+      if (!c) return;
+
+      document.getElementById("cd-breadcrumb-title").innerText = c.title;
+      document.getElementById("cd-title").innerText = c.title;
+      document.getElementById("cd-tagline").innerText = `${c.subject} • ${c.style} • ${c.modality}`;
+      document.getElementById("cd-description").innerText = c.description;
+      document.getElementById("cd-schedule").innerText = c.schedule;
+      document.getElementById("cd-modality").innerText = c.modality;
+      document.getElementById("cd-host").innerText = c.host;
+      document.getElementById("cd-seats").innerText = `${c.members.length} of ${c.capacity} seats filled (${c.capacity - c.members.length} available)`;
+      document.getElementById("cd-policy").innerText = c.policy;
+      document.getElementById("cd-compat-score").innerText = `${c.compatibilityScore}%`;
+
+      // Objectives list
+      const objElem = document.getElementById("cd-objectives");
+      objElem.innerHTML = "";
+      c.objectives.forEach(o => { objElem.innerHTML += `<li>${o}</li>`; });
+
+      // Rules list
+      const rulesElem = document.getElementById("cd-rules");
+      rulesElem.innerHTML = "";
+      c.rules.forEach(r => { rulesElem.innerHTML += `<li>${r}</li>`; });
+
+      // Members list
+      document.getElementById("cd-member-count").innerText = c.members.length;
+      const memElem = document.getElementById("cd-member-list");
+      memElem.innerHTML = "";
+      c.members.forEach(m => {
+        const isMHost = m === c.host;
+        memElem.innerHTML += `
+          <li style="padding:6px 0; border-bottom:1px solid var(--border-light); display:flex; justify-content:space-between;">
+            <span>${m}</span>
+            <span class="badge ${isMHost ? 'badge-inverse' : ''}">${isMHost ? 'Host' : 'Member'}</span>
+          </li>
+        `;
+      });
+
+      // Scheduled sessions for this circle
+      const circleSessions = appState.sessions.filter(s => s.circleId === c.id);
+      const sessElem = document.getElementById("cd-sessions-container");
+      sessElem.innerHTML = "";
+      if (circleSessions.length === 0) {
+        sessElem.innerHTML = `<div style="font-size:13px; color:var(--text-muted); padding:10px 0;">No upcoming sessions scheduled yet for this circle.</div>`;
+      } else {
+        circleSessions.forEach(s => {
+          sessElem.innerHTML += `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--border-light);">
+              <div>
+                <strong><a href="javascript:void(0)" onclick="navigateTo('screen-session-details', {sessionId:'${s.id}'})" style="color:var(--text-main);">${s.title}</a></strong>
+                <div style="font-size:12px; color:var(--text-muted);">${s.date} &bull; ${s.time} &bull; ${s.venue}</div>
+              </div>
+              <button class="btn btn-sm btn-secondary" onclick="navigateTo('screen-session-details', {sessionId:'${s.id}'})">View Details</button>
+            </div>
+          `;
+        });
+      }
+
+      // Action Button (Join / Request / Enrolled)
+      const actionContainer = document.getElementById("cd-action-button-container");
+      const isMember = c.members.includes(appState.currentUser.name);
+      const isHost = c.host === appState.currentUser.name;
+      const hasPending = appState.userPendingRequests.some(r => r.circleId === c.id);
+      const isFull = c.members.length >= c.capacity;
+
+      if (isHost) {
+        actionContainer.innerHTML = `<button class="btn btn-primary" onclick="navigateTo('screen-circle-management', {circleId:'${c.id}'})">Manage Circle Console</button>`;
+      } else if (isMember) {
+        actionContainer.innerHTML = `
+          <div style="display:flex; gap:8px; align-items:center;">
+            <span class="badge" style="padding:6px 12px;">Enrolled Member</span>
+            <button class="btn btn-sm btn-secondary" onclick="promptLeaveCircle('${c.id}')">Leave Circle</button>
+          </div>
+        `;
+      } else if (hasPending) {
+        actionContainer.innerHTML = `
+          <div style="display:flex; gap:8px; align-items:center;">
+            <span class="badge badge-inverse" style="padding:6px 12px;">Request Pending Review</span>
+            <button class="btn btn-sm btn-secondary" onclick="cancelPendingRequest('${c.id}')">Withdraw</button>
+          </div>
+        `;
+      } else if (isFull) {
+        actionContainer.innerHTML = `<button class="btn btn-secondary" disabled>Cohort Full (Capacity Reached)</button>`;
+      } else if (c.policy === "Open") {
+        actionContainer.innerHTML = `<button class="btn btn-primary" onclick="directJoinCircle('${c.id}')">Join Study Circle</button>`;
+      } else {
+        actionContainer.innerHTML = `<button class="btn btn-primary" onclick="openJoinRequestModal('${c.id}')">Request to Join Circle</button>`;
+      }
+    }
+
+    function directJoinCircle(circleId) {
+      const c = appState.circles.find(x => x.id === circleId);
+      if (!c) return;
+
+      if (c.members.length >= c.capacity) {
+        showToast("Cannot join: Circle capacity has been reached.");
+        return;
+      }
+
+      if (!c.members.includes(appState.currentUser.name)) {
+        c.members.push(appState.currentUser.name);
+        showToast(`Successfully enrolled in "${c.title}"!`);
+        navigateTo("screen-my-circles");
+      }
+    }
+
+    /* ----------------------------------------------------------------------
+       SCREEN 05: MY CIRCLES RENDERER
+       ---------------------------------------------------------------------- */
+    function renderMyCircles() {
+      if (appState.emptyStatePreview.myCircles) {
+        document.getElementById("my-circles-regular-content").style.display = "none";
+        document.getElementById("my-circles-empty-content").style.display = "block";
+        return;
+      }
+      document.getElementById("my-circles-regular-content").style.display = "block";
+      document.getElementById("my-circles-empty-content").style.display = "none";
+
+      const joined = appState.circles.filter(c => c.members.includes(appState.currentUser.name));
+      const container = document.getElementById("my-circles-container");
+      container.innerHTML = "";
+
+      if (joined.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">0</div>
+            <h3>No Active Memberships</h3>
+            <p>You have not joined any study cohorts. Browse open study circles to begin collaborative learning.</p>
+            <button class="btn btn-primary" onclick="navigateTo('screen-explore')">Explore Circles Directory</button>
+          </div>
+        `;
+        return;
+      }
+
+      joined.forEach(c => {
+        const isHost = c.host === appState.currentUser.name;
+        const cSessions = appState.sessions.filter(s => s.circleId === c.id);
+
+        container.innerHTML += `
+          <div class="card" style="margin-bottom:16px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;">
+              <div>
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                  <span class="badge ${isHost ? 'badge-inverse' : ''}">${isHost ? 'Host' : 'Active Member'}</span>
+                  <span class="badge">${c.subject}</span>
+                  <span class="badge">${c.modality}</span>
+                </div>
+                <h3 style="font-size:18px; font-weight:700;">
+                  <a href="javascript:void(0)" onclick="navigateTo('screen-circle-details', {circleId: '${c.id}'})" style="color:var(--text-main); text-decoration:none;">${c.title}</a>
+                </h3>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button class="btn btn-sm btn-secondary" onclick="navigateTo('screen-circle-details', {circleId: '${c.id}'})">Circle Details</button>
+                ${isHost
+                  ? `<button class="btn btn-sm btn-primary" onclick="navigateTo('screen-circle-management', {circleId: '${c.id}'})">Manage Console</button>`
+                  : `<button class="btn btn-sm btn-secondary" onclick="promptLeaveCircle('${c.id}')">Leave Circle</button>`
+                }
+              </div>
+            </div>
+
+            <p style="font-size:13px; color:var(--text-secondary); margin:8px 0;">${c.description}</p>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px; margin-top:8px; padding-top:8px; border-top:1px solid var(--border-light);">
+              <span>Schedule: <strong>${c.schedule}</strong> &bull; Members: <strong>${c.members.length}/${c.capacity}</strong></span>
+              <span><strong>${cSessions.length}</strong> upcoming session(s)</span>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function toggleMyCirclesEmptyState() {
+      appState.emptyStatePreview.myCircles = !appState.emptyStatePreview.myCircles;
+      renderMyCircles();
+      showToast(appState.emptyStatePreview.myCircles ? "Displaying Empty My Circles View" : "Restored My Circles View");
+    }
+
+    function promptLeaveCircle(circleId) {
+      const c = appState.circles.find(x => x.id === circleId);
+      if (!c) return;
+      appState.pendingLeaveCircleId = circleId;
+      document.getElementById("leave-modal-circle-name").innerText = c.title;
+      openModal("modal-leave-confirm");
+    }
+
+    function confirmLeaveCircle() {
+      if (!appState.pendingLeaveCircleId) return;
+      const c = appState.circles.find(x => x.id === appState.pendingLeaveCircleId);
+      if (c) {
+        c.members = c.members.filter(m => m !== appState.currentUser.name);
+        showToast(`Left "${c.title}". Seat released.`);
+      }
+      closeModal("modal-leave-confirm");
+      appState.pendingLeaveCircleId = null;
+      renderCurrentView();
+    }
+
+    /* ----------------------------------------------------------------------
+       SCREEN 06: JOIN REQUEST MODAL INTERACTION
+       ---------------------------------------------------------------------- */
+    let activeModalCircleId = null;
+    function openJoinRequestModal(circleId) {
+      const c = appState.circles.find(x => x.id === circleId);
+      if (!c) return;
+      activeModalCircleId = circleId;
+      document.getElementById("join-modal-circle-name").innerText = c.title;
+      document.getElementById("join-modal-host").innerText = c.host;
+      document.getElementById("join-note-input").value = "";
+      document.getElementById("join-char-count").innerText = "0 / 500 characters";
+      document.getElementById("join-note-error").style.display = "none";
+      openModal("modal-join-request");
+    }
+
+    function updateJoinNoteCharCount() {
+      const val = document.getElementById("join-note-input").value;
+      document.getElementById("join-char-count").innerText = `${val.length} / 500 characters`;
+    }
+
+    function submitJoinRequest() {
+      const note = document.getElementById("join-note-input").value.trim();
+      const err = document.getElementById("join-note-error");
+
+      if (note.length < 15) {
+        err.style.display = "block";
+        return;
+      }
+      err.style.display = "none";
+
+      const c = appState.circles.find(x => x.id === activeModalCircleId);
+      if (c) {
+        // Record application
+        c.requests.push({
+          id: `req-${Date.now()}`,
+          name: appState.currentUser.name,
+          note: note,
+          score: 92,
+          date: new Date().toISOString().split("T")[0]
+        });
+
+        appState.userPendingRequests.push({
+          circleId: c.id,
+          circleTitle: c.title,
+          submittedDate: new Date().toISOString().split("T")[0],
+          status: "Under Host Review"
+        });
+
+        showToast(`Join application submitted for "${c.title}"!`);
+      }
+
+      closeModal("modal-join-request");
+      renderCurrentView();
+    }
+
+    /* ----------------------------------------------------------------------
+       SCREEN 07 & 09: HOST DASHBOARD & CIRCLE MANAGEMENT CONSOLE
+       ---------------------------------------------------------------------- */
+    function renderHostWorkspace() {
+      const hosted = appState.circles.filter(c => c.host === appState.currentUser.name);
+      let totalPending = 0;
+      let totalSessions = 0;
+
+      hosted.forEach(c => {
+        totalPending += c.requests.length;
+        totalSessions += appState.sessions.filter(s => s.circleId === c.id).length;
+      });
+
+      document.getElementById("host-stat-circles").innerText = hosted.length;
+      document.getElementById("host-stat-pending").innerText = totalPending;
+      document.getElementById("host-stat-sessions").innerText = totalSessions;
+
+      const container = document.getElementById("hosted-circles-container");
+      container.innerHTML = "";
+
+      if (hosted.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">+</div>
+            <h3>You Have Not Created Any Study Circles</h3>
+            <p>Facilitate a study group around your subjects of interest. Define the objectives, schedule, and cohort capacity.</p>
+            <button class="btn btn-primary" onclick="startCircleWizard()">Create Your First Circle</button>
+          </div>
+        `;
+        return;
+      }
+
+      hosted.forEach(c => {
+        container.innerHTML += `
+          <div class="card" style="margin-bottom:16px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;">
+              <div>
+                <span class="badge badge-inverse">Facilitator</span>
+                <span class="badge">${c.subject}</span>
+                <span class="badge">${c.policy}</span>
+                <h3 style="font-size:18px; font-weight:700; margin-top:4px;">${c.title}</h3>
+                <div style="font-size:13px; color:var(--text-muted); margin-top:2px;">
+                  Schedule: <strong>${c.schedule}</strong> &bull; Modality: <strong>${c.modality}</strong>
+                </div>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button class="btn btn-sm btn-secondary" onclick="openSchedulerModalForCircle('${c.id}')">+ Schedule Session</button>
+                <button class="btn btn-sm btn-primary" onclick="navigateTo('screen-circle-management', {circleId:'${c.id}'})">Manage Console</button>
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding-top:10px; border-top:1px solid var(--border-light); font-size:13px;">
+              <span>Enrolled Members: <strong>${c.members.length} / ${c.capacity}</strong></span>
+              <span>Pending Applications: <strong>${c.requests.length}</strong></span>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function renderCircleManagement() {
+      const c = appState.circles.find(x => x.id === appState.selectedCircleId);
+      if (!c) return;
+
+      document.getElementById("mgmt-breadcrumb-title").innerText = c.title;
+      document.getElementById("mgmt-circle-title").innerText = c.title;
+      document.getElementById("mgmt-subject").innerText = c.subject;
+      document.getElementById("mgmt-style").innerText = c.style;
+      document.getElementById("mgmt-modality").innerText = c.modality;
+      document.getElementById("mgmt-schedule").innerText = c.schedule;
+      document.getElementById("mgmt-policy").innerText = c.policy;
+
+      // Pending applications queue
+      document.getElementById("mgmt-pending-count").innerText = c.requests.length;
+      const reqContainer = document.getElementById("mgmt-requests-container");
+      reqContainer.innerHTML = "";
+
+      if (c.requests.length === 0) {
+        reqContainer.innerHTML = `<div style="font-size:13px; color:var(--text-muted); padding:12px 0;">No pending applicants awaiting review.</div>`;
+      } else {
+        c.requests.forEach(req => {
+          reqContainer.innerHTML += `
+            <div class="card card-wireframe-dashed" style="margin-bottom:12px; padding:14px;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                <div>
+                  <strong>${req.name}</strong> &bull; <span style="font-size:12px; color:var(--text-muted);">Applied ${req.date}</span>
+                  <div style="font-size:12px; margin-top:2px;">Compatibility Match: <strong>${req.score}%</strong></div>
+                </div>
+                <div style="display:flex; gap:8px;">
+                  <button class="btn btn-sm btn-primary" onclick="approveJoinRequest('${c.id}', '${req.id}')">Approve</button>
+                  <button class="btn btn-sm btn-secondary" onclick="declineJoinRequest('${c.id}', '${req.id}')">Decline</button>
+                </div>
+              </div>
+              <p style="font-size:13px; color:var(--text-secondary); margin-top:8px; font-style:italic;">"${req.note}"</p>
+            </div>
+          `;
+        });
+      }
+
+      // Member roster
+      document.getElementById("mgmt-member-count").innerText = c.members.length;
+      document.getElementById("mgmt-capacity").innerText = c.capacity;
+      const openSeats = c.capacity - c.members.length;
+      document.getElementById("mgmt-roster-status").innerText = openSeats > 0 ? `${openSeats} Seats Remaining` : "Capacity Reached";
+
+      const rosterContainer = document.getElementById("mgmt-roster-container");
+      rosterContainer.innerHTML = "";
+
+      c.members.forEach(m => {
+        const isHost = m === c.host;
+        rosterContainer.innerHTML += `
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border-light);">
+            <div>
+              <strong>${m}</strong>
+              <span class="badge ${isHost ? 'badge-inverse' : ''}" style="margin-left:6px;">${isHost ? 'Host' : 'Member'}</span>
+            </div>
+            <div>
+              ${!isHost ? `<button class="btn btn-sm btn-secondary" onclick="promptRemoveMember('${c.id}', '${m}')">Remove</button>` : '<span style="font-size:12px; color:var(--text-muted);">Circle Creator</span>'}
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function approveJoinRequest(circleId, reqId) {
+      const c = appState.circles.find(x => x.id === circleId);
+      if (!c) return;
+
+      if (c.members.length >= c.capacity) {
+        showToast("Cannot approve: Cohort capacity is full!");
+        return;
+      }
+
+      const reqIndex = c.requests.findIndex(r => r.id === reqId);
+      if (reqIndex > -1) {
+        const req = c.requests[reqIndex];
+        c.members.push(req.name);
+        c.requests.splice(reqIndex, 1);
+        showToast(`Approved applicant "${req.name}". Added to member roster.`);
+        renderCircleManagement();
+      }
+    }
+
+    function declineJoinRequest(circleId, reqId) {
+      const c = appState.circles.find(x => x.id === circleId);
+      if (!c) return;
+      const reqIndex = c.requests.findIndex(r => r.id === reqId);
+      if (reqIndex > -1) {
+        const applicantName = c.requests[reqIndex].name;
+        c.requests.splice(reqIndex, 1);
+        showToast(`Declined application for "${applicantName}".`);
+        renderCircleManagement();
+      }
+    }
+
+    function promptRemoveMember(circleId, memberName) {
+      appState.pendingRemoveMember = { circleId, memberName };
+      document.getElementById("remove-modal-member-name").innerText = memberName;
+      openModal("modal-remove-member");
+    }
+
+    function confirmRemoveMember() {
+      const { circleId, memberName } = appState.pendingRemoveMember;
+      const c = appState.circles.find(x => x.id === circleId);
+      if (c) {
+        c.members = c.members.filter(m => m !== memberName);
+        showToast(`Removed "${memberName}" from circle.`);
+      }
+      closeModal("modal-remove-member");
+      appState.pendingRemoveMember = { circleId: null, memberName: null };
+      renderCircleManagement();
+    }
+
+    /* ----------------------------------------------------------------------
+       SCREEN 08: CIRCLE CREATION WIZARD CONTROLLER
+       ---------------------------------------------------------------------- */
+    function startCircleWizard() {
+      appState.wizardStep = 1;
+      appState.wizardData = {
+        title: "",
+        subject: "",
+        description: "",
+        objectives: "",
+        style: "Problem-Solving",
+        rules: "",
+        modality: "Online",
+        schedule: "",
+        location: "",
+        capacity: 6,
+        policy: "Moderated"
+      };
+
+      // Reset form fields
+      document.getElementById("wiz-title").value = "";
+      document.getElementById("wiz-subject").value = "";
+      document.getElementById("wiz-description").value = "";
+      document.getElementById("wiz-objectives").value = "";
+      document.getElementById("wiz-style").value = "Problem-Solving";
+      document.getElementById("wiz-rules").value = "Read assigned materials before the weekly meeting. Active collaboration and respectful communication.";
+      document.getElementById("wiz-modality").value = "Online";
+      document.getElementById("wiz-schedule").value = "";
+      document.getElementById("wiz-location").value = "";
+      document.getElementById("wiz-capacity").value = 6;
+      document.getElementById("wiz-cap-val").innerText = "6";
+
+      // Clear errors
+      document.querySelectorAll(".wizard-panel .form-error").forEach(e => e.style.display = "none");
+
+      showWizardStep(1);
+      navigateTo("screen-circle-wizard");
+    }
+
+    function showWizardStep(stepNumber) {
+      appState.wizardStep = stepNumber;
+      for (let i = 1; i <= 4; i++) {
+        const panel = document.getElementById(`wizard-step-${i}`);
+        const tab = document.getElementById(`step-tab-${i}`);
+        if (i === stepNumber) {
+          panel.style.display = "block";
+          tab.classList.add("active");
+          tab.classList.remove("done");
+        } else if (i < stepNumber) {
+          panel.style.display = "none";
+          tab.classList.remove("active");
+          tab.classList.add("done");
+        } else {
+          panel.style.display = "none";
+          tab.classList.remove("active");
+          tab.classList.remove("done");
+        }
+      }
+
+      document.getElementById("wiz-prev-btn").disabled = (stepNumber === 1);
+      document.getElementById("wiz-next-btn").innerText = (stepNumber === 4) ? "Create Study Circle" : "Next \u2192";
+
+      if (stepNumber === 4) {
+        populateWizardReview();
+      }
+    }
+
+    function nextWizardStep() {
+      // Step 1 Validation
+      if (appState.wizardStep === 1) {
+        const title = document.getElementById("wiz-title").value.trim();
+        const subject = document.getElementById("wiz-subject").value;
+        const desc = document.getElementById("wiz-description").value.trim();
+
+        let valid = true;
+        if (title.length < 5) {
+          document.getElementById("wiz-title-error").style.display = "block";
+          valid = false;
+        } else {
+          document.getElementById("wiz-title-error").style.display = "none";
+        }
+
+        if (!subject) {
+          document.getElementById("wiz-subject-error").style.display = "block";
+          valid = false;
+        } else {
+          document.getElementById("wiz-subject-error").style.display = "none";
+        }
+
+        if (desc.length < 15) {
+          document.getElementById("wiz-desc-error").style.display = "block";
+          valid = false;
+        } else {
+          document.getElementById("wiz-desc-error").style.display = "none";
+        }
+
+        if (!valid) return;
+        appState.wizardData.title = title;
+        appState.wizardData.subject = subject;
+        appState.wizardData.description = desc;
+        showWizardStep(2);
+      }
+      // Step 2 Validation
+      else if (appState.wizardStep === 2) {
+        const obj = document.getElementById("wiz-objectives").value.trim();
+        if (obj.length < 5) {
+          document.getElementById("wiz-obj-error").style.display = "block";
+          return;
+        }
+        document.getElementById("wiz-obj-error").style.display = "none";
+
+        appState.wizardData.objectives = obj;
+        appState.wizardData.style = document.getElementById("wiz-style").value;
+        appState.wizardData.rules = document.getElementById("wiz-rules").value.trim();
+        showWizardStep(3);
+      }
+      // Step 3 Validation
+      else if (appState.wizardStep === 3) {
+        const sched = document.getElementById("wiz-schedule").value.trim();
+        if (sched.length < 5) {
+          document.getElementById("wiz-sched-error").style.display = "block";
+          return;
+        }
+        document.getElementById("wiz-sched-error").style.display = "none";
+
+        appState.wizardData.schedule = sched;
+        appState.wizardData.modality = document.getElementById("wiz-modality").value;
+        appState.wizardData.location = document.getElementById("wiz-location").value.trim();
+        showWizardStep(4);
+      }
+      // Step 4 Submission
+      else if (appState.wizardStep === 4) {
+        const cap = parseInt(document.getElementById("wiz-capacity").value, 10);
+        const policyElem = document.querySelector('input[name="wiz-policy"]:checked');
+        const policy = policyElem ? policyElem.value : "Moderated";
+
+        const newCircle = {
+          id: `circle-${Date.now()}`,
+          title: appState.wizardData.title,
+          subject: appState.wizardData.subject,
+          description: appState.wizardData.description,
+          style: appState.wizardData.style,
+          modality: appState.wizardData.modality,
+          schedule: appState.wizardData.schedule,
+          capacity: cap,
+          host: appState.currentUser.name,
+          policy: policy,
+          compatibilityScore: 95,
+          objectives: appState.wizardData.objectives.split("\n").filter(x => x.trim().length > 0),
+          rules: appState.wizardData.rules.split("\n").filter(x => x.trim().length > 0),
+          members: [appState.currentUser.name],
+          requests: []
+        };
+
+        appState.circles.unshift(newCircle);
+        showToast(`Study Circle "${newCircle.title}" successfully created!`);
+        navigateTo("screen-circle-management", { circleId: newCircle.id });
+      }
+    }
+
+    function prevWizardStep() {
+      if (appState.wizardStep > 1) {
+        showWizardStep(appState.wizardStep - 1);
+      }
+    }
+
+    function populateWizardReview() {
+      const summaryElem = document.getElementById("wiz-review-summary");
+      summaryElem.innerHTML = `
+        <div><strong>Title:</strong> ${appState.wizardData.title}</div>
+        <div><strong>Subject Domain:</strong> ${appState.wizardData.subject}</div>
+        <div><strong>Study Style:</strong> ${appState.wizardData.style}</div>
+        <div><strong>Modality &amp; Schedule:</strong> ${appState.wizardData.modality} (${appState.wizardData.schedule})</div>
+        <div><strong>Facilitator:</strong> ${appState.currentUser.name}</div>
+      `;
+    }
+
+    /* ----------------------------------------------------------------------
+       SCREEN 10 & 11: SESSION SCHEDULER & SESSION DETAILS RENDERER
+       ---------------------------------------------------------------------- */
+    function openSchedulerModal() {
+      populateSchedulerCircleDropdown();
+      document.getElementById("sched-title-input").value = "";
+      document.getElementById("sched-date-input").value = new Date().toISOString().split("T")[0];
+      document.getElementById("sched-agenda-input").value = "1. 10m Check-in & goal setting\n2. 40m Collaborative problem breakdown\n3. 30m Code & proof review\n4. 10m Wrap-up";
+      document.querySelectorAll("#modal-session-scheduler .form-error").forEach(e => e.style.display = "none");
+      openModal("modal-session-scheduler");
+    }
+
+    function openSchedulerModalForCurrentCircle() {
+      openSchedulerModal();
+      document.getElementById("sched-circle-select").value = appState.selectedCircleId;
+    }
+
+    function openSchedulerModalForCircle(circleId) {
+      openSchedulerModal();
+      document.getElementById("sched-circle-select").value = circleId;
+    }
+
+    function populateSchedulerCircleDropdown() {
+      const sel = document.getElementById("sched-circle-select");
+      sel.innerHTML = "";
+      const eligible = appState.circles.filter(c => c.members.includes(appState.currentUser.name));
+      eligible.forEach(c => {
+        sel.innerHTML += `<option value="${c.id}">${c.title} (${c.host === appState.currentUser.name ? 'Host' : 'Member'})</option>`;
+      });
+    }
+
+    function submitScheduleSession() {
+      const circleId = document.getElementById("sched-circle-select").value;
+      const title = document.getElementById("sched-title-input").value.trim();
+      const date = document.getElementById("sched-date-input").value;
+      const time = document.getElementById("sched-time-input").value;
+      const duration = parseInt(document.getElementById("sched-duration-select").value, 10);
+      const venue = document.getElementById("sched-venue-input").value.trim() || "Virtual Study Space";
+      const agenda = document.getElementById("sched-agenda-input").value.trim();
+
+      let valid = true;
+      if (!title) {
+        document.getElementById("sched-title-error").style.display = "block";
+        valid = false;
+      } else {
+        document.getElementById("sched-title-error").style.display = "none";
+      }
+
+      if (!date) {
+        document.getElementById("sched-date-error").style.display = "block";
+        valid = false;
+      } else {
+        document.getElementById("sched-date-error").style.display = "none";
+      }
+
+      if (!agenda) {
+        document.getElementById("sched-agenda-error").style.display = "block";
+        valid = false;
+      } else {
+        document.getElementById("sched-agenda-error").style.display = "none";
+      }
+
+      if (!valid) return;
+
+      const newSession = {
+        id: `sess-${Date.now()}`,
+        circleId: circleId,
+        title: title,
+        date: date,
+        time: time,
+        duration: duration,
+        venue: venue,
+        agenda: agenda,
+        rsvp: {
+          attending: [appState.currentUser.name],
+          tentative: [],
+          declined: []
+        }
+      };
+
+      appState.sessions.unshift(newSession);
+      closeModal("modal-session-scheduler");
+      showToast(`Study Session "${title}" scheduled!`);
+      navigateTo("screen-session-details", { sessionId: newSession.id });
+    }
+
+    function renderSessionDetails() {
+      const s = appState.sessions.find(x => x.id === appState.selectedSessionId);
+      if (!s) return;
+
+      const circle = appState.circles.find(x => x.id === s.circleId);
+      document.getElementById("sd-title").innerText = s.title;
+      document.getElementById("sd-circle-name").innerText = circle ? circle.title : "Study Circle";
+      document.getElementById("sd-date").innerText = s.date;
+      document.getElementById("sd-time").innerText = `${s.time} (${s.duration} mins)`;
+      document.getElementById("sd-venue").innerText = s.venue;
+      document.getElementById("sd-agenda").innerText = s.agenda;
+
+      // RSVP Segmented Button state
+      const uName = appState.currentUser.name;
+      const isAttending = s.rsvp.attending.includes(uName);
+      const isTentative = s.rsvp.tentative.includes(uName);
+      const isDeclined = s.rsvp.declined.includes(uName);
+
+      document.getElementById("rsvp-btn-attending").className = isAttending ? "selected" : "";
+      document.getElementById("rsvp-btn-tentative").className = isTentative ? "selected" : "";
+      document.getElementById("rsvp-btn-declined").className = isDeclined ? "selected" : "";
+
+      const currentStatusText = isAttending ? "Attending" : (isTentative ? "Tentative" : (isDeclined ? "Declined" : "Not Responded"));
+      document.getElementById("sd-current-rsvp-text").innerText = currentStatusText;
+
+      // Responses list
+      const totalResponses = s.rsvp.attending.length + s.rsvp.tentative.length + s.rsvp.declined.length;
+      document.getElementById("sd-attendee-count").innerText = totalResponses;
+
+      const listElem = document.getElementById("sd-attendee-list");
+      listElem.innerHTML = `
+        <div style="margin-bottom:6px;"><strong>Attending (${s.rsvp.attending.length}):</strong> ${s.rsvp.attending.join(", ") || "None"}</div>
+        <div style="margin-bottom:6px;"><strong>Tentative (${s.rsvp.tentative.length}):</strong> ${s.rsvp.tentative.join(", ") || "None"}</div>
+        <div><strong>Declined (${s.rsvp.declined.length}):</strong> ${s.rsvp.declined.join(", ") || "None"}</div>
+      `;
+    }
+
+    function updateSessionRSVP(status) {
+      const s = appState.sessions.find(x => x.id === appState.selectedSessionId);
+      if (!s) return;
+
+      const uName = appState.currentUser.name;
+      s.rsvp.attending = s.rsvp.attending.filter(n => n !== uName);
+      s.rsvp.tentative = s.rsvp.tentative.filter(n => n !== uName);
+      s.rsvp.declined = s.rsvp.declined.filter(n => n !== uName);
+
+      if (status === "attending") s.rsvp.attending.push(uName);
+      if (status === "tentative") s.rsvp.tentative.push(uName);
+      if (status === "declined") s.rsvp.declined.push(uName);
+
+      showToast(`Attendance updated to: ${status.toUpperCase()}`);
+      renderSessionDetails();
+    }
+
+    /* ----------------------------------------------------------------------
+       SCREEN 12: DEMO DATA ENGINE & RESET UTILITIES
+       ---------------------------------------------------------------------- */
+    function renderDemoDataView() {
+      document.getElementById("debug-circle-count").innerText = appState.circles.length;
+      document.getElementById("debug-joined-count").innerText = appState.circles.filter(c => c.members.includes(appState.currentUser.name)).length;
+      document.getElementById("debug-session-count").innerText = appState.sessions.length;
+      document.getElementById("debug-role").innerText = appState.activeRole.toUpperCase();
+    }
+
+    function resetToInitialSeedData() {
+      appState.currentUser = JSON.parse(JSON.stringify(INITIAL_USER));
+      appState.circles = JSON.parse(JSON.stringify(INITIAL_CIRCLES));
+      appState.sessions = JSON.parse(JSON.stringify(INITIAL_SESSIONS));
+      appState.userPendingRequests = [
+        {
+          circleId: "circle-web",
+          circleTitle: "Web Systems & Distributed APIs",
+          submittedDate: "2026-11-10",
+          status: "Under Host Review"
+        }
+      ];
+      appState.emptyStatePreview = { dashboard: false, myCircles: false };
+      showToast("Demonstration seed state successfully restored.");
+      renderDemoDataView();
+    }
+
+    function openResetConfirmationModal() {
+      openModal("modal-reset-confirm");
+    }
+
+    function confirmClearDemoState() {
+      appState.circles.forEach(c => {
+        c.members = c.members.filter(m => m !== appState.currentUser.name);
+        c.requests = [];
+      });
+      appState.sessions = [];
+      appState.userPendingRequests = [];
+      appState.emptyStatePreview = { dashboard: true, myCircles: true };
+      closeModal("modal-reset-confirm");
+      showToast("Cleared in-memory state. Empty states activated.");
+      renderDemoDataView();
+    }
+
+    /* ----------------------------------------------------------------------
+       ACCESSIBLE MODAL & TOAST HELPERS
+       ---------------------------------------------------------------------- */
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add("open");
+        const focusable = modal.querySelector('button, input, select, textarea, [tabindex="0"]');
+        if (focusable) focusable.focus();
+      }
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.remove("open");
+      }
+    }
+
+    function openCompatibilityBreakdownModal() {
+      openModal("modal-compat-breakdown");
+    }
+
+    // Keyboard support: Escape closes modals
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        document.querySelectorAll(".modal-backdrop.open").forEach(m => m.classList.remove("open"));
+      }
+    });
+
+    function showToast(message) {
+      const container = document.getElementById("toast-container");
+      const toast = document.createElement("div");
+      toast.className = "toast";
+      toast.innerHTML = `<span class="toast-icon">[i]</span> <span>${message}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        setTimeout(() => toast.remove(), 200);
+      }, 3500);
+    }
+
+    /* ----------------------------------------------------------------------
+       INITIALIZATION ON DOM LOAD
+       ---------------------------------------------------------------------- */
+    window.addEventListener("DOMContentLoaded", () => {
+      renderCurrentView();
+    });
+  </script>
+</body>
+</html>
