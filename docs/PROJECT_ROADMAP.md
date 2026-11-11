@@ -1,7 +1,7 @@
 # Product Lifecycle Roadmap: CohortCircle
 
 > **Lifecycle Governance:** 10-Module User-Centered Engineering Sequence  
-> **Current Module:** **Module 02: Real User Research (Active — Instrumentation Prepared & Fieldwork Pending)**
+> **Current Module:** **Module 03: Research Synthesis & Personas (Active — Framework Prepared & Synthesis Pending)**
 > **Stopping Policy:** Work strictly halts at the boundary of each module. Transition to the subsequent module requires owner review and explicit authorization.
 
 ---
@@ -16,9 +16,9 @@
    ┌─────────────────────────────────┴─────────────────────────────────┐
    ▼                                                                   ▼
 [Phase 1: Discovery & Strategy]                        [Phase 2: Interaction Design]
-   M01: Product Foundation (COMPLETED)                    M04: Ideation & Conceptual Design
-   M02: Real User Research (ACTIVE)                       M05: Low-Fidelity Prototyping
-   M03: Research Synthesis & Personas (NOT STARTED)       M06: Formative Usability Evaluation
+   M01: Product Foundation (COMPLETED)                    M04: Ideation & Conceptual Design (NOT STARTED)
+   M02: Real User Research (ACTIVE - FIELDWORK PENDING)   M05: Low-Fidelity Prototyping
+   M03: Research Synthesis & Personas (ACTIVE - PREPARED) M06: Formative Usability Evaluation
                                      │
    ┌─────────────────────────────────┴─────────────────────────────────┐
    ▼                                                                   ▼
@@ -45,7 +45,7 @@
 
 ---
 
-### Module 02: Real User Research *(ACTIVE)*
+### Module 02: Real User Research *(ACTIVE — FIELDWORK PENDING)*
 * **Objective:** Prepare operational research instruments, recruit authentic student participants, and conduct empirical field investigations into study group behaviors, friction points, and mental models.
 * **Core Deliverables:**
   * Operational Research Toolkit: 11 protocols, guides, templates, codebooks, and registers in [`docs/research/`](research/README.md).
@@ -56,19 +56,26 @@
   * Module 02 Handoff Report (`docs/handovers/MODULE_02_HANDOFF.md`).
 * **Input Dependencies:** Module 01 approved research plan and ethics consent protocols.
 * **Acceptance Conditions:** All research instruments prepared and verified; private data isolation in `.gitignore`; zero fabricated data; empirical evidence validating, refining, or pivoting the working hypothesis.
-* **Status:** Research Instrumentation Prepared — Empirical Fieldwork Pending.
+* **Status:** Research Instrumentation Prepared & Committed (`9ca03e1`) — Empirical Fieldwork Pending.
 
 ---
 
-### Module 03: Research Synthesis & Personas
-* **Objective:** Synthesize raw empirical data into structured behavioral artifacts and user representations.
+### Module 03: Research Synthesis & Personas *(ACTIVE — FRAMEWORK PREPARED)*
+* **Objective:** Synthesize raw empirical data into structured behavioral artifacts, empathy maps, proto-personas, and user journey flows.
 * **Core Deliverables:**
-  * Affinity diagrams grouping empirical findings into thematic clusters.
-  * Empathy maps for primary (Learner) and secondary (Host) user profiles.
-  * Evidence-grounded user personas reflecting verified field behaviors (no fictional bios).
-  * User journey maps highlighting emotional highs and friction points in study group formation.
-* **Input Dependencies:** Completed empirical datasets from Module 02.
-* **Acceptance Conditions:** Direct traceability between raw quotes/observations and synthesized persona goals and pain points.
+  * Synthesis Toolkit: 10 operational specifications in [`docs/synthesis/`](synthesis/README.md).
+  * Evidence availability audit and local storage pre-synthesis gate (`docs/synthesis/EVIDENCE_AUDIT.md`).
+  * Affinity mapping framework (10 dimensions, card schema, Mermaid topology).
+  * 6-quadrant empathy maps for Learner and Host roles with hypothesis pointers.
+  * Behavioral spectrum axes and persona development methodology without demographic stereotyping.
+  * Three unvalidated proto-personas (`PROTO-LEARN-01`, `PROTO-LEARN-02`, `PROTO-HOST-01`).
+  * End-to-end 8-stage user journey map with emotional valence curve.
+  * Bidirectional needs traceability matrix (`NEED-001`–`008` mapped to 23 FRs and 15 NFRs).
+  * Persona validation plan with operational falsification and elevation criteria.
+  * Module 03 Handoff Report (`docs/handovers/MODULE_03_HANDOFF.md`).
+* **Input Dependencies:** Completed empirical datasets or framework instrumentation from Module 02.
+* **Acceptance Conditions:** Pre-synthesis audit executed; zero fabricated findings; explicit `UNVALIDATED PROTO-PERSONA` labeling; complete traceability matrix established.
+* **Status:** Framework Prepared & Verified — Empirical Synthesis Pending Fieldwork Collection.
 
 ---
 

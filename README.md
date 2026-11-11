@@ -3,7 +3,7 @@
 > **Find your people. Learn together.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Status: Research Instrumentation](https://img.shields.io/badge/Status-Module%2002%20Research%20Toolkit-blue.svg)](#project-roadmap)
+[![Status: Research Synthesis](https://img.shields.io/badge/Status-Module%2003%20Synthesis%20Framework-blue.svg)](#project-roadmap)
 [![Target Standard](https://img.shields.io/badge/Accessibility-WCAG%202.2%20AA%20Target-brightgreen.svg)](#accessibility--design-principles)
 
 CohortCircle is an open-source collaborative learning platform created to solve the friction of finding and coordinating compatible study groups. By moving beyond unstructured chat groups and static bulletin boards, CohortCircle empowers university students and independent learners to discover peers with matching goals, aligned schedules, and complementary study habits.
@@ -89,7 +89,7 @@ The development of CohortCircle follows an empirical, user-centered 10-module en
 |---|---|---|---|
 | **01** | **Product Foundation & Project Definition** | Scope charter, problem hypothesis, requirements engineering, and governance | **Completed** |
 | **02** | **Real User Research** | Operational research toolkit, contextual inquiry, student interviews, and exploratory survey | **Active** *(Instruments Prepared; Fieldwork Pending)* |
-| **03** | **Research Synthesis & Personas** | Affinity diagrams, empathy maps, and evidence-grounded user personas | *Not Started* |
+| **03** | **Research Synthesis & Personas** | Affinity mapping, empathy maps, proto-personas, and user journey flows | **Active** *(Framework Prepared; Synthesis Pending)* |
 | **04** | **Ideation & Conceptual Design** | Information architecture, user task flows, and mental model mapping | *Not Started* |
 | **05** | **Low-Fidelity Prototyping** | Paper prototypes, interactive wireframes, and usability exploration | *Not Started* |
 | **06** | **Formative Usability Evaluation** | Heuristic evaluation, cognitive walkthroughs, and early interaction testing | *Not Started* |
@@ -130,9 +130,21 @@ CohortCircle/
     │   ├── QUALITATIVE_ANALYSIS_PROTOCOL.md # 9-step thematic analysis & codebook
     │   ├── EVIDENCE_REGISTER.md # Master traceability matrix connecting RQs to evidence
     │   └── FIELDWORK_STATUS.md # Real-time recruitment and fieldwork execution monitor
+    ├── synthesis/             # Module 03 Synthesis & Persona Framework
+    │   ├── README.md          # Synthesis overview and audit summary
+    │   ├── EVIDENCE_AUDIT.md  # Audit of local research records & gate decision
+    │   ├── AFFINITY_MAPPING.md# 10-dimension clustering framework & card schema
+    │   ├── EMPATHY_MAPS.md    # Learner & Host empathy maps with hypothesis pointers
+    │   ├── PERSONA_DEVELOPMENT.md # 6 behavioral axes & anti-fictionalization rules
+    │   ├── PERSONA_CATALOG.md # Unvalidated proto-personas (PROTO-01, 02, Host)
+    │   ├── USER_JOURNEY_MAPS.md # End-to-end 8-stage peer learning journey & Mermaid
+    │   ├── NEEDS_TRACEABILITY.md # Traceability matrix (RQs -> Needs -> FRs)
+    │   ├── SYNTHESIS_LIMITATIONS.md # Boundary disclosure & risk mitigation
+    │   └── PERSONA_VALIDATION_PLAN.md # Protocol for empirical elevation
     └── handovers/
         ├── MODULE_01_HANDOFF.md # Module 01 verification and baseline handoff
-        └── MODULE_02_HANDOFF.md # Module 02 research instrumentation handoff
+        ├── MODULE_02_HANDOFF.md # Module 02 research instrumentation handoff
+        └── MODULE_03_HANDOFF.md # Module 03 synthesis framework handoff
 ```
 
 ---

@@ -128,6 +128,42 @@
 
 ---
 
+### DEC-013: Pre-Synthesis Evidence Audit & Framework Branch Activation
+* **Status:** `[CONFIRMED]`
+* **Context:** Determining whether empirical records exist in local storage (`private-research-data/`) prior to persona formulation.
+* **Decision:** Following a formal audit confirming 0 raw interview transcripts and 0 survey responses, activate Branch B (Framework Mode). Fully instrument the affinity mapping, empathy, and persona structures without fabricating empirical records.
+* **Date:** 2026-11-11
+* **Impact:** Uncompromising scientific integrity; zero fake findings or fabricated interviews.
+
+---
+
+### DEC-014: Explicit Proto-Persona Classification & Role Architecture
+* **Status:** `[CONFIRMED]`
+* **Context:** Designing personas prior to the completion of empirical fieldwork.
+* **Decision:** All personas authored in Module 03 (`PROTO-LEARN-01`, `PROTO-LEARN-02`, and `PROTO-HOST-01`) are formally designated as `UNVALIDATED PROTO-PERSONAS`. They represent structured behavioral hypotheses across 6 spectrum axes, subject to empirical validation or falsification.
+* **Date:** 2026-11-11
+* **Impact:** Transparent boundary between domain hypotheses and verified empirical profiles.
+
+---
+
+### DEC-015: Anti-Fictionalization Standards in User Modeling
+* **Status:** `[CONFIRMED]`
+* **Context:** Deciding visual, demographic, and narrative formats for user personas.
+* **Decision:** Strictly prohibit fictional stock portraits, fabricated personal names, arbitrary ages, and fictional biographies. Personas are modeled around behavioral archetypes, study styles, and systemic friction points.
+* **Date:** 2026-11-11
+* **Impact:** High professional credibility; alignment with advanced HCI and goal-directed design standards.
+
+---
+
+### DEC-016: Bidirectional Traceability Pipeline
+* **Status:** `[CONFIRMED]`
+* **Context:** Connecting research inquiries with product scope and user modeling.
+* **Decision:** Maintain unbroken traceability connecting `RQ-01`–`08` &rarr; Evidence Sources &rarr; Analytical Codes &rarr; 10 Affinity Clusters &rarr; User Needs (`NEED-001`–`008`) &rarr; Proto-Personas &rarr; 23 Functional Requirements (`FR-001`–`023`).
+* **Date:** 2026-11-11
+* **Impact:** Complete auditability from user needs through to software requirements.
+
+---
+
 ## 3. Active Research Questions for Module 02
 
 1. **RQ-01:** What is the relative weight that learners place on schedule availability versus study style compatibility when deciding whether to join a peer group?
