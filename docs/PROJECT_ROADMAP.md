@@ -1,7 +1,7 @@
 # Product Lifecycle Roadmap: CohortCircle
 
 > **Lifecycle Governance:** 10-Module User-Centered Engineering Sequence  
-> **Current Module:** **Module 03: Research Synthesis & Personas (Active — Framework Prepared & Synthesis Pending)**
+> **Current Module:** **Module 04: Ideation & Conceptual Design (Completed & Verified)**
 > **Stopping Policy:** Work strictly halts at the boundary of each module. Transition to the subsequent module requires owner review and explicit authorization.
 
 ---
@@ -16,9 +16,9 @@
    ┌─────────────────────────────────┴─────────────────────────────────┐
    ▼                                                                   ▼
 [Phase 1: Discovery & Strategy]                        [Phase 2: Interaction Design]
-   M01: Product Foundation (COMPLETED)                    M04: Ideation & Conceptual Design (NOT STARTED)
-   M02: Real User Research (ACTIVE - FIELDWORK PENDING)   M05: Low-Fidelity Prototyping
-   M03: Research Synthesis & Personas (ACTIVE - PREPARED) M06: Formative Usability Evaluation
+   M01: Product Foundation (COMPLETED)                    M04: Ideation & Conceptual Design (COMPLETED)
+   M02: Real User Research (ACTIVE - FIELDWORK PENDING)   M05: Low-Fidelity Prototyping (NOT STARTED)
+   M03: Research Synthesis & Personas (COMPLETED)         M06: Formative Usability Evaluation
                                      │
    ┌─────────────────────────────────┴─────────────────────────────────┐
    ▼                                                                   ▼
@@ -60,7 +60,7 @@
 
 ---
 
-### Module 03: Research Synthesis & Personas *(ACTIVE — FRAMEWORK PREPARED)*
+### Module 03: Research Synthesis & Personas *(COMPLETED — FRAMEWORK PREPARED)*
 * **Objective:** Synthesize raw empirical data into structured behavioral artifacts, empathy maps, proto-personas, and user journey flows.
 * **Core Deliverables:**
   * Synthesis Toolkit: 10 operational specifications in [`docs/synthesis/`](synthesis/README.md).
@@ -75,19 +75,27 @@
   * Module 03 Handoff Report (`docs/handovers/MODULE_03_HANDOFF.md`).
 * **Input Dependencies:** Completed empirical datasets or framework instrumentation from Module 02.
 * **Acceptance Conditions:** Pre-synthesis audit executed; zero fabricated findings; explicit `UNVALIDATED PROTO-PERSONA` labeling; complete traceability matrix established.
-* **Status:** Framework Prepared & Verified — Empirical Synthesis Pending Fieldwork Collection.
+* **Status:** Framework Prepared, Committed (`474b0d9`), and Verified — Empirical Synthesis Pending Fieldwork Collection.
 
 ---
 
-### Module 04: Ideation & Conceptual Design
-* **Objective:** Explore solution spaces, define system information architecture, and map intuitive user task flows.
+### Module 04: Ideation & Conceptual Design *(COMPLETED)*
+* **Objective:** Explore solution spaces, select optimal architecture, define system information architecture, map intuitive task flows and wireflows, and bridge user mental models.
 * **Core Deliverables:**
-  * Information Architecture (IA) sitemap and content hierarchy.
-  * End-to-end user task flows for the 5 core benchmark workflows.
-  * Wireflows illustrating screen transitions and decision forks.
-  * Mental model mapping aligning user expectations with interface concepts.
-* **Input Dependencies:** Synthesized user journeys and validated requirements from Module 03.
-* **Acceptance Conditions:** Task flows support all 5 candidate benchmark evaluation tasks without dead ends or ambiguous branches.
+  * Conceptual Design Toolkit: 11 operational specifications in [`docs/conceptual-design/`](conceptual-design/README.md).
+  * Four distinct concept models evaluated across 8 weighted criteria (`CONCEPT_ALTERNATIVES.md`, `CONCEPT_SELECTION.md`).
+  * Four 6-frame visual narrative storyboards across core user situations (`STORYBOARDS.md`).
+  * Four detailed operational scenarios with failure recovery paths (`USER_SCENARIOS.md`).
+  * Unified Information Architecture, Mermaid sitemap, and role-based access matrix (`INFORMATION_ARCHITECTURE.md`).
+  * Five complete user task flows with step-by-step logic (`USER_TASK_FLOWS.md`).
+  * Five Mermaid wireflows with exhaustive error handling and state recovery paths (`WIREFLOWS.md`).
+  * Mental model mapping across 8 core domain concepts (`MENTAL_MODEL_MAPPING.md`).
+  * 100% requirements traceability matrix covering 23 FRs and 15 NFRs (`DESIGN_TRACEABILITY.md`).
+  * Conceptual design limitations and formative usability test questions (`DESIGN_LIMITATIONS.md`).
+  * Module 04 Handoff Report (`docs/handovers/MODULE_04_HANDOFF.md`).
+* **Input Dependencies:** Synthesized user journeys, proto-personas, and requirements baseline from Module 01–03.
+* **Acceptance Conditions:** All 4 concepts evaluated; unified workspace selected; 5 task flows and wireflows completed; all 23 FRs and 15 NFRs traced; zero false validation claims.
+* **Status:** Completed, verified, and ready for low-fidelity prototyping.
 
 ---
 

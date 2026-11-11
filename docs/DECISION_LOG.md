@@ -164,6 +164,42 @@
 
 ---
 
+### DEC-017: Selection of the Unified CohortCircle Workspace Architecture
+* **Status:** `[CONFIRMED PROVISIONAL DESIGN DIRECTION]`
+* **Context:** Selecting an optimal conceptual model among four alternatives (Compatibility-First, Community-First, Session-First, Host-Led Hub).
+* **Decision:** Formally select the Unified Workspace model combining compatibility-first discovery with flexible circle hosting and structured session coordination, scoring 4.95/5.0 across an 8-criteria weighted trade-off matrix.
+* **Date:** 2026-11-11
+* **Impact:** 100% functional requirement coverage (`FR-001`–`023`); balanced learner and host ergonomics.
+
+---
+
+### DEC-018: Progressive Disclosure of Profile Preferences
+* **Status:** `[CONFIRMED]`
+* **Context:** Deciding whether profile setup should block initial directory browsing.
+* **Decision:** Allow unauthenticated or new users to freely browse and search the circle directory immediately, while progressively inviting them to configure study preferences to unlock personalized compatibility scoring and sorting.
+* **Date:** 2026-11-11
+* **Impact:** Minimizes onboarding bounce rates while preserving high-value matchmaking utility.
+
+---
+
+### DEC-019: Contextual Dual-Role Architecture
+* **Status:** `[CONFIRMED]`
+* **Context:** Managing learner vs. host permissions without requiring separate accounts or complex role-switching modals.
+* **Decision:** Implement role permissions contextually per-circle. A user operates as a primary learner in joined circles, while accessing facilitator controls for circles they own via the persistent "Host Hub".
+* **Date:** 2026-11-11
+* **Impact:** Fluid UX; zero account-switching friction; supports student peer-leaders effectively.
+
+---
+
+### DEC-020: Structured Agenda & 1-Click RSVP Session Architecture
+* **Status:** `[CONFIRMED]`
+* **Context:** Designing session scheduling to prevent study group flakiness and momentum drop.
+* **Decision:** Require explicit session agendas during scheduling and provide 1-click RSVP toggles (Attending / Declined) with real-time attendee lists displayed on the session cards.
+* **Date:** 2026-11-11
+* **Impact:** Direct mitigation of `CODE-MOMENTUM-DROP` and `CODE-SCHED-FATIGUE` without external calendar dependencies.
+
+---
+
 ## 3. Active Research Questions for Module 02
 
 1. **RQ-01:** What is the relative weight that learners place on schedule availability versus study style compatibility when deciding whether to join a peer group?

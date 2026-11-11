@@ -1,8 +1,8 @@
 # Project State & Governance Monitor: CohortCircle
 
 > **Last Updated:** 2026-11-11  
-> **Current Lifecycle Stage:** Module 03 of 10 (Research Synthesis, Empathy Maps & Proto-Personas)
-> **Status:** **ACTIVE — FRAMEWORK PREPARED & EMPIRICAL SYNTHESIS PENDING**
+> **Current Lifecycle Stage:** Module 04 of 10 (Ideation & Conceptual Design)
+> **Status:** **ACTIVE — CONCEPTUAL DESIGN COMPLETED & VERIFIED**
 
 ---
 
@@ -10,14 +10,14 @@
 
 | Metric | Current State | Target / Benchmark | Status |
 |---|---|---|---|
-| **Active Module** | Module 03 of 10 | Sequential Execution | ACTIVE |
+| **Active Module** | Module 04 of 10 | Sequential Execution | ACTIVE |
 | **Module 01 Foundation** | 100% Completed & Pushed (`560a577`) | 14 Core Documents & Git Baseline | COMPLETED |
 | **Module 02 Research Toolkit** | 100% Completed & Pushed (`9ca03e1`) | 11 Research Documents & Protocols | PREPARED |
-| **Module 03 Synthesis Framework**| 100% Completed & Verified | 10 Synthesis Specifications & Proto-Personas | PREPARED |
+| **Module 03 Synthesis Framework**| 100% Completed & Pushed (`474b0d9`) | 10 Synthesis Specs & Proto-Personas | COMPLETED |
+| **Module 04 Conceptual Design** | 100% Completed & Verified | 11 Design Specs, Sitemap & Wireflows | COMPLETED |
 | **Empirical Fieldwork** | Contextual Inquiry, 5-7 Interviews, Survey | Real-world participant collection | FIELDWORK PENDING |
-| **Problem Hypothesis** | Formally Recorded (`HYP-01`) | Explicitly Unvalidated | UNVALIDATED |
-| **Persona Classification** | `PROTO-LEARN-01`, `02`, `PROTO-HOST-01` | Unvalidated Proto-Personas | GROUNDED HYPOTHESIS |
-| **Requirements Defined** | 23 FRs, 15 NFRs | Complete Bidirectional Traceability | VERIFIED |
+| **Selected Concept** | Unified CohortCircle Workspace | 4 Concepts Evaluated across 8 Criteria | CONFIRMED |
+| **Requirements Defined** | 23 FRs, 15 NFRs | Complete Bidirectional Traceability | 100% COVERED |
 | **Summative Evaluation Plan** | 18 Participants, 5 Benchmark Tasks | Latin-Square Design Matrix | PREPARED (M09) |
 | **Git Repository** | Up-to-date with `origin/main` | Clean version control & privacy isolation | ON TRACK |
 | **FYP Alignment Decision** | Pending Owner Confirmation (`DEC-002`) | Unambiguous open record | PENDING |
@@ -45,6 +45,7 @@
 | [`docs/handovers/MODULE_01_HANDOFF.md`](handovers/MODULE_01_HANDOFF.md) | Module 01 verification checklist and handoff report | COMPLETE |
 | [`docs/handovers/MODULE_02_HANDOFF.md`](handovers/MODULE_02_HANDOFF.md) | Module 02 research instrumentation handoff report | COMPLETE |
 | [`docs/handovers/MODULE_03_HANDOFF.md`](handovers/MODULE_03_HANDOFF.md) | Module 03 synthesis and proto-persona handoff report | COMPLETE |
+| [`docs/handovers/MODULE_04_HANDOFF.md`](handovers/MODULE_04_HANDOFF.md) | Module 04 conceptual design and IA handoff report | COMPLETE |
 
 ### Module 02 Operational Research Toolkit
 | Path | Description | Status |
@@ -75,12 +76,27 @@
 | [`docs/synthesis/SYNTHESIS_LIMITATIONS.md`](synthesis/SYNTHESIS_LIMITATIONS.md) | Risk analysis, assumption boundary disclosure, mitigations | COMPLETE |
 | [`docs/synthesis/PERSONA_VALIDATION_PLAN.md`](synthesis/PERSONA_VALIDATION_PLAN.md) | Operational protocol and falsification rules for field elevation | COMPLETE |
 
+### Module 04 Conceptual Design & Architecture Toolkit
+| Path | Description | Status |
+|---|---|---|
+| [`docs/conceptual-design/README.md`](conceptual-design/README.md) | Module overview, decision classification taxonomy, inventory | COMPLETE |
+| [`docs/conceptual-design/CONCEPT_ALTERNATIVES.md`](conceptual-design/CONCEPT_ALTERNATIVES.md) | 4 distinct concept models evaluated across workflows & trade-offs | COMPLETE |
+| [`docs/conceptual-design/CONCEPT_SELECTION.md`](conceptual-design/CONCEPT_SELECTION.md) | 8-criteria trade-off matrix & selection rationale (Unified Workspace) | COMPLETE |
+| [`docs/conceptual-design/STORYBOARDS.md`](conceptual-design/STORYBOARDS.md) | 4 narrative storyboards (6 frames each) covering core situations | COMPLETE |
+| [`docs/conceptual-design/USER_SCENARIOS.md`](conceptual-design/USER_SCENARIOS.md) | 4 operational scenarios (`SCEN-01` to `04`) with error recovery | COMPLETE |
+| [`docs/conceptual-design/INFORMATION_ARCHITECTURE.md`](conceptual-design/INFORMATION_ARCHITECTURE.md) | Unified sitemap, navigation hierarchy & role-based access matrix | COMPLETE |
+| [`docs/conceptual-design/USER_TASK_FLOWS.md`](conceptual-design/USER_TASK_FLOWS.md) | 5 complete core task flows (`FLOW-01` to `05`) with step logic | COMPLETE |
+| [`docs/conceptual-design/WIREFLOWS.md`](conceptual-design/WIREFLOWS.md) | 5 Mermaid wireflow diagrams with full error paths & recovery | COMPLETE |
+| [`docs/conceptual-design/MENTAL_MODEL_MAPPING.md`](conceptual-design/MENTAL_MODEL_MAPPING.md) | Translation matrix mapping 8 user expectations to UI metaphors | COMPLETE |
+| [`docs/conceptual-design/DESIGN_TRACEABILITY.md`](conceptual-design/DESIGN_TRACEABILITY.md) | 100% bidirectional coverage across all 23 FRs and 15 NFRs | COMPLETE |
+| [`docs/conceptual-design/DESIGN_LIMITATIONS.md`](conceptual-design/DESIGN_LIMITATIONS.md) | Assumptions, design boundaries & formative usability inquiries | COMPLETE |
+
 ---
 
-## 3. Module 03 Governance & Stopping Policy
+## 3. Module 04 Governance & Stopping Policy
 
-* **Framework Mode Active:** All analytical tools and proto-persona models are fully instrumented and verified.
+* **Conceptual Design Baseline:** Fully completed, documented, and verified.
 * **Empirical Fieldwork Execution:** Remains marked as **`FIELDWORK PENDING`**. No fabricated participant notes, interview responses, or survey datasets exist.
-* **Hard Stopping Condition:** Under the project governance guidelines, execution strictly halts at the completion and verification of the Module 03 deliverables package.
-* **Prohibited Actions:** No premature execution of Module 04 (Ideation & Conceptual Design), no creation of production screens, and no installation of application packages.
-* **Next Gate:** Project Owner (Muhammad Taimoor Ajmal) review of Module 03 synthesis artifacts and authorization to proceed.
+* **Hard Stopping Condition:** Under the project governance guidelines, execution strictly halts at the completion and verification of the Module 04 deliverables package.
+* **Prohibited Actions:** No premature execution of Module 05 (Low-Fidelity Prototyping), no building of prototype screens, and no installation of application packages.
+* **Next Gate:** Project Owner (Muhammad Taimoor Ajmal) review of Module 04 conceptual design artifacts and authorization to proceed to Module 05.
