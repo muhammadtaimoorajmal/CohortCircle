@@ -27,16 +27,18 @@ The primary objective of Module 09 is to conduct a **rigorous summative usabilit
 The target population consists of active university students (undergraduate or postgraduate) and independent adult learners who engage in academic coursework, exam preparation, or peer collaborative learning.
 
 ### 2.2 Inclusion Criteria
-1. Currently enrolled university student or active independent learner.
-2. Must study course material or domain subjects requiring at least 1 hour of study per week.
-3. Capable of operating a web browser on desktop/laptop and/or mobile devices.
-4. Fluent in written English (the primary interface language of the application).
-5. Willing to provide informed consent for an in-person or remote moderated usability evaluation.
+1. Must be 18 years of age or older. (Participants under 18 cannot be recruited without formal institutional ethics approval and minor assent / parental consent; minor recruitment remains suspended pending institutional confirmation).
+2. Currently enrolled university student or active independent learner.
+3. Must study course material or domain subjects requiring at least 1 hour of study per week.
+4. Capable of operating a web browser on desktop/laptop and/or mobile devices.
+5. Fluent in written English (the primary interface language of the application).
+6. Willing to provide informed consent for an in-person or remote moderated usability evaluation.
 
 ### 2.3 Exclusion Criteria
-1. Members of the direct CohortCircle core development team.
-2. Individuals who participated in the Module 06 formative wireframe evaluation (to eliminate familiarity bias).
-3. Individuals unwilling to think aloud or share feedback.
+1. Individuals under 18 years of age (pending institutional ethics review approval).
+2. Members of the direct CohortCircle core development team.
+3. Individuals who participated in the Module 06 formative wireframe evaluation (to eliminate familiarity bias).
+4. Individuals unwilling to think aloud or share feedback.
 
 ---
 
@@ -155,7 +157,7 @@ The study utilizes **moderated usability testing with concurrent Think-Aloud (CT
 * 5-point Likert scale (1 = Strongly Disagree to 5 = Strongly Agree).
 * Standard scoring formula:  
   $$\text{SUS} = 2.5 \times \left( \sum_{i \in \text{odd}} (R_i - 1) + \sum_{i \in \text{even}} (5 - R_i) \right)$$
-* **Target Benchmark:** Mean SUS &ge; 80.0 / 100 (Grade A, top 10th percentile usability).
+* **Target Benchmark:** Mean SUS &ge; 80.0 / 100 (`NFR-USE-01`). Note that the project benchmark of &ge; 80.0 is an operational milestone threshold at the Grade B / Grade A boundary, distinct from the standardized Sauro & Lewis (2016) curved Grade A cutoff of 80.3 (90th percentile). A score of 80.0–80.2 is Grade B (above average).
 
 ### 6.6 Post-Test Qualitative Debrief
 * Four structured open-ended questions:
@@ -174,7 +176,9 @@ The study utilizes **moderated usability testing with concurrent Think-Aloud (CT
    * Signed consent forms, raw notes, audio recordings, and participant identity maps are stored exclusively in the local directory `private-research-data/module09/` (gitignored).
    * All public artifacts, reports, and commits use strictly de-identified codes (`M09-P01` to `M09-P18`).
    * No phone numbers, student IDs, email addresses, or identifying images are ever committed.
-4. **Synthetic Scenarios:** Participants are instructed to use provided fictional persona scenarios rather than entering personal course grades or private academic information.
+4. **Recording Consent Options:** The consent protocol provides independent separate options for audio recording, application-only screen recording, and no recording. Participants who decline recording may still participate fully without prejudice.
+5. **Data Retention & Disposal:** Audio recordings are erased within 5 business days of verified transcription. Any long-term institutional archival or disposal requirements remain pending supervisor/institutional confirmation.
+6. **Synthetic Scenarios:** Participants are instructed to use provided fictional persona scenarios rather than entering personal course grades or private academic information.
 
 ---
 

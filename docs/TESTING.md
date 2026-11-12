@@ -19,7 +19,7 @@ CohortCircle employs a multi-tiered verification pipeline combining static analy
 │       (ESLint)       │ INTEGRATION TESTS    │            (Vite)             │
 │                      │      (Vitest)        │                               │
 │ • Flat config        │ • 10 Test suites     │ • Tree-shaking & Minification │
-│ • React 19 rules     │ • 94 Automated tests │ • 122 ESM modules transformed │
+│ • React 19 rules     │ • 106 Automated tests│ • 122 ESM modules transformed │
 │ • Zero warnings      │ • 100% Pass rate     │ • Clean zero-warning output   │
 └──────────────────────┴──────────────────────┴───────────────────────────────┘
 ```
@@ -32,7 +32,7 @@ Testing is orchestrated via `vitest` with `jsdom` and `@testing-library/react`.
 
 ### Package Scripts
 ```bash
-# Execute automated test suites (94 tests across 10 files)
+# Execute automated test suites (106 tests across 10 files)
 npm run test
 
 # Run ESLint static check across all JS/JSX files
@@ -47,23 +47,23 @@ npm run dev
 
 ---
 
-## 3. Automated Test Suite Summary (94 Tests across 10 Suites)
+## 3. Automated Test Suite Summary (106 Tests across 10 Suites)
 
-All 94 automated test cases pass with 100% green status:
+All 106 automated test cases pass with 100% green status:
 
 | Suite File | Scope & Target | Tests | Status |
 |---|---|---|---|
 | **`src/test/storageService.test.js`** | Versioned localStorage persistence, corrupted JSON recovery, schema validation, factory demo reset | 8 tests | **PASS** |
 | **`src/test/compatibilityService.test.js`** | 5-factor weighted formula, deterministic scoring, explainable tags, host 100% shortcut | 10 tests | **PASS** |
 | **`src/test/validationService.test.js`** | Input validation, charter length, capacity bounds, past date rejection, URL security | 5 tests | **PASS** |
-| **`src/test/analysisScript.test.js`** | RFC 4180 CSV parser, schema validation, foreign keys, neutral SUS imputation, completion states, stats | 36 tests | **PASS** |
+| **`src/test/analysisScript.test.js`** | Hardened RFC 4180 CSV parser, schema validation, unconditional foreign keys, Latin-Square sequences, SUS imputation, composite checks, unrounded stdDev, stats | 48 tests | **PASS** |
 | **`src/test/profileWorkflows.test.jsx`** | Profile editing, study styles, 7x3 availability matrix, dynamic profile completeness | 4 tests | **PASS** |
 | **`src/test/discoveryWorkflows.test.jsx`** | Directory rendering, text search, multi-criteria filtering (AND logic), single-action reset | 5 tests | **PASS** |
 | **`src/test/circleWorkflows.test.jsx`** | Direct join, request-to-join, leave circle, host applicant admission/rejection, member removal | 9 tests | **PASS** |
 | **`src/test/sessionWorkflows.test.jsx`** | Session scheduling, past date prevention, RSVP status toggling, attendee list synchronization | 4 tests | **PASS** |
 | **`src/test/integrationWorkflows.test.jsx`** | Complete end-to-end lifecycle across all 23 Functional Requirements (FR-001 to FR-023) | 1 test | **PASS** |
 | **`src/test/App.test.jsx`** | All 12 application routes, navigation, layout shells, 404 fallback | 12 tests | **PASS** |
-| **TOTAL** | **Full Quality & Functional Verification** | **94 tests** | **100% PASS** |
+| **TOTAL** | **Full Quality & Functional Verification** | **106 tests** | **100% PASS** |
 
 ---
 
