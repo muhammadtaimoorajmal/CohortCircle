@@ -455,6 +455,46 @@ describe('Module 09 Analysis Engine & Statistical Algorithms', () => {
       expect(summary.mean).toBe(100.0);
     });
 
+    it('rejects stored sus_score on an incomplete questionnaire during dataset validation', () => {
+      const mockSessions = [
+        {
+          participant_id: 'M09-P01',
+          experience_group: 'Group A',
+          weekly_study_hours: 5,
+          device_context: 'Laptop',
+          viewport_width: 1440,
+          viewport_height: 900,
+          environment: 'Quiet',
+          task_sequence: 'Seq A',
+          consent_verified: true,
+          session_date: '2026-11-12',
+          session_duration: 45,
+          status: 'Completed',
+        },
+      ];
+      // Incomplete questionnaire (10 blanks) claiming a stored score of 75.0!
+      const mockSusWithStored = [
+        {
+          participant_id: 'M09-P01',
+          q1: '', q2: '', q3: '', q4: '', q5: '', q6: '', q7: '', q8: '', q9: '', q10: '',
+          sus_score: '75.0',
+        },
+      ];
+      const errors = validateDatasets({ sessions: mockSessions, sus: mockSusWithStored });
+      expect(errors.some((e) => e.includes('cannot have a stored sus_score'))).toBe(true);
+
+      // Incomplete questionnaire WITHOUT stored score does not produce a fatal schema error
+      const mockSusWithoutStored = [
+        {
+          participant_id: 'M09-P01',
+          q1: '', q2: '', q3: '', q4: '', q5: '', q6: '', q7: '', q8: '', q9: '', q10: '',
+          sus_score: '',
+        },
+      ];
+      const cleanErrors = validateDatasets({ sessions: mockSessions, sus: mockSusWithoutStored });
+      expect(cleanErrors).toEqual([]);
+    });
+
     it('determines correct Sauro-Lewis curved grades and distinguishes Grade A cutoff 80.3 from 80.0', () => {
       expect(getSUSGrade(92.0)).toBe('A+');
       expect(getSUSGrade(80.5)).toBe('A');
@@ -602,21 +642,129 @@ describe('Module 09 Analysis Engine & Statistical Algorithms', () => {
       expect(determineCompletionState(partialSessions, partialTasks, [])).toBe('PARTIAL_FIELDWORK');
     });
 
-    it('classifies full complete dataset as ANALYSIS_READY only when all 18 participants have 5 tasks', () => {
-      const fullSessions = Array.from({ length: 18 }, (_, i) => ({
-        participant_id: `M09-P${String(i + 1).padStart(2, '0')}`,
-        status: 'Completed',
-      }));
-      const fullTasks = Array.from({ length: 90 }, (_, i) => ({
-        participant_id: `M09-P${String(Math.floor(i / 5) + 1).padStart(2, '0')}`,
-        task_id: `T0${(i % 5) + 1}`,
-        outcome: 'Unassisted',
-      }));
+    it('classifies full complete dataset as ANALYSIS_READY only when all 18 participants have 5 correctly sequenced tasks and valid SUS', () => {
+      const fullSessions = Array.from({ length: 18 }, (_, i) => {
+        const pid = `M09-P${String(i + 1).padStart(2, '0')}`;
+        return {
+          participant_id: pid,
+          status: 'Completed',
+          task_sequence: PARTICIPANT_SEQUENCE_MAP[pid],
+        };
+      });
+      const fullTasks = Array.from({ length: 90 }, (_, i) => {
+        const pid = `M09-P${String(Math.floor(i / 5) + 1).padStart(2, '0')}`;
+        const seq = PARTICIPANT_SEQUENCE_MAP[pid];
+        const pos = (i % 5) + 1;
+        const tid = EXPECTED_SEQUENCES[seq][pos - 1];
+        return {
+          participant_id: pid,
+          task_id: tid,
+          sequence_position: pos,
+          outcome: 'Unassisted',
+        };
+      });
       const fullSus = Array.from({ length: 18 }, (_, i) => ({
         participant_id: `M09-P${String(i + 1).padStart(2, '0')}`,
-        sus_score: '85.0',
+        q1: 5, q2: 1, q3: 5, q4: 1, q5: 5, q6: 1, q7: 5, q8: 1, q9: 5, q10: 1,
+        sus_score: '100.0',
       }));
       expect(determineCompletionState(fullSessions, fullTasks, fullSus)).toBe('ANALYSIS_READY');
+    });
+
+    it('classifies as PARTIAL_FIELDWORK when an 18-session dataset has an incomplete SUS survey (> 1 blank)', () => {
+      const fullSessions = Array.from({ length: 18 }, (_, i) => {
+        const pid = `M09-P${String(i + 1).padStart(2, '0')}`;
+        return {
+          participant_id: pid,
+          status: 'Completed',
+          task_sequence: PARTICIPANT_SEQUENCE_MAP[pid],
+        };
+      });
+      const fullTasks = Array.from({ length: 90 }, (_, i) => {
+        const pid = `M09-P${String(Math.floor(i / 5) + 1).padStart(2, '0')}`;
+        const seq = PARTICIPANT_SEQUENCE_MAP[pid];
+        const pos = (i % 5) + 1;
+        return {
+          participant_id: pid,
+          task_id: EXPECTED_SEQUENCES[seq][pos - 1],
+          sequence_position: pos,
+          outcome: 'Unassisted',
+        };
+      });
+      const fullSusWithOneIncomplete = Array.from({ length: 18 }, (_, i) => {
+        const pid = `M09-P${String(i + 1).padStart(2, '0')}`;
+        if (i === 0) {
+          // Participant 1 left 2 items blank (incomplete questionnaire)
+          return {
+            participant_id: pid,
+            q1: 5, q2: 1, q3: '', q4: '', q5: 5, q6: 1, q7: 5, q8: 1, q9: 5, q10: 1,
+            sus_score: '',
+          };
+        }
+        return {
+          participant_id: pid,
+          q1: 5, q2: 1, q3: 5, q4: 1, q5: 5, q6: 1, q7: 5, q8: 1, q9: 5, q10: 1,
+          sus_score: '100.0',
+        };
+      });
+      expect(determineCompletionState(fullSessions, fullTasks, fullSusWithOneIncomplete)).toBe('PARTIAL_FIELDWORK');
+    });
+
+    it('classifies as PARTIAL_FIELDWORK when a participant has a task sequence mismatch', () => {
+      const fullSessions = Array.from({ length: 18 }, (_, i) => {
+        const pid = `M09-P${String(i + 1).padStart(2, '0')}`;
+        return {
+          participant_id: pid,
+          status: 'Completed',
+          task_sequence: PARTICIPANT_SEQUENCE_MAP[pid],
+        };
+      });
+      const fullTasksWithMismatch = Array.from({ length: 90 }, (_, i) => {
+        const pid = `M09-P${String(Math.floor(i / 5) + 1).padStart(2, '0')}`;
+        const pos = (i % 5) + 1;
+        // Introduce sequence mismatch for M09-P02 (assigned Seq B, but given T01 instead of T02 at position 1)
+        const tid = (pid === 'M09-P02' && pos === 1) ? 'T01' : EXPECTED_SEQUENCES[PARTICIPANT_SEQUENCE_MAP[pid]][pos - 1];
+        return {
+          participant_id: pid,
+          task_id: tid,
+          sequence_position: pos,
+          outcome: 'Unassisted',
+        };
+      });
+      const fullSus = Array.from({ length: 18 }, (_, i) => ({
+        participant_id: `M09-P${String(i + 1).padStart(2, '0')}`,
+        q1: 5, q2: 1, q3: 5, q4: 1, q5: 5, q6: 1, q7: 5, q8: 1, q9: 5, q10: 1,
+        sus_score: '100.0',
+      }));
+      expect(determineCompletionState(fullSessions, fullTasksWithMismatch, fullSus)).toBe('PARTIAL_FIELDWORK');
+    });
+
+    it('classifies as PARTIAL_FIELDWORK when any session status is not Completed', () => {
+      const fullSessionsWithPartial = Array.from({ length: 18 }, (_, i) => {
+        const pid = `M09-P${String(i + 1).padStart(2, '0')}`;
+        return {
+          participant_id: pid,
+          status: i === 5 ? 'Partial' : 'Completed',
+          task_sequence: PARTICIPANT_SEQUENCE_MAP[pid],
+        };
+      });
+      const fullTasks = Array.from({ length: 90 }, (_, i) => {
+        const pid = `M09-P${String(Math.floor(i / 5) + 1).padStart(2, '0')}`;
+        const seq = PARTICIPANT_SEQUENCE_MAP[pid];
+        const pos = (i % 5) + 1;
+        return {
+          participant_id: pid,
+          task_id: EXPECTED_SEQUENCES[seq][pos - 1],
+          sequence_position: pos,
+          outcome: 'Unassisted',
+        };
+      });
+      const fullSus = Array.from({ length: 18 }, (_, i) => ({
+        participant_id: `M09-P${String(i + 1).padStart(2, '0')}`,
+        q1: 5, q2: 1, q3: 5, q4: 1, q5: 5, q6: 1, q7: 5, q8: 1, q9: 5, q10: 1,
+        sus_score: '100.0',
+      }));
+      expect(determineCompletionState(fullSessionsWithPartial, fullTasks, fullSus)).toBe('PARTIAL_FIELDWORK');
     });
 
     it('runAnalysis returns PENDING_FIELDWORK when research directory is empty', () => {

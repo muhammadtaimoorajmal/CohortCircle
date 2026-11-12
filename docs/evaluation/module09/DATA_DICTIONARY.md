@@ -31,11 +31,12 @@ Captures participant demographics, context stratification, device specs, and ses
 | `weekly_study_hours`| Float | $\ge 0.0$ | Self-reported weekly peer study hours | YES |
 | `device_context` | Enum | `Laptop`, `Mobile` | Hardware device category assigned | YES |
 | `device_model` | String | e.g., `MacBook Pro 14`, `Pixel 7` | Specific testing hardware | NO |
-| `viewport_width` | Integer| $\ge 320$ | Browser viewport width in CSS pixels | YES |
-| `viewport_height`| Integer| $\ge 480$ | Browser viewport height in CSS pixels | YES |
+| `viewport_width` | Integer| `320` to `3840` | Browser viewport width in CSS pixels | YES |
+| `viewport_height`| Integer| `480` to `2160` | Browser viewport height in CSS pixels | YES |
 | `environment` | Enum | `Quiet`, `Distracting` | Ambient testing environment condition | YES |
 | `task_sequence` | Enum | `Seq A`, `Seq B`, `Seq C`, `Seq D`, `Seq E` | Latin-square task order assigned | YES |
 | `consent_verified`| Boolean| `true`, `false` | Informed consent confirmed before start | YES |
+| `quote_consent`  | Boolean| `true`, `false` | Optional: Anonymous quotation permitted (Default: false) | NO |
 | `session_date` | Date | `YYYY-MM-DD` | Date evaluation was conducted | YES |
 | `session_duration`| Integer| $\ge 0$ | Total session duration in minutes | YES |
 | `status` | Enum | `Completed`, `Partial`, `Terminated` | Overall session completion status | YES |
@@ -93,7 +94,7 @@ Captures participant interview comments, categorized usability issues, and user 
 
 | Field Name | Type | Valid Values | Description | Required |
 |---|---|---|---|:---:|
-| `feedback_id` | String | `FDB-001` upwards | Unique qualitative comment identifier | YES |
+| `feedback_id` | String | `FDB-001`+ or `FB-P01-01` | Unique qualitative comment identifier | YES |
 | `participant_id` | String | `M09-P01` to `M09-P18` | Participant citation | YES |
 | `task_id` | Enum | `T01`–`T05`, `GLOBAL` | Associated task or whole-system feedback | YES |
 | `theme_category` | Enum | `Discovery`, `Compatibility`, `Governance`, `Scheduling`, `Layout` | Thematic category | YES |

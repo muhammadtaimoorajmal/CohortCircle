@@ -580,26 +580,36 @@ export function validateDatasets({ sessions = [], tasks = [], sus = [], qualitat
       }
     }
 
+    const rawSus = s.sus_score;
+    const hasStoredScore = rawSus !== '' && rawSus !== undefined && rawSus !== null && String(rawSus).trim() !== '';
+
+    // Distinction between validation errors and incomplete questionnaires:
+    // An incomplete questionnaire (> 1 blank items) without a stored score is excluded from SUS scoring
+    // without invalidating the dataset schema. However, if a stored score is claimed for an incomplete
+    // questionnaire, that is an invalid record and must be flagged as a validation error.
     if (blankItemCount === 10) {
-      errors.push(`sus.csv row ${idx + 2} (${pid}): Incomplete SUS survey. All 10 items are blank; completely blank questionnaires cannot produce a score.`);
+      if (hasStoredScore) {
+        errors.push(`sus.csv row ${idx + 2} (${pid}): Completely blank questionnaire (10 blank items) cannot have a stored sus_score ("${rawSus}").`);
+      }
     } else if (blankItemCount > 1) {
-      errors.push(`sus.csv row ${idx + 2} (${pid}): Incomplete SUS survey. ${blankItemCount} items are blank (maximum permitted blank items is 1). Marked incomplete and excluded.`);
+      if (hasStoredScore) {
+        errors.push(`sus.csv row ${idx + 2} (${pid}): Incomplete questionnaire with ${blankItemCount} blank items cannot have a stored sus_score ("${rawSus}").`);
+      }
     }
 
-    // If stored composite score is provided, check against calculated score
-    const rawSus = s.sus_score;
-    if (rawSus !== '' && rawSus !== undefined && rawSus !== null && String(rawSus).trim() !== '') {
+    // If stored composite score is provided, check validity and consistency with Brooke's formula
+    if (hasStoredScore && blankItemCount <= 1) {
       const parsedStored = parseStrictFloat(rawSus);
       if (isNaN(parsedStored) || parsedStored < 0 || parsedStored > 100) {
         errors.push(`sus.csv row ${idx + 2} (${pid}): sus_score must be a finite number between 0.0 and 100.0, received "${rawSus}".`);
-      } else if (blankItemCount <= 1) {
+      } else {
         try {
           const calculated = calculateSUSScore(answers);
           if (Math.abs(parsedStored - calculated.score) > 0.1) {
             errors.push(`sus.csv row ${idx + 2} (${pid}): Stored sus_score (${parsedStored}) disagrees with calculated score (${calculated.score}).`);
           }
         } catch {
-          // If calculateSUSScore throws, covered by item validation
+          // Handled by item validation
         }
       }
     }
@@ -1139,7 +1149,7 @@ export function calculateQualitativeSummary(qualitativeRecords) {
  * - PARTIAL_FIELDWORK: Some valid records exist, but incomplete (< 18 sessions, < 90 tasks, etc.)
  * - ANALYSIS_READY: 18 valid completed sessions, 90 tasks with matching counterbalanced sequences, 18 SUS records
  */
-export function determineCompletionState(sessions, tasks, susRecords) {
+export function determineCompletionState(sessions = [], tasks = [], susRecords = []) {
   const sCount = sessions.length;
   const tCount = tasks.length;
   const susCount = susRecords.length;
@@ -1148,22 +1158,130 @@ export function determineCompletionState(sessions, tasks, susRecords) {
     return 'PENDING_FIELDWORK';
   }
 
-  if (sCount === 18 && tCount === 90 && susCount === 18) {
-    const completedSessions = sessions.filter((s) => s.status === 'Completed');
-    if (completedSessions.length === 18) {
-      // Check that all 18 participants have exactly 5 tasks
-      const pTaskCounts = new Map();
-      for (const t of tasks) {
-        pTaskCounts.set(t.participant_id, (pTaskCounts.get(t.participant_id) || 0) + 1);
+  // To be ANALYSIS_READY, exactly 18 sessions, 90 tasks, and 18 sus records are required
+  if (sCount !== 18 || tCount !== 90 || susCount !== 18) {
+    return 'PARTIAL_FIELDWORK';
+  }
+
+  // 1. Verify 18 completed sessions with valid unique IDs
+  const sessionIds = new Set();
+  const sessionSeqMap = new Map();
+  for (const s of sessions) {
+    const pid = String(s.participant_id || '').trim();
+    if (!PARTICIPANT_ID_REGEX.test(pid) || sessionIds.has(pid)) {
+      return 'PARTIAL_FIELDWORK';
+    }
+    if (s.status !== 'Completed') {
+      return 'PARTIAL_FIELDWORK';
+    }
+    sessionIds.add(pid);
+    if (s.task_sequence) {
+      sessionSeqMap.set(pid, s.task_sequence);
+    }
+  }
+
+  if (sessionIds.size !== 18) {
+    return 'PARTIAL_FIELDWORK';
+  }
+
+  // 2. Verify relational integrity & 5 correctly sequenced tasks per participant
+  const tasksByPid = new Map();
+  for (const t of tasks) {
+    const pid = String(t.participant_id || '').trim();
+    if (!sessionIds.has(pid)) {
+      return 'PARTIAL_FIELDWORK';
+    }
+    const list = tasksByPid.get(pid) || [];
+    list.push(t);
+    tasksByPid.set(pid, list);
+  }
+
+  if (tasksByPid.size !== 18) {
+    return 'PARTIAL_FIELDWORK';
+  }
+
+  for (const [pid, pTasks] of tasksByPid.entries()) {
+    if (pTasks.length !== 5) {
+      return 'PARTIAL_FIELDWORK';
+    }
+    const assignedSeq = sessionSeqMap.get(pid) || PARTICIPANT_SEQUENCE_MAP[pid];
+    const positionsSeen = new Set();
+    for (let i = 0; i < pTasks.length; i++) {
+      const t = pTasks[i];
+      const pos = (t.sequence_position !== undefined && t.sequence_position !== '')
+        ? parseStrictInteger(t.sequence_position)
+        : (i + 1);
+      if (isNaN(pos) || pos < 1 || pos > 5 || positionsSeen.has(pos)) {
+        return 'PARTIAL_FIELDWORK';
       }
-      const allHaveFive = Array.from(pTaskCounts.values()).every((c) => c === 5) && pTaskCounts.size === 18;
-      if (allHaveFive) {
-        return 'ANALYSIS_READY';
+      positionsSeen.add(pos);
+
+      if (assignedSeq && EXPECTED_SEQUENCES[assignedSeq]) {
+        const expectedTid = EXPECTED_SEQUENCES[assignedSeq][pos - 1];
+        if (t.task_id && t.task_id !== expectedTid) {
+          return 'PARTIAL_FIELDWORK';
+        }
+      }
+    }
+    if (positionsSeen.size !== 5) {
+      return 'PARTIAL_FIELDWORK';
+    }
+  }
+
+  // 3. Verify 18 unique valid SUS responses (at most 1 blank item)
+  const susPids = new Set();
+  for (const s of susRecords) {
+    const pid = String(s.participant_id || '').trim();
+    if (!sessionIds.has(pid) || susPids.has(pid)) {
+      return 'PARTIAL_FIELDWORK';
+    }
+    susPids.add(pid);
+
+    const answers = [s.q1, s.q2, s.q3, s.q4, s.q5, s.q6, s.q7, s.q8, s.q9, s.q10];
+    const hasAnyItem = answers.some((a) => a !== '' && a !== undefined && a !== null && String(a).trim() !== '');
+
+    if (hasAnyItem) {
+      let blanks = 0;
+      for (const a of answers) {
+        if (a === '' || a === undefined || a === null || String(a).trim() === '') {
+          blanks++;
+        } else {
+          const num = parseStrictInteger(a);
+          if (isNaN(num) || num < 1 || num > 5) return 'PARTIAL_FIELDWORK';
+        }
+      }
+      if (blanks > 1) {
+        // Incomplete survey (more than 1 blank item)
+        return 'PARTIAL_FIELDWORK';
+      }
+      const rawSus = s.sus_score;
+      if (rawSus !== '' && rawSus !== undefined && rawSus !== null && String(rawSus).trim() !== '') {
+        const parsed = parseStrictFloat(rawSus);
+        if (isNaN(parsed) || parsed < 0 || parsed > 100) return 'PARTIAL_FIELDWORK';
+        try {
+          const calc = calculateSUSScore(answers);
+          if (Math.abs(parsed - calc.score) > 0.1) return 'PARTIAL_FIELDWORK';
+        } catch {
+          return 'PARTIAL_FIELDWORK';
+        }
+      }
+    } else {
+      const rawSus = s.sus_score;
+      if (rawSus === '' || rawSus === undefined || rawSus === null || String(rawSus).trim() === '') {
+        return 'PARTIAL_FIELDWORK';
+      }
+      const scoreNum = parseStrictFloat(rawSus);
+      if (isNaN(scoreNum) || scoreNum < 0 || scoreNum > 100) {
+        return 'PARTIAL_FIELDWORK';
       }
     }
   }
 
-  return 'PARTIAL_FIELDWORK';
+  if (susPids.size !== 18) {
+    return 'PARTIAL_FIELDWORK';
+  }
+
+  return 'ANALYSIS_READY';
 }
 
 /**
