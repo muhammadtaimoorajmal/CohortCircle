@@ -3,9 +3,9 @@
 > **Find your people. Learn together.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Status: Functional Product & Full Business Logic](https://img.shields.io/badge/Status-Module%2008%20Functional%20Logic-blue.svg)](#project-roadmap)
+[![Status: Summative Study Prepared](https://img.shields.io/badge/Status-Module%2009%20Study%20Toolkit%20Prepared-blue.svg)](#project-roadmap)
 [![Target Standard](https://img.shields.io/badge/Accessibility-WCAG%202.2%20AA%20Target-brightgreen.svg)](#accessibility--design-principles)
-[![Tests: 58 Passing](https://img.shields.io/badge/Tests-58%20passing-brightgreen.svg)](#running-automated-tests)
+[![Tests: 75 Passing](https://img.shields.io/badge/Tests-75%20passing-brightgreen.svg)](#running-automated-tests)
 
 CohortCircle is an open-source collaborative learning platform created to solve the friction of finding and coordinating compatible study groups. By moving beyond unstructured chat groups and static bulletin boards, CohortCircle empowers university students and independent learners to discover peers with matching goals, aligned schedules, and complementary study habits.
 
@@ -48,13 +48,13 @@ Every recommendation provides a transparent breakdown explaining exactly why a c
 
 ## Core Product Capabilities
 
-* **Learner Study Profiles (FR-001 – FR-004):** Manage personal study goals, weekly availability grid, preferred learning styles, and primary study language with real-time profile completeness calculations.
-* **Curated Study Circles & Discovery (FR-005 – FR-008):** Search and filter study circles with 6-dimensional multi-criteria filtering (topic keyword, category tabs, day of week, meeting format, study style, and vacancy status).
-* **Explainable Compatibility Engine (FR-009):** View transparent, deterministic 5-factor mathematical match scores (Topic 35%, Schedule 25%, Style 20%, Modality 10%, Capacity 10%) with human-readable alignment tags.
-* **Circle Membership & Host Facilitation (FR-010 – FR-015):** Direct join for open circles, moderated application queue with introductory notes, active member leave modal, member removal, and capacity-protected circle settings management.
-* **Structured Session Scheduling & RSVPs (FR-016 – FR-019):** Schedule upcoming study sessions with past-date validation, define structured agendas and resources, and manage synchronized RSVPs (Attending, Maybe, Declined) with no double-counting.
-* **Personal Learning Dashboard (FR-020 – FR-023):** Monitor active circle count, upcoming sessions, pending applications, and dynamically recommended study circles in one unified view.
-* **Resilient Local Persistence & Demo Controls:** Automatic synchronization to browser `localStorage` (`cohortcircle_state_v1`), high-contrast display mode toggle, and instant demo reset / state wipe tools.
+* **Learner Study Profiles (FR-001 – FR-004):** Profile creation and editing, preferred study style specification, 7×3 weekly availability matrix with bulk presets, and modality/group-size preference management.
+* **Curated Discovery & Search (FR-005 – FR-008):** Directory browsing, real-time keyword search, multi-criteria filtering across 6 dimensions (subject, style, format, day, vacancy), and single-action filter reset.
+* **Explainable Compatibility Engine (FR-009 – FR-011):** Deterministic 5-factor mathematical score computation (Topic 35%, Schedule 25%, Style 20%, Modality 10%, Capacity 10%), transparent breakdown modal with human-readable rationale tags, and sorting by compatibility.
+* **Circle Details & Membership Workflows (FR-012 – FR-015):** Detailed circle profiles with charter and roster, direct 1-click join for open cohorts, moderated request-to-join flow with introductory notes, and member departure workflow.
+* **Host Facilitation & Circle Management (FR-016 – FR-019):** 4-step progressive disclosure circle creation wizard, circle settings management with capacity protection, admission queue applicant moderation, and member roster management.
+* **Session Scheduling & Dashboard (FR-020 – FR-023):** Structured study session creation with past-date prevention, synchronized 3-state RSVP tracking without double-counting, centralized personal dashboard, and local data reset / state wipe tools.
+* **Resilient Local Persistence & Accessibility:** Automatic synchronization to browser `localStorage` (`cohortcircle_state_v1`), high-contrast display mode toggle, and React Error Boundary fault tolerance.
 
 ---
 
@@ -144,7 +144,7 @@ The development of CohortCircle follows an empirical, user-centered 10-module en
 | **06** | **Formative Usability Evaluation** | Heuristic evaluation, cognitive walkthroughs, and prototype remediation | **Completed** *(Expert Inspected; Participant Validation Pending)* |
 | **07** | **High-Fidelity Design & Application Foundation** | Real React 19 + Vite client app, design system tokens, 12 interactive routes | **Completed** |
 | **08** | **Functional Product Development** | State management, 23 FRs, compatibility engine, session scheduling, and local persistence | **Completed & Verified** *(58/58 Tests Passing)* |
-| **09** | **Summative Usability Evaluation** | Rigorous 18-participant task evaluation (SUS, SEQ, completion rate, error analysis) | *Not Started* |
+| **09** | **Summative Usability Evaluation** | 18-participant Latin-square protocol, tasks, templates, SUS, SEQ, and analysis tooling | **Active** *(Toolkit Prepared; Fieldwork Pending)* |
 | **10** | **Analysis, Improvements & Final Release** | Evaluation synthesis, interface polish, and open-source release packaging | *Not Started* |
 
 ---
@@ -162,6 +162,8 @@ CohortCircle/
 ├── .gitignore                 # Version control exclusions
 ├── LICENSE                    # MIT open-source license
 ├── README.md                  # Project overview and public documentation
+├── scripts/                   # Evaluation analysis utilities
+│   └── analyze-module09.mjs   # Automated statistical analysis engine for Module 09
 ├── src/                       # High-fidelity React application source
 │   ├── main.jsx               # Application DOM entry mount
 │   ├── App.jsx                # Router, AppProvider & ErrorBoundary wrapper
@@ -173,12 +175,12 @@ CohortCircle/
 │   ├── services/              # Business logic (storageService, compatibilityService, validationService)
 │   ├── styles/                # CSS custom properties & global typography
 │   ├── utils/                 # Utility helpers (dateUtils, idUtils, profileUtils)
-│   └── test/                  # Automated Vitest test suite (9 test files, 58 tests)
+│   └── test/                  # Automated Vitest test suite (10 test files, 75 tests)
 └── docs/                      # Architectural, requirements, and research governance
     ├── ARCHITECTURE.md        # Technical architecture, domain models, and data flows
-    ├── DECISION_LOG.md        # Architectural decision records (DEC-001 through DEC-036)
+    ├── DECISION_LOG.md        # Architectural decision records (DEC-001 through DEC-037)
     ├── DESIGN_SYSTEM.md       # High-fidelity design tokens, contrast audits & components
-    ├── TESTING.md             # Automated test strategy and verification results (58 tests)
+    ├── TESTING.md             # Automated test strategy and verification results (75 tests)
     ├── PROBLEM_HYPOTHESIS.md  # Unvalidated problem statement and validation criteria
     ├── PRODUCT_REQUIREMENTS.md# Functional (23 FRs) and Non-Functional (15 NFRs) specs
     ├── PROJECT_CHARTER.md     # Product identity, scope boundaries, and core principles
@@ -190,8 +192,10 @@ CohortCircle/
     ├── synthesis/             # Module 03 Synthesis & Persona Framework (10 files)
     ├── conceptual-design/     # Module 04 Conceptual Design & Architecture (11 files)
     ├── prototypes/            # Module 05 Low-Fidelity Interactive Wireframes (8 files)
-    ├── evaluation/            # Module 06 Formative Usability Evaluation (7 files)
-    └── handovers/             # Verified module handoff reports (MODULE_01 to 08)
+    ├── evaluation/            # Formative & Summative Usability Evaluations
+    │   ├── module06/          # Module 06 Formative Usability Evaluation (7 files)
+    │   └── module09/          # Module 09 Summative Usability Toolkit (15 files)
+    └── handovers/             # Verified module handoff reports (MODULE_01 to 09)
 ```
 
 ---

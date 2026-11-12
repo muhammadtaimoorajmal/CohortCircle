@@ -3,13 +3,13 @@
 * **Project:** CohortCircle
 * **Tagline:** Find your people. Learn together.
 * **Maintainer:** Muhammad Taimoor Ajmal
-* **Module:** Module 08 — Functional Product Development & Full Business Logic
+* **Module:** Module 09 — Summative User Participation Evaluation (Toolkit & Analysis Pipeline)
 
 ---
 
 ## 1. Quality Strategy Overview
 
-CohortCircle employs a multi-tiered verification pipeline combining static analysis, component unit testing, domain service tests, route integration verification, and production build checks to ensure reliability, accessibility, and high performance across all 23 Functional Requirements (`FR-001` through `FR-023`).
+CohortCircle employs a multi-tiered verification pipeline combining static analysis, component unit testing, domain service tests, route integration verification, mathematical evaluation tooling tests, and production build checks to ensure reliability, accessibility, and high performance across all 23 Functional Requirements (`FR-001` through `FR-023`).
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -18,8 +18,8 @@ CohortCircle employs a multi-tiered verification pipeline combining static analy
 │    STATIC ANALYSIS   │  AUTOMATED UNIT &    │      PRODUCTION BUNDLE        │
 │       (ESLint)       │ INTEGRATION TESTS    │            (Vite)             │
 │                      │      (Vitest)        │                               │
-│ • Flat config        │ • 9 Test suites      │ • Tree-shaking & Minification │
-│ • React 19 rules     │ • 58 Automated tests │ • 122 ESM modules transformed │
+│ • Flat config        │ • 10 Test suites     │ • Tree-shaking & Minification │
+│ • React 19 rules     │ • 75 Automated tests │ • 122 ESM modules transformed │
 │ • Zero warnings      │ • 100% Pass rate     │ • Clean zero-warning output   │
 └──────────────────────┴──────────────────────┴───────────────────────────────┘
 ```
@@ -32,7 +32,7 @@ Testing is orchestrated via `vitest` with `jsdom` and `@testing-library/react`.
 
 ### Package Scripts
 ```bash
-# Execute automated test suites (58 tests across 9 files)
+# Execute automated test suites (75 tests across 10 files)
 npm run test
 
 # Run ESLint static check across all JS/JSX files
@@ -47,22 +47,23 @@ npm run dev
 
 ---
 
-## 3. Automated Test Suite Summary (58 Tests across 9 Suites)
+## 3. Automated Test Suite Summary (75 Tests across 10 Suites)
 
-All 58 automated test cases pass with 100% green status:
+All 75 automated test cases pass with 100% green status:
 
 | Suite File | Scope & Target | Tests | Status |
 |---|---|---|---|
 | **`src/test/storageService.test.js`** | Versioned localStorage persistence, corrupted JSON recovery, schema validation, factory demo reset | 8 tests | **PASS** |
 | **`src/test/compatibilityService.test.js`** | 5-factor weighted formula, deterministic scoring, explainable tags, host 100% shortcut | 10 tests | **PASS** |
 | **`src/test/validationService.test.js`** | Input validation, charter length, capacity bounds, past date rejection, URL security | 5 tests | **PASS** |
+| **`src/test/analysisScript.test.js`** | Module 09 mathematical formulas (completion rates, time, errors, SEQ, SUS, Sauro-Lewis grades) | 17 tests | **PASS** |
 | **`src/test/profileWorkflows.test.jsx`** | Profile editing, study styles, 7x3 availability matrix, dynamic profile completeness | 4 tests | **PASS** |
 | **`src/test/discoveryWorkflows.test.jsx`** | Directory rendering, text search, multi-criteria filtering (AND logic), single-action reset | 5 tests | **PASS** |
 | **`src/test/circleWorkflows.test.jsx`** | Direct join, request-to-join, leave circle, host applicant admission/rejection, member removal | 9 tests | **PASS** |
 | **`src/test/sessionWorkflows.test.jsx`** | Session scheduling, past date prevention, RSVP status toggling, attendee list synchronization | 4 tests | **PASS** |
 | **`src/test/integrationWorkflows.test.jsx`** | Complete end-to-end lifecycle across all 23 Functional Requirements (FR-001 to FR-023) | 1 test | **PASS** |
 | **`src/test/App.test.jsx`** | All 12 application routes, navigation, layout shells, 404 fallback | 12 tests | **PASS** |
-| **TOTAL** | **Full Quality & Functional Verification** | **58 tests** | **100% PASS** |
+| **TOTAL** | **Full Quality & Functional Verification** | **75 tests** | **100% PASS** |
 
 ---
 

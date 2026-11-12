@@ -92,33 +92,33 @@ src/
 
 ## 3. Functional Requirements Traceability Matrix (FR-001 to FR-023)
 
-All twenty-three functional requirements are fully implemented, connected to the UI, and verified by automated tests:
+All twenty-three functional requirements are fully implemented, connected to the UI, and verified by automated tests in strict alignment with [`docs/PRODUCT_REQUIREMENTS.md`](../PRODUCT_REQUIREMENTS.md):
 
-| Requirement ID | Requirement Description | Implementation Source | Test Verification File | Status |
+| Requirement ID | Requirement Title & Description | Implementation Source | Test Verification File | Status |
 |---|---|---|---|---|
-| **FR-001** | Learner profile with academic focus, topics, and primary study language | `ProfilePage.jsx`, `AppContext.jsx` | `profileWorkflows.test.jsx` | **Verified** |
-| **FR-002** | Recurring weekly availability matrix with bulk presets | `ProfilePage.jsx`, `AppContext.jsx` | `profileWorkflows.test.jsx` | **Verified** |
-| **FR-003** | Multiple preferred study style selection | `ProfilePage.jsx`, `AppContext.jsx` | `profileWorkflows.test.jsx` | **Verified** |
-| **FR-004** | Toggleable profile discoverability status | `ProfilePage.jsx`, `AppContext.jsx` | `profileWorkflows.test.jsx` | **Verified** |
-| **FR-005** | Directory browse with multi-criteria filtering (6 dimensions) | `ExplorePage.jsx` | `discoveryWorkflows.test.jsx` | **Verified** |
-| **FR-006** | Real-time text search across circle title, description, and topics | `ExplorePage.jsx` | `discoveryWorkflows.test.jsx` | **Verified** |
-| **FR-007** | Subject category navigation pills | `ExplorePage.jsx` | `discoveryWorkflows.test.jsx` | **Verified** |
-| **FR-008** | Multi-attribute sorting (compatibility, members, title) | `ExplorePage.jsx` | `discoveryWorkflows.test.jsx` | **Verified** |
-| **FR-009** | Explainable 5-factor mathematical compatibility breakdown modal | `compatibilityService.js`, `CircleDetailsPage.jsx` | `compatibilityService.test.js` | **Verified** |
-| **FR-010** | Detailed study circle view with charter, norms, and host card | `CircleDetailsPage.jsx` | `circleWorkflows.test.jsx` | **Verified** |
-| **FR-011** | Direct 1-click join for open circles with vacancy | `CircleDetailsPage.jsx`, `AppContext.jsx` | `circleWorkflows.test.jsx` | **Verified** |
-| **FR-012** | Moderated join request with introductory message | `CircleDetailsPage.jsx`, `AppContext.jsx` | `circleWorkflows.test.jsx` | **Verified** |
-| **FR-013** | Member resignation flow with active membership verification | `CircleDetailsPage.jsx`, `AppContext.jsx` | `circleWorkflows.test.jsx` | **Verified** |
-| **FR-014** | 4-step progressive disclosure circle creation wizard with schedule | `CreateCirclePage.jsx`, `AppContext.jsx` | `circleWorkflows.test.jsx` | **Verified** |
-| **FR-015** | Host facilitation console with member roster, remove, and review queue | `ManageCirclePage.jsx`, `AppContext.jsx` | `circleWorkflows.test.jsx` | **Verified** |
-| **FR-016** | Upcoming study sessions timetable across joined circles | `SessionsPage.jsx` | `sessionWorkflows.test.jsx` | **Verified** |
-| **FR-017** | Interactive session scheduling modal with past-date prevention | `SessionsPage.jsx`, `AppContext.jsx` | `sessionWorkflows.test.jsx` | **Verified** |
-| **FR-018** | Structured session details with timed agenda and meeting resources | `SessionDetailsPage.jsx` | `sessionWorkflows.test.jsx` | **Verified** |
-| **FR-019** | Synchronized 3-state RSVP controls with no double-counting | `SessionDetailsPage.jsx`, `AppContext.jsx` | `sessionWorkflows.test.jsx` | **Verified** |
-| **FR-020** | Unified learner dashboard with active circles and upcoming sessions | `DashboardPage.jsx` | `App.test.jsx`, `integrationWorkflows.test.jsx` | **Verified** |
-| **FR-021** | Dynamic circle recommendations ranked by compatibility score | `DashboardPage.jsx`, `compatibilityService.js` | `integrationWorkflows.test.jsx` | **Verified** |
-| **FR-022** | Dynamic profile completeness progress calculation (0–100%) | `profileUtils.js`, `DashboardPage.jsx`, `ProfilePage.jsx` | `profileWorkflows.test.jsx` | **Verified** |
-| **FR-023** | System settings console with demo restore and complete state wipe | `SettingsPage.jsx`, `storageService.js` | `storageService.test.js`, `App.test.jsx` | **Verified** |
+| **FR-001** | **Profile Creation & Editing:** Specify and update display name, handle, bio, learning stage, primary study topics, and preferred language | `ProfilePage.jsx`, `AppContext.jsx` | `profileWorkflows.test.jsx` | **Verified** |
+| **FR-002** | **Study Style Specification:** Select one or more preferred study styles (Silent, Problem-Solving, Discussion, Peer Teaching, Exam Prep) | `ProfilePage.jsx`, `AppContext.jsx` | `profileWorkflows.test.jsx`, `compatibilityService.test.js` | **Verified** |
+| **FR-003** | **Weekly Availability Matrix:** Define recurring weekly availability blocks across 7 days and 3 time slots with presets and clear | `ProfilePage.jsx`, `AppContext.jsx` | `profileWorkflows.test.jsx`, `storageService.test.js` | **Verified** |
+| **FR-004** | **Modality & Group Size Preferences:** Declare meeting modality preferences (Online, In-Person, Flexible) and group size limits | `ProfilePage.jsx`, `AppContext.jsx` | `profileWorkflows.test.jsx`, `compatibilityService.test.js` | **Verified** |
+| **FR-005** | **Directory Browsing:** Browse active study circles with key metadata (title, subject, study style, schedule, member count, format) | `ExplorePage.jsx` | `discoveryWorkflows.test.jsx` | **Verified** |
+| **FR-006** | **Text-Based Search:** Real-time filtering across circle title, subject keywords, description terms, charter rules, and syllabus tags | `ExplorePage.jsx` | `discoveryWorkflows.test.jsx` | **Verified** |
+| **FR-007** | **Multi-Criteria Filtering:** Filter circles by subject domain, study style, meeting modality, meeting day of week, and capacity status | `ExplorePage.jsx` | `discoveryWorkflows.test.jsx` | **Verified** |
+| **FR-008** | **Filter Reset & Clear:** Single-action control to reset all active filters (search, category, style, modality, day, capacity, sorting) | `ExplorePage.jsx` | `discoveryWorkflows.test.jsx` | **Verified** |
+| **FR-009** | **Compatibility Score Computation:** Deterministic 5-factor percentage score (0–100%) indicating learner-circle alignment | `compatibilityService.js`, `CircleDetailsPage.jsx` | `compatibilityService.test.js` | **Verified** |
+| **FR-010** | **Explainable Compatibility Breakdown:** Detailed breakdown modal highlighting contributing factors with human-readable rationale tags | `compatibilityService.js`, `CompatibilityIndicator.jsx` | `compatibilityService.test.js` | **Verified** |
+| **FR-011** | **Sorting by Compatibility:** Permit sorting discovery results by highest dynamically computed compatibility score | `ExplorePage.jsx` | `discoveryWorkflows.test.jsx` | **Verified** |
+| **FR-012** | **Detailed Circle View:** Dedicated view detailing description, syllabus/goals, host identity, roster, schedule, rules, sessions | `CircleDetailsPage.jsx` | `circleWorkflows.test.jsx` | **Verified** |
+| **FR-013** | **Direct Join Flow:** Immediate 1-click join for open circles with vacancy, preventing duplicate membership or capacity breach | `CircleDetailsPage.jsx`, `AppContext.jsx` | `circleWorkflows.test.jsx` | **Verified** |
+| **FR-014** | **Request-to-Join Flow:** Moderated join request with introductory note, creating pending request record | `CircleDetailsPage.jsx`, `AppContext.jsx` | `circleWorkflows.test.jsx` | **Verified** |
+| **FR-015** | **Leave Circle:** Resignation flow returning capacity to group and reconciling future session attendance | `CircleDetailsPage.jsx`, `AppContext.jsx` | `circleWorkflows.test.jsx` | **Verified** |
+| **FR-016** | **Circle Creation Wizard:** 4-step progressive disclosure wizard specifying basics, charter, logistics, and capacity cap | `CreateCirclePage.jsx`, `AppContext.jsx` | `circleWorkflows.test.jsx` | **Verified** |
+| **FR-017** | **Circle Settings Modification:** Host editing of circle description, objectives, modality, and capacity (enforcing capacity &ge; members) | `ManageCirclePage.jsx`, `AppContext.jsx` | `circleWorkflows.test.jsx` | **Verified** |
+| **FR-018** | **Membership Request Moderation:** Host interface to review pending requests with applicant notes and accept/decline | `ManageCirclePage.jsx`, `AppContext.jsx` | `circleWorkflows.test.jsx` | **Verified** |
+| **FR-019** | **Member Management:** Host interface to remove non-host members from roster with confirmation and capacity update | `ManageCirclePage.jsx`, `AppContext.jsx` | `circleWorkflows.test.jsx` | **Verified** |
+| **FR-020** | **Session Creation:** Host scheduling of study sessions with title, date, start time, agenda, and location/URL (past-date prevention) | `SessionsPage.jsx`, `AppContext.jsx` | `sessionWorkflows.test.jsx` | **Verified** |
+| **FR-021** | **Session RSVP Tracking:** Synchronized 3-state RSVP management (Attending, Tentative, Decline) with no double-counting | `SessionDetailsPage.jsx`, `AppContext.jsx` | `sessionWorkflows.test.jsx` | **Verified** |
+| **FR-022** | **Personal Study Dashboard:** Centralized dashboard displaying joined circles, pending requests, and upcoming study sessions | `DashboardPage.jsx`, `AppContext.jsx` | `App.test.jsx`, `integrationWorkflows.test.jsx` | **Verified** |
+| **FR-023** | **Local Data State Reset / Seed:** Explicit settings controls to restore initial demonstration baseline or wipe local storage state | `SettingsPage.jsx`, `storageService.js` | `storageService.test.js`, `App.test.jsx` | **Verified** |
 
 ---
 

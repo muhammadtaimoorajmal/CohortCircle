@@ -344,6 +344,15 @@
 
 ---
 
+### DEC-037: Summative Usability Study Protocol & Latin-Square Sampling Scheme
+* **Status:** `[CONFIRMED]`
+* **Context:** Establishing the empirical methodology, stratified sampling allocation (18 participants: 9 laptop/9 mobile, 9 quiet/9 distracting, 6 frequent/6 occasional/6 novice), Latin-square counterbalancing scheme across 5 tasks, and standardized SEQ / SUS instruments for evaluating the React 19 application in Module 09.
+* **Decision:** Author an authoritative 15-document evaluation toolkit and automated analysis engine (`scripts/analyze-module09.mjs`). Maintain strict segregation between analytical preparation and genuine fieldwork. Declare status as `MODULE 09 STUDY TOOLKIT PREPARED — SUMMATIVE FIELDWORK PENDING` until real sessions are executed. All empirical participant data remains strictly local in `private-research-data/module09/` (gitignored).
+* **Date:** 2026-11-12
+* **Impact:** Rigorous scientific reproducibility; absolute research ethics compliance; zero data fabrication.
+
+---
+
 ## 3. Active Research Questions for Module 02
 
 1. **RQ-01:** What is the relative weight that learners place on schedule availability versus study style compatibility when deciding whether to join a peer group?

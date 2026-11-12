@@ -1,7 +1,7 @@
 # Product Lifecycle Roadmap: CohortCircle
 
 > **Lifecycle Governance:** 10-Module User-Centered Engineering Sequence
-> **Current Status:** **Module 08: Functional Product Development & Full Business Logic (COMPLETED & VERIFIED)**
+> **Current Status:** **Module 09: Summative User Participation Evaluation (STUDY TOOLKIT PREPARED — SUMMATIVE FIELDWORK PENDING)**
 > **Stopping Policy:** Work strictly halts at the boundary of each module. Transition to the subsequent module requires owner review and explicit authorization.
 
 ---
@@ -167,15 +167,23 @@
 
 ---
 
-### Module 09: Summative User Participation Evaluation
+### Module 09: Summative User Participation Evaluation *(TOOLKIT PREPARED — SUMMATIVE FIELDWORK PENDING)*
 * **Objective:** Execute formal usability benchmarking with 18 distinct participants across varied device and environmental contexts.
 * **Core Deliverables:**
-  * Summative test execution across 18 participants using the Latin-square allocation matrix.
-  * Quantitative usability metrics: System Usability Scale (SUS), Single Ease Question (SEQ), Task Completion Rates, Time-on-Task.
-  * Qualitative observation logs, user quotes, and error analysis.
-  * Environmental impact analysis (Laptop vs. Mobile, Quiet vs. Distracting).
+  * Complete 15-document summative evaluation toolkit ([`docs/evaluation/module09/`](evaluation/module09/)).
+  * Standardized study protocol, recruitment screener, and informed consent framework ([`STUDY_PROTOCOL.md`](evaluation/module09/STUDY_PROTOCOL.md), [`PARTICIPANT_RECRUITMENT.md`](evaluation/module09/PARTICIPANT_RECRUITMENT.md)).
+  * 18-participant balanced sampling matrix (Laptop vs. Mobile, Quiet vs. Distracting, Groups A/B/C) with Latin-square task counterbalancing ([`CRITERIA_AND_CONTEXT_MATRIX.md`](evaluation/module09/CRITERIA_AND_CONTEXT_MATRIX.md)).
+  * 5 core feature tasks with measurable success criteria covering all 23 FRs ([`TASKS_AND_SUCCESS_CRITERIA.md`](evaluation/module09/TASKS_AND_SUCCESS_CRITERIA.md)).
+  * Per-participant session and observation templates ([`PARTICIPANT_SESSION_TEMPLATE.md`](evaluation/module09/PARTICIPANT_SESSION_TEMPLATE.md), [`OBSERVATION_LOG_TEMPLATE.md`](evaluation/module09/OBSERVATION_LOG_TEMPLATE.md)).
+  * Standardized psychometric instruments: Single Ease Question ([`SEQ_QUESTIONNAIRE.md`](evaluation/module09/SEQ_QUESTIONNAIRE.md)) and System Usability Scale ([`SUS_QUESTIONNAIRE.md`](evaluation/module09/SUS_QUESTIONNAIRE.md)).
+  * Semi-structured qualitative interview guide ([`POST_TEST_FEEDBACK_QUESTIONNAIRE.md`](evaluation/module09/POST_TEST_FEEDBACK_QUESTIONNAIRE.md)).
+  * Formal research data schema and analysis plan ([`DATA_DICTIONARY.md`](evaluation/module09/DATA_DICTIONARY.md), [`ANALYSIS_PLAN.md`](evaluation/module09/ANALYSIS_PLAN.md)).
+  * Automated data analysis engine ([`scripts/analyze-module09.mjs`](../scripts/analyze-module09.mjs)) with 17 unit tests in Vitest.
+  * Cross-module empirical research backlog monitor ([`OPEN_RESEARCH_BACKLOG.md`](evaluation/module09/OPEN_RESEARCH_BACKLOG.md)).
+  * Module 09 Handoff Report ([`docs/handovers/MODULE_09_HANDOFF.md`](handovers/MODULE_09_HANDOFF.md)).
 * **Input Dependencies:** Stable, functional application release from Module 08.
-* **Acceptance Conditions:** Verified data from 18 genuine participants; calculation of mean SUS (target &ge; 80) and SEQ (target &ge; 5.5); comprehensive error categorization.
+* **Acceptance Conditions:** All evaluation instruments, tasks, templates, and analysis tools verified; zero fabricated data; participant fieldwork pending physical recruitment.
+* **Status:** Study toolkit fully prepared and verified; participant fieldwork pending recruitment.
 
 ---
 
