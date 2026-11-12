@@ -36,8 +36,13 @@ This directory contains the complete summative usability evaluation framework de
 
 A local Node ESM analysis script is provided in [`scripts/analyze-module09.mjs`](../../../scripts/analyze-module09.mjs):
 * **Execution:** `node scripts/analyze-module09.mjs [path-to-data-dir]`
-* **Capabilities:** Validates data against `DATA_DICTIONARY.md`, calculates unassisted/assisted completion rates, time-on-task statistics (mean, median, std dev), error distributions, context-stratified breakdowns, SEQ averages, and composite SUS scores with Sauro-Lewis grading.
-* **Safety:** Strictly local; never uploads data or touches external APIs.
+* **RFC 4180 CSV Parser:** Full compliance with quoted fields, embedded commas, escaped quotes (`""`), CRLF/LF line breaks, and malformed row detection.
+* **Relational Schema Validation:** Validates required headers, ranges, enums, participant/task ID formats, and foreign-key integrity across `sessions.csv`, `tasks.csv`, `sus.csv`, and `qualitative.csv`.
+* **Completion State Detection:** Automatically distinguishes `PENDING_FIELDWORK` (zero records), `PARTIAL_FIELDWORK` (incomplete dataset), and `ANALYSIS_READY` (complete 18-participant cohort).
+* **Statistical Metrics:** Calculates global and per-task unassisted/assisted/failed completion rates, time-on-task statistics (mean, median, min, max, std dev), error distributions by category, SEQ stats (mean, median, 1–7 distribution), and SUS psychometrics (neutral imputation for blanks, mean, median, min, max, IQR, and Sauro-Lewis grades).
+* **Context-Stratified Analysis:** Comparative breakdowns across experience groups (Groups A/B/C), device types (Laptop vs. Mobile), and noise conditions (Quiet vs. Distracting).
+* **Qualitative Aggregation:** Structural validation and category/sentiment frequency counts without console exposure of verbatim quotes or PII.
+* **Local Aggregation Output:** Generates aggregate metrics in `private-research-data/module09/analysis/` (gitignored). Zero network calls or external data leakage.
 
 ---
 

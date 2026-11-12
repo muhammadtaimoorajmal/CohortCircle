@@ -8,7 +8,7 @@
 
 ## 1. File Structure Overview
 
-All raw de-identified experimental data is stored in standard RFC 4180 CSV format across three relational tables:
+All raw de-identified experimental data is stored in standard RFC 4180 CSV format across four CSV datasets:
 
 ```
 private-research-data/module09/data/

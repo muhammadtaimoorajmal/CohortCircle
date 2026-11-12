@@ -84,21 +84,21 @@ The 18-participant sample is systematically balanced across experience groups an
 
 | Participant ID | Eligibility Status | Experience Group | Device Context | Environment Context | Task Order Sequence | Informed Consent | Actual Session Date | Completion Status |
 |---|---|---|---|---|---|---|---|---|
-| **M09-P01** | Screened / Eligible | Group A (Frequent) | Laptop | Quiet | Sequence A (T01&rarr;T05) | Planned | — | Awaiting Fieldwork |
-| **M09-P02** | Screened / Eligible | Group A (Frequent) | Laptop | Quiet | Sequence B (T02&rarr;T01) | Planned | — | Awaiting Fieldwork |
-| **M09-P03** | Screened / Eligible | Group A (Frequent) | Laptop | Distracting | Sequence C (T03&rarr;T02) | Planned | — | Awaiting Fieldwork |
-| **M09-P04** | Screened / Eligible | Group A (Frequent) | Mobile | Quiet | Sequence D (T04&rarr;T03) | Planned | — | Awaiting Fieldwork |
-| **M09-P05** | Screened / Eligible | Group A (Frequent) | Mobile | Distracting | Sequence E (T05&rarr;T04) | Planned | — | Awaiting Fieldwork |
-| **M09-P06** | Screened / Eligible | Group A (Frequent) | Mobile | Distracting | Sequence A (T01&rarr;T05) | Planned | — | Awaiting Fieldwork |
-| **M09-P07** | Screened / Eligible | Group B (Occasional) | Laptop | Quiet | Sequence B (T02&rarr;T01) | Planned | — | Awaiting Fieldwork |
-| **M09-P08** | Screened / Eligible | Group B (Occasional) | Laptop | Distracting | Sequence C (T03&rarr;T02) | Planned | — | Awaiting Fieldwork |
-| **M09-P09** | Screened / Eligible | Group B (Occasional) | Laptop | Distracting | Sequence D (T04&rarr;T03) | Planned | — | Awaiting Fieldwork |
-| **M09-P10** | Screened / Eligible | Group B (Occasional) | Mobile | Quiet | Sequence E (T05&rarr;T04) | Planned | — | Awaiting Fieldwork |
-| **M09-P11** | Screened / Eligible | Group B (Occasional) | Mobile | Quiet | Sequence A (T01&rarr;T05) | Planned | — | Awaiting Fieldwork |
-| **M09-P12** | Screened / Eligible | Group B (Occasional) | Mobile | Distracting | Sequence B (T02&rarr;T01) | Planned | — | Awaiting Fieldwork |
-| **M09-P13** | Screened / Eligible | Group C (Novice) | Laptop | Quiet | Sequence C (T03&rarr;T02) | Planned | — | Awaiting Fieldwork |
-| **M09-P14** | Screened / Eligible | Group C (Novice) | Laptop | Quiet | Sequence D (T04&rarr;T03) | Planned | — | Awaiting Fieldwork |
-| **M09-P15** | Screened / Eligible | Group C (Novice) | Laptop | Distracting | Sequence E (T05&rarr;T04) | Planned | — | Awaiting Fieldwork |
-| **M09-P16** | Screened / Eligible | Group C (Novice) | Mobile | Quiet | Sequence A (T01&rarr;T05) | Planned | — | Awaiting Fieldwork |
-| **M09-P17** | Screened / Eligible | Group C (Novice) | Mobile | Distracting | Sequence B (T02&rarr;T01) | Planned | — | Awaiting Fieldwork |
-| **M09-P18** | Screened / Eligible | Group C (Novice) | Mobile | Distracting | Sequence C (T03&rarr;T02) | Planned | — | Awaiting Fieldwork |
+| **M09-P01** | Planned Slot — Screening Pending | Group A (Frequent) | Laptop | Quiet | Sequence A (T01&rarr;T05) | Planned | — | Awaiting Fieldwork |
+| **M09-P02** | Planned Slot — Screening Pending | Group A (Frequent) | Laptop | Quiet | Sequence B (T02&rarr;T01) | Planned | — | Awaiting Fieldwork |
+| **M09-P03** | Planned Slot — Screening Pending | Group A (Frequent) | Laptop | Distracting | Sequence C (T03&rarr;T02) | Planned | — | Awaiting Fieldwork |
+| **M09-P04** | Planned Slot — Screening Pending | Group A (Frequent) | Mobile | Quiet | Sequence D (T04&rarr;T03) | Planned | — | Awaiting Fieldwork |
+| **M09-P05** | Planned Slot — Screening Pending | Group A (Frequent) | Mobile | Distracting | Sequence E (T05&rarr;T04) | Planned | — | Awaiting Fieldwork |
+| **M09-P06** | Planned Slot — Screening Pending | Group A (Frequent) | Mobile | Distracting | Sequence A (T01&rarr;T05) | Planned | — | Awaiting Fieldwork |
+| **M09-P07** | Planned Slot — Screening Pending | Group B (Occasional) | Laptop | Quiet | Sequence B (T02&rarr;T01) | Planned | — | Awaiting Fieldwork |
+| **M09-P08** | Planned Slot — Screening Pending | Group B (Occasional) | Laptop | Distracting | Sequence C (T03&rarr;T02) | Planned | — | Awaiting Fieldwork |
+| **M09-P09** | Planned Slot — Screening Pending | Group B (Occasional) | Laptop | Distracting | Sequence D (T04&rarr;T03) | Planned | — | Awaiting Fieldwork |
+| **M09-P10** | Planned Slot — Screening Pending | Group B (Occasional) | Mobile | Quiet | Sequence E (T05&rarr;T04) | Planned | — | Awaiting Fieldwork |
+| **M09-P11** | Planned Slot — Screening Pending | Group B (Occasional) | Mobile | Quiet | Sequence A (T01&rarr;T05) | Planned | — | Awaiting Fieldwork |
+| **M09-P12** | Planned Slot — Screening Pending | Group B (Occasional) | Mobile | Distracting | Sequence B (T02&rarr;T01) | Planned | — | Awaiting Fieldwork |
+| **M09-P13** | Planned Slot — Screening Pending | Group C (Novice) | Laptop | Quiet | Sequence C (T03&rarr;T02) | Planned | — | Awaiting Fieldwork |
+| **M09-P14** | Planned Slot — Screening Pending | Group C (Novice) | Laptop | Quiet | Sequence D (T04&rarr;T03) | Planned | — | Awaiting Fieldwork |
+| **M09-P15** | Planned Slot — Screening Pending | Group C (Novice) | Laptop | Distracting | Sequence E (T05&rarr;T04) | Planned | — | Awaiting Fieldwork |
+| **M09-P16** | Planned Slot — Screening Pending | Group C (Novice) | Mobile | Quiet | Sequence A (T01&rarr;T05) | Planned | — | Awaiting Fieldwork |
+| **M09-P17** | Planned Slot — Screening Pending | Group C (Novice) | Mobile | Distracting | Sequence B (T02&rarr;T01) | Planned | — | Awaiting Fieldwork |
+| **M09-P18** | Planned Slot — Screening Pending | Group C (Novice) | Mobile | Distracting | Sequence C (T03&rarr;T02) | Planned | — | Awaiting Fieldwork |

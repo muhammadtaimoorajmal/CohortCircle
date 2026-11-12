@@ -1,8 +1,8 @@
 # Post-Test System Usability Scale (SUS) Instrument & Guide
 
-> **Instrument Reference:** Post-Test Standardized Usability Scale  
-> **Theoretical Foundation:** Brooke (1996); Bangor, Kortum & Miller (2008); Sauro & Lewis (2016).  
-> **Target Benchmark:** Mean SUS &ge; 80.0 / 100 (Grade A, Top 10th percentile).  
+> **Instrument Reference:** Post-Test Standardized Usability Scale<br>
+> **Theoretical Foundation:** Brooke (1996); Bangor, Kortum & Miller (2008); Sauro & Lewis (2016).<br>
+> **Target Benchmark:** Mean SUS &ge; 80.0 / 100 (`NFR-USE-01`). Distinct from the Sauro & Lewis Grade A cutoff of 80.3.<br>
 > **Repository:** `muhammadtaimoorajmal/CohortCircle`
 
 ---
@@ -69,15 +69,16 @@ $$\text{SUS} = 2.5 \times \sum_{i=1}^{10} C_i$$
 
 ## 4. Aggregate Usability Grading & Benchmark Norms
 
-### 4.1 Benchmark Targets:
-* **CohortCircle Target Benchmark:** $\overline{\text{SUS}} \ge 80.0 / 100$.
+### 4.1 Benchmark Targets vs. Empirical Grade Scale:
+* **CohortCircle Target Benchmark (`NFR-USE-01`):** $\overline{\text{SUS}} \ge 80.0 / 100$.
 * **Industry Average Baseline:** $\approx 68.0 / 100$ (Sauro, 2011).
+* **Empirical Scale Distinction:** Note that the project target of $\ge 80.0$ is an operational milestone threshold, distinct from the standardized Sauro & Lewis (2016) curved Grade A cutoff of $80.3$ (top 10th percentile). A score of $80.0$ reflects an above-average system at the Grade B / Grade A boundary.
 
 ### 4.2 Score Interpretation & Grade Curve (Sauro & Lewis, 2016):
-* **90.0 – 100.0:** Grade **A+** (Exceptional, best-in-class user experience).
-* **80.3 – 89.9:** Grade **A** (Excellent usability; high recommendation likelihood).
-* **74.1 – 80.2:** Grade **B** (Good usability; minor design refinements required).
-* **68.0 – 74.0:** Grade **C** (Average / Marginal; clear friction points present).
+* **90.0 – 100.0:** Grade **A+** (Exceptional, top 5th percentile usability).
+* **80.3 – 89.9:** Grade **A** (Excellent usability; top 10th percentile).
+* **74.1 – 80.2:** Grade **B** (Good / above average usability; project target of 80.0 falls at the upper boundary).
+* **68.0 – 74.0:** Grade **C** (Average / marginal; clear friction points present).
 * **51.0 – 67.9:** Grade **D** (Poor usability; major design remediation necessary).
 * **0.0 – 50.9:** Grade **F** (Unacceptable; critical product failure).
 

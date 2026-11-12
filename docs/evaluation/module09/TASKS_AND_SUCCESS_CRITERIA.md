@@ -116,7 +116,7 @@ Five core functional clusters represent the primary learner and host user journe
 * Standard baseline state with demo circles available.
 
 ### Expected Successful End State:
-* Direct join successfully executed for circle with vacancy; moderated join request submitted with valid note (&ge; 10 chars); pending badge visible on circle; circle left gracefully via confirmation modal.
+* Direct join successfully executed for circle with vacancy; moderated join request submitted with valid note (&ge; 15 chars); pending badge visible on circle; circle left gracefully via confirmation modal.
 
 ### Measurable Success Criteria:
 * **Unassisted Success ($S_U$):** Participant completes direct join, submits moderated request with note, checks pending state, and completes leave flow unassisted.
@@ -124,7 +124,7 @@ Five core functional clusters represent the primary learner and host user journe
 * **Failure Condition ($F$):** Submits empty note, fails to confirm leave modal, or exceeds 300s.
 * **Time-on-Task Measurement:** Timer starts upon prompt; stops when leave modal confirmation completes.
 * **Observable Error Categories:**
-  * `ERR-NON`: Entering an introductory note shorter than 10 characters and seeing validation error.
+  * `ERR-NON`: Entering an introductory note shorter than 15 characters and seeing validation error.
   * `ERR-MODEL`: Confusing direct join (immediate membership) with moderated request (pending host review).
   * `ERR-CRIT`: Accidentally attempting to leave a circle where the user is the host.
 
