@@ -14,19 +14,23 @@ import {
 import styles from './ProfilePage.module.css';
 
 export default function ProfilePage() {
-  const { currentUser, setCurrentUser } = useApp();
+  const { currentUser, updateProfile, updateAvailability } = useApp();
 
-  const [name, setName] = useState(currentUser.name);
-  const [handle, setHandle] = useState(currentUser.handle);
-  const [bio, setBio] = useState(currentUser.bio);
-  const [academicLevel, setAcademicLevel] = useState(currentUser.academicLevel);
-  const [modality, setModality] = useState(currentUser.preferredModality);
-  const [capacity, setCapacity] = useState(currentUser.preferredCapacity);
-  const [topics, setTopics] = useState(currentUser.topics);
+  const [name, setName] = useState(currentUser.name || '');
+  const [handle, setHandle] = useState(currentUser.handle || '');
+  const [bio, setBio] = useState(currentUser.bio || '');
+  const [academicLevel, setAcademicLevel] = useState(currentUser.academicLevel || 'Undergraduate Senior');
+  const [language, setLanguage] = useState(currentUser.primaryLanguage || 'English');
+  const [modality, setModality] = useState(currentUser.preferredModality || 'Online');
+  const [capacity, setCapacity] = useState(currentUser.preferredCapacity || '4–6 peers');
+  const [topics, setTopics] = useState(currentUser.topics || []);
   const [newTopicInput, setNewTopicInput] = useState('');
-  const [stylesList, setStylesList] = useState(currentUser.studyStyles);
-  const [availability, setAvailability] = useState(currentUser.availability);
+  const [stylesList, setStylesList] = useState(currentUser.studyStyles || []);
+  const [availability, setAvailability] = useState(
+    currentUser.availability || { Mon: [], Tue: [], Wed: [], Thu: [], Fri: [], Sat: [], Sun: [] }
+  );
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
 
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const timeSlots = ['Morning (8 AM - 12 PM)', 'Afternoon (12 PM - 5 PM)', 'Evening (6 PM - 10 PM)'];
@@ -88,18 +92,26 @@ export default function ProfilePage() {
 
   function handleSaveProfile(e) {
     e?.preventDefault();
-    setCurrentUser(prev => ({
-      ...prev,
+    const result = updateProfile({
       name,
       handle,
       bio,
       academicLevel,
+      primaryLanguage: language,
       preferredModality: modality,
       preferredCapacity: capacity,
       topics,
       studyStyles: stylesList,
       availability
-    }));
+    });
+
+    if (result && !result.success) {
+      setFormErrors(result.errors || {});
+      return;
+    }
+
+    updateAvailability(availability);
+    setFormErrors({});
     setSavedSuccess(true);
     setTimeout(() => setSavedSuccess(false), 3000);
   }
@@ -120,6 +132,17 @@ export default function ProfilePage() {
         <div className={styles.alertSuccess} role="status">
           <IconCheck size={18} />
           <span>Your learning profile and availability have been successfully updated!</span>
+        </div>
+      )}
+
+      {Object.keys(formErrors).length > 0 && (
+        <div className={styles.alertError || styles.alertSuccess} role="alert" style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', borderColor: '#ef4444', marginBottom: '16px', padding: '12px 16px', borderRadius: '8px', border: '1px solid' }}>
+          <strong>Please fix the following:</strong>
+          <ul style={{ margin: '4px 0 0 16px', padding: 0 }}>
+            {Object.values(formErrors).map((err, idx) => (
+              <li key={idx}>{err}</li>
+            ))}
+          </ul>
         </div>
       )}
 
@@ -167,6 +190,21 @@ export default function ProfilePage() {
                   'Graduate Student',
                   'Independent Self-Learner',
                   'Career Transitioning'
+                ]}
+              />
+
+              <Select
+                label="Primary Study Language"
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                options={[
+                  'English',
+                  'Spanish',
+                  'Mandarin',
+                  'French',
+                  'German',
+                  'Japanese',
+                  'Other'
                 ]}
               />
 

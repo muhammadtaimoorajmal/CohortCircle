@@ -308,6 +308,42 @@
 
 ---
 
+### DEC-033: Versioned Local-First Storage Adapter Schema & Recovery
+* **Status:** `[CONFIRMED]`
+* **Context:** Implementing persistent state across browser reloads for Module 08 without introducing complex external cloud dependencies or server runtimes.
+* **Decision:** Implement a modular browser storage adapter (`src/services/storageService.js`) using a dedicated versioned key (`cohortcircle_state_v1`) and explicit schema version tracking (`schemaVersion: 1`). The service validates schema integrity, isolates deep copies of initial synthetic fixtures on first launch, gracefully handles JSON parsing errors or corrupted entries by falling back to deep clones of initial fixtures, guards against storage quota exceptions, and provides both demonstration reset and complete data wipe capabilities.
+* **Date:** 2026-11-12
+* **Impact:** Seamless single-user persistence across page reloads and browser sessions with zero server setup or vendor lock-in.
+
+---
+
+### DEC-034: Deterministic 5-Factor Mathematical Compatibility Engine
+* **Status:** `[CONFIRMED]`
+* **Context:** Computing match percentages between user profiles and study circles transparently and deterministically.
+* **Decision:** Implement an explainable 5-factor mathematical compatibility scoring algorithm (`src/services/compatibilityService.js`) with explicit weighting: Topic overlap (35%), Weekly schedule overlap (25%), Study style alignment (20%), Meeting modality match (10%), and Group size capacity suitability (10%). Short-circuit host calculation to 100%. Supply human-readable explanation tags (e.g., "Shared topics", "Schedule aligned", "Matching style") so users understand match scores.
+* **Date:** 2026-11-12
+* **Impact:** 100% reproducible, explainable algorithmic matching building high trust and eliminating opaque AI black boxes.
+
+---
+
+### DEC-035: Authoritative Circle Membership & Scoped Admission Queue State
+* **Status:** `[CONFIRMED]`
+* **Context:** Managing circle memberships, capacities, and host moderation queues without roster drift or cross-circle queue leakage.
+* **Decision:** Establish an authoritative `memberships` relational state entity in `AppContext.jsx`. Restrict circle applicant queues strictly to requests targeted at that circle (`targetCircleId === activeCircle.id`). Prevent duplicate joins, enforce max capacity limits on direct join and request approval, and safeguard circle hosts from accidental removal.
+* **Date:** 2026-11-12
+* **Impact:** Eliminates data inconsistency across pages; maintains synchronized counts across Discovery, Circle Details, and Management dashboards.
+
+---
+
+### DEC-036: React Error Boundary UI Fault Tolerance Strategy
+* **Status:** `[CONFIRMED]`
+* **Context:** Preventing unexpected runtime crashes from rendering white screens or stranding users with broken interfaces.
+* **Decision:** Implement a class-based React `ErrorBoundary` (`src/components/common/ErrorBoundary.jsx`) wrapping both `AppRouter` and `AppProvider`. In the event of a lifecycle or rendering failure, display an accessible, branded fallback screen with user-actionable recovery controls: "Reload Page" and "Reset Demo State & Reload".
+* **Date:** 2026-11-12
+* **Impact:** High UI resilience, seamless fault recovery, and compliance with enterprise open-source software reliability standards.
+
+---
+
 ## 3. Active Research Questions for Module 02
 
 1. **RQ-01:** What is the relative weight that learners place on schedule availability versus study style compatibility when deciding whether to join a peer group?

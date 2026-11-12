@@ -21,7 +21,7 @@ import styles from './CreateCirclePage.module.css';
 
 export default function CreateCirclePage() {
   const navigate = useNavigate();
-  const { handleCreateCircle, currentUser } = useApp();
+  const { createCircle } = useApp();
 
   const [currentStep, setCurrentStep] = useState(1);
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
@@ -37,6 +37,8 @@ export default function CreateCirclePage() {
   const [studyStyle, setStudyStyle] = useState('Collaborative Problem Solving');
   const [modality, setModality] = useState('Online');
   const [cadence, setCadence] = useState('Weekly');
+  const [meetingDay, setMeetingDay] = useState('Tue');
+  const [meetingTimeSlot, setMeetingTimeSlot] = useState('Evening (6 PM - 10 PM)');
   const [meetingTime, setMeetingTime] = useState('Tuesdays, 6:00 PM – 7:30 PM');
   const [maxCapacity, setMaxCapacity] = useState(6);
   const [joiningPolicy, setJoiningPolicy] = useState('moderated'); // 'open' | 'moderated'
@@ -99,47 +101,33 @@ export default function CreateCirclePage() {
     e.preventDefault();
     if (!validateStep(currentStep)) return;
 
-    const newCircle = {
-      id: `circle-${Date.now().toString(36)}`,
+    const res = createCircle({
       title,
-      slug: title.toLowerCase().replace(/\s+/g, '-'),
       category,
       subject,
       description,
       charter,
-      host: {
-        id: currentUser.id,
-        name: currentUser.name,
-        handle: currentUser.handle,
-        initials: currentUser.initials,
-        avatarColor: currentUser.avatarColor,
-        role: 'Circle Facilitator'
-      },
-      membersCount: 1,
-      maxCapacity: Number(maxCapacity),
-      joiningPolicy,
       studyStyle,
       modality,
       cadence,
       meetingTime,
-      compatibility: {
-        overallScore: 100,
-        breakdown: {
-          topicAlignment: 100,
-          scheduleOverlap: 100,
-          studyStyleMatch: 100,
-          modalityFit: 100,
-          capacityFit: 100
-        },
-        matchReasons: ['You are the creator and host of this study circle']
-      },
-      tags: [subject, category, modality],
-      isJoined: true,
-      isHostedByMe: true
-    };
+      meetingDay,
+      meetingTimeSlot,
+      maxCapacity: Number(maxCapacity),
+      joiningPolicy,
+      schedule: {
+        days: [meetingDay],
+        timeSlot: meetingTimeSlot
+      }
+    });
 
-    handleCreateCircle(newCircle);
-    navigate('/app/host');
+    if (res.success && res.circle) {
+      navigate(`/app/host/manage/${res.circle.id}`);
+    } else if (res.errors) {
+      setErrors(res.errors);
+    } else {
+      navigate('/app/host');
+    }
   }
 
   return (
@@ -298,6 +286,33 @@ export default function CreateCirclePage() {
                   onChange={(e) => setMeetingTime(e.target.value)}
                   error={errors.meetingTime}
                   required
+                />
+              </div>
+
+              <div className={styles.twoCol}>
+                <Select
+                  label="Primary Meeting Day"
+                  value={meetingDay}
+                  onChange={(e) => setMeetingDay(e.target.value)}
+                  options={[
+                    { label: 'Monday (Mon)', value: 'Mon' },
+                    { label: 'Tuesday (Tue)', value: 'Tue' },
+                    { label: 'Wednesday (Wed)', value: 'Wed' },
+                    { label: 'Thursday (Thu)', value: 'Thu' },
+                    { label: 'Friday (Fri)', value: 'Fri' },
+                    { label: 'Saturday (Sat)', value: 'Sat' },
+                    { label: 'Sunday (Sun)', value: 'Sun' }
+                  ]}
+                />
+                <Select
+                  label="Time Slot Block"
+                  value={meetingTimeSlot}
+                  onChange={(e) => setMeetingTimeSlot(e.target.value)}
+                  options={[
+                    'Morning (8 AM - 12 PM)',
+                    'Afternoon (12 PM - 5 PM)',
+                    'Evening (6 PM - 10 PM)'
+                  ]}
                 />
               </div>
             </div>

@@ -22,15 +22,22 @@ export default function DashboardPage() {
   const {
     currentUser,
     circles,
+    memberships,
     sessions,
     pendingRequests,
-    handleRSVP,
+    updateRSVP,
     setSelectedCircleForCompat
   } = useApp();
 
   const joinedCircles = circles.filter(c => c.isJoined);
-  const suggestedCircles = circles.filter(c => !c.isJoined && c.joiningPolicy !== 'closed');
-  const upcomingSessions = sessions.slice(0, 2);
+  const suggestedCircles = circles
+    .filter(c => !c.isJoined && c.joiningPolicy !== 'closed')
+    .sort((a, b) => (b.compatibility?.overallScore || 0) - (a.compatibility?.overallScore || 0));
+
+  const upcomingSessions = sessions.filter(s => s.status !== 'cancelled').slice(0, 3);
+  const peerCount = memberships.filter(
+    m => joinedCircles.some(c => c.id === m.circleId) && m.userId !== currentUser.id
+  ).length;
 
   return (
     <div className={styles.page}>
@@ -76,7 +83,7 @@ export default function DashboardPage() {
         <Card padding="md" className={styles.statCard}>
           <span className={styles.statLabel}>Active Circles</span>
           <span className={styles.statNumber}>{joinedCircles.length}</span>
-          <span className={styles.statSub}>Collaborating with ~12 peers</span>
+          <span className={styles.statSub}>Collaborating with ~{peerCount || (joinedCircles.length * 3)} peers</span>
         </Card>
 
         <Card padding="md" className={styles.statCard}>
@@ -185,7 +192,7 @@ export default function DashboardPage() {
                 <SessionCard
                   key={session.id}
                   session={session}
-                  onRSVPChange={handleRSVP}
+                  onRSVPChange={updateRSVP}
                 />
               ))}
             </div>

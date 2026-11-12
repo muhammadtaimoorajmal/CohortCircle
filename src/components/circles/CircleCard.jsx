@@ -75,16 +75,16 @@ export default function CircleCard({
         </span>
         <span className={styles.metaItem}>
           <IconClock size={14} className={styles.metaIcon} />
-          {meetingTime.split(',')[0]}
+          {(meetingTime || '').split(',')[0] || meetingTime}
         </span>
       </div>
 
       {/* Footer: Host, Members, Action */}
       <div className={styles.footerRow}>
         <div className={styles.hostAndMembers}>
-          <div className={styles.hostInfo} title={`Hosted by ${host.name}`}>
-            <Avatar name={host.name} initials={host.initials} color={host.avatarColor} size="xs" />
-            <span className={styles.hostName}>{host.name}</span>
+          <div className={styles.hostInfo} title={`Hosted by ${host?.name || 'Facilitator'}`}>
+            <Avatar name={host?.name} initials={host?.initials} color={host?.avatarColor} size="xs" />
+            <span className={styles.hostName}>{host?.name}</span>
           </div>
           <span className={styles.divider}>•</span>
           <MemberStack count={membersCount} max={maxCapacity} />

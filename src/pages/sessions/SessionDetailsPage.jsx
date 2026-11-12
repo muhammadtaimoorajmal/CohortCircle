@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Card from '../../components/common/Card/Card';
 import Badge from '../../components/common/Badge/Badge';
+import Button from '../../components/common/Button/Button';
 import Avatar from '../../components/common/Avatar/Avatar';
 import RSVPControl from '../../components/sessions/RSVPControl';
 import { useApp } from '../../context/AppContext';
@@ -15,9 +16,32 @@ import styles from './SessionDetailsPage.module.css';
 
 export default function SessionDetailsPage() {
   const { sessionId } = useParams();
-  const { sessions, handleRSVP } = useApp();
+  const { sessions, updateRSVP } = useApp();
 
-  const session = sessions.find(s => s.id === sessionId) || sessions[0];
+  const session = sessions.find(s => s.id === sessionId);
+
+  if (!session) {
+    return (
+      <div className={styles.page}>
+        <div className={styles.topNav}>
+          <Link to="/app/sessions" className={styles.backLink}>
+            <IconChevronLeft size={16} />
+            <span>Back to All Sessions</span>
+          </Link>
+        </div>
+        <Card padding="lg" style={{ textAlign: 'center', margin: '48px auto', maxWidth: '600px' }}>
+          <h2>Study Session Not Found</h2>
+          <p style={{ margin: '12px 0 24px', color: 'var(--color-text-secondary, #94a3b8)' }}>
+            The requested session could not be located in your schedule.
+          </p>
+          <Link to="/app/sessions">
+            <Button variant="primary">Return to Sessions</Button>
+          </Link>
+        </Card>
+      </div>
+    );
+  }
+
   const {
     id,
     circleId,
@@ -91,7 +115,7 @@ export default function SessionDetailsPage() {
           <span className={styles.rsvpPrompt}>Your Attendance Status:</span>
           <RSVPControl
             initialStatus={rsvpSummary?.currentUserStatus || 'attending'}
-            onStatusChange={(newStatus) => handleRSVP(id, newStatus)}
+            onStatusChange={(newStatus) => updateRSVP(id, newStatus)}
           />
         </div>
       </Card>

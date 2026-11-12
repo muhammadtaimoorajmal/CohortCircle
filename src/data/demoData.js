@@ -64,6 +64,12 @@ export const DEMO_CIRCLES = [
     modality: 'Online',
     cadence: 'Weekly',
     meetingTime: 'Tuesdays & Thursdays, 7:00 PM – 8:30 PM',
+    schedule: {
+      days: ['Tue', 'Thu'],
+      timeSlot: 'Evening (6 PM - 10 PM)',
+      startTime: '19:00',
+      endTime: '20:30'
+    },
     compatibility: {
       overallScore: 94,
       breakdown: {
@@ -112,6 +118,12 @@ export const DEMO_CIRCLES = [
     modality: 'Hybrid',
     cadence: 'Bi-weekly',
     meetingTime: 'Wednesdays, 6:30 PM – 8:00 PM',
+    schedule: {
+      days: ['Wed'],
+      timeSlot: 'Evening (6 PM - 10 PM)',
+      startTime: '18:30',
+      endTime: '20:00'
+    },
     compatibility: {
       overallScore: 89,
       breakdown: {
@@ -160,6 +172,12 @@ export const DEMO_CIRCLES = [
     modality: 'Online',
     cadence: 'Weekly',
     meetingTime: 'Saturdays, 10:00 AM – 11:30 AM',
+    schedule: {
+      days: ['Sat'],
+      timeSlot: 'Morning (8 AM - 12 PM)',
+      startTime: '10:00',
+      endTime: '11:30'
+    },
     compatibility: {
       overallScore: 100,
       breakdown: {
@@ -206,6 +224,12 @@ export const DEMO_CIRCLES = [
     modality: 'In-Person',
     cadence: 'Weekly',
     meetingTime: 'Mondays, 5:00 PM – 7:00 PM',
+    schedule: {
+      days: ['Mon'],
+      timeSlot: 'Evening (6 PM - 10 PM)',
+      startTime: '17:00',
+      endTime: '19:00'
+    },
     compatibility: {
       overallScore: 78,
       breakdown: {
@@ -248,6 +272,12 @@ export const DEMO_CIRCLES = [
     modality: 'Online',
     cadence: 'Weekly',
     meetingTime: 'Fridays, 4:00 PM – 5:30 PM',
+    schedule: {
+      days: ['Fri'],
+      timeSlot: 'Afternoon (12 PM - 5 PM)',
+      startTime: '16:00',
+      endTime: '17:30'
+    },
     compatibility: {
       overallScore: 71,
       breakdown: {
@@ -289,6 +319,12 @@ export const DEMO_CIRCLES = [
     modality: 'Online',
     cadence: 'Bi-weekly',
     meetingTime: 'Sundays, 2:00 PM – 4:00 PM',
+    schedule: {
+      days: ['Sun'],
+      timeSlot: 'Afternoon (12 PM - 5 PM)',
+      startTime: '14:00',
+      endTime: '16:00'
+    },
     compatibility: {
       overallScore: 64,
       breakdown: {
@@ -463,3 +499,49 @@ export const DEMO_STUDY_STYLES = [
 
 export const DEMO_MODALITIES = ['All Modalities', 'Online', 'In-Person', 'Hybrid'];
 export const DEMO_CAPACITIES = ['Any Capacity', 'Micro (2–4)', 'Standard (5–8)', 'Large (8+)'];
+
+export const DEMO_MEMBERSHIPS = [
+  // circle-dis-03 (hosted by Alex Rivera)
+  { id: 'mem-dis-01', circleId: 'circle-dis-03', userId: 'usr-current', name: 'Alex Rivera', handle: '@arivera', initials: 'AR', avatarColor: '#4f46e5', role: 'Circle Facilitator (You)', isHost: true },
+  { id: 'mem-dis-02', circleId: 'circle-dis-03', userId: 'usr-m-01', name: 'Priya Sharma', handle: '@psharma', initials: 'PS', avatarColor: '#059669', role: 'Active Contributor', isHost: false },
+  { id: 'mem-dis-03', circleId: 'circle-dis-03', userId: 'usr-m-02', name: 'Daniel Kim', handle: '@dkim', initials: 'DK', avatarColor: '#2563eb', role: 'Active Contributor', isHost: false },
+  { id: 'mem-dis-04', circleId: 'circle-dis-03', userId: 'usr-m-03', name: 'Nadia El-Baz', handle: '@nelbaz', initials: 'NE', avatarColor: '#7c3aed', role: 'Active Contributor', isHost: false },
+
+  // circle-alg-01 (Alex is member)
+  { id: 'mem-alg-01', circleId: 'circle-alg-01', userId: 'usr-host-01', name: 'Elena Rostova', handle: '@erostova', initials: 'ER', avatarColor: '#0d9488', role: 'Circle Facilitator', isHost: true },
+  { id: 'mem-alg-02', circleId: 'circle-alg-01', userId: 'usr-current', name: 'Alex Rivera', handle: '@arivera', initials: 'AR', avatarColor: '#4f46e5', role: 'Active Contributor', isHost: false },
+  { id: 'mem-alg-03', circleId: 'circle-alg-01', userId: 'usr-alg-03', name: 'Kenji Sato', handle: '@ksato', initials: 'KS', avatarColor: '#ea580c', role: 'Active Contributor', isHost: false },
+  { id: 'mem-alg-04', circleId: 'circle-alg-01', userId: 'usr-alg-04', name: 'Maya Patel', handle: '@mpatel', initials: 'MP', avatarColor: '#db2777', role: 'Active Contributor', isHost: false },
+  { id: 'mem-alg-05', circleId: 'circle-alg-01', userId: 'usr-alg-05', name: 'Liam O’Connor', handle: '@loconnor', initials: 'LO', avatarColor: '#16a34a', role: 'Active Contributor', isHost: false },
+
+  // circle-des-02 (Alex is member)
+  { id: 'mem-des-01', circleId: 'circle-des-02', userId: 'usr-host-02', name: 'Marcus Chen', handle: '@mchen_design', initials: 'MC', avatarColor: '#6366f1', role: 'Lead Facilitator', isHost: true },
+  { id: 'mem-des-02', circleId: 'circle-des-02', userId: 'usr-current', name: 'Alex Rivera', handle: '@arivera', initials: 'AR', avatarColor: '#4f46e5', role: 'Active Contributor', isHost: false },
+  { id: 'mem-des-03', circleId: 'circle-des-02', userId: 'usr-des-03', name: 'Sophie Martin', handle: '@smartin', initials: 'SM', avatarColor: '#d97706', role: 'Active Contributor', isHost: false },
+  { id: 'mem-des-04', circleId: 'circle-des-02', userId: 'usr-des-04', name: 'Tariq Al-Mansoor', handle: '@talmansoor', initials: 'TA', avatarColor: '#0891b2', role: 'Active Contributor', isHost: false },
+
+  // circle-math-04 (Devon Vance is host, Alex not joined)
+  { id: 'mem-math-01', circleId: 'circle-math-04', userId: 'usr-host-04', name: 'Devon Vance', handle: '@dvance_math', initials: 'DV', avatarColor: '#b45309', role: 'Facilitator', isHost: true },
+  { id: 'mem-math-02', circleId: 'circle-math-04', userId: 'usr-math-02', name: 'Amina Nour', handle: '@anour', initials: 'AN', avatarColor: '#4338ca', role: 'Active Contributor', isHost: false },
+  { id: 'mem-math-03', circleId: 'circle-math-04', userId: 'usr-math-03', name: 'Leo Gomez', handle: '@lgomez', initials: 'LG', avatarColor: '#047857', role: 'Active Contributor', isHost: false },
+
+  // circle-lang-05 (Sara Takahashi is host, Alex not joined)
+  { id: 'mem-lang-01', circleId: 'circle-lang-05', userId: 'usr-host-05', name: 'Sara Takahashi', handle: '@sara_t', initials: 'ST', avatarColor: '#db2777', role: 'Coordinator', isHost: true },
+  { id: 'mem-lang-02', circleId: 'circle-lang-05', userId: 'usr-lang-02', name: 'Lucas Meyer', handle: '@lmeyer', initials: 'LM', avatarColor: '#6d28d9', role: 'Active Contributor', isHost: false },
+  { id: 'mem-lang-03', circleId: 'circle-lang-05', userId: 'usr-lang-03', name: 'Hannah Scott', handle: '@hscott', initials: 'HS', avatarColor: '#b91c1c', role: 'Active Contributor', isHost: false },
+  { id: 'mem-lang-04', circleId: 'circle-lang-05', userId: 'usr-lang-04', name: 'Mateo Rossi', handle: '@mrossi', initials: 'MR', avatarColor: '#0369a1', role: 'Active Contributor', isHost: false },
+  { id: 'mem-lang-05', circleId: 'circle-lang-05', userId: 'usr-lang-05', name: 'Fatima Zahra', handle: '@fzahra', initials: 'FZ', avatarColor: '#4d7c0f', role: 'Active Contributor', isHost: false },
+  { id: 'mem-lang-06', circleId: 'circle-lang-05', userId: 'usr-lang-06', name: 'Chloe Dubois', handle: '@cdubois', initials: 'CD', avatarColor: '#a21caf', role: 'Active Contributor', isHost: false },
+
+  // circle-writ-06 (Jordan Blake is host, closed circle)
+  { id: 'mem-writ-01', circleId: 'circle-writ-06', userId: 'usr-host-06', name: 'Jordan Blake', handle: '@jblake_writes', initials: 'JB', avatarColor: '#059669', role: 'Editor', isHost: true },
+  { id: 'mem-writ-02', circleId: 'circle-writ-06', userId: 'usr-writ-02', name: 'Rachel Green', handle: '@rgreen', initials: 'RG', avatarColor: '#c2410c', role: 'Active Contributor', isHost: false },
+  { id: 'mem-writ-03', circleId: 'circle-writ-06', userId: 'usr-writ-03', name: 'Samira Khan', handle: '@skhan', initials: 'SK', avatarColor: '#1d4ed8', role: 'Active Contributor', isHost: false },
+  { id: 'mem-writ-04', circleId: 'circle-writ-06', userId: 'usr-writ-04', name: 'David Lee', handle: '@dlee', initials: 'DL', avatarColor: '#6b21a8', role: 'Active Contributor', isHost: false }
+];
+
+export const DEFAULT_SETTINGS = {
+  highContrast: false,
+  sessionReminders: true,
+  admissionQueueUpdates: true
+};

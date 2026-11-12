@@ -30,7 +30,11 @@ export default function HostDashboardPage() {
   const [declineTarget, setDeclineTarget] = useState(null);
 
   const hostedCircles = circles.filter(c => c.isHostedByMe);
-  const hostedSessions = sessions.filter(s => s.hostName?.includes('Alex Rivera') || s.hostName?.includes('You'));
+  const hostedCircleIds = new Set(hostedCircles.map(c => c.id));
+  const hostPendingRequests = pendingRequests.filter(r => hostedCircleIds.has(r.circleId));
+  const hostedSessions = sessions.filter(
+    s => s.hostName?.includes('Alex Rivera') || s.hostName?.includes('You') || hostedCircleIds.has(s.circleId)
+  );
 
   function confirmDecline() {
     if (declineTarget) {
@@ -78,7 +82,7 @@ export default function HostDashboardPage() {
 
         <Card padding="md" className={styles.metricCard}>
           <span className={styles.metricLabel}>Pending Applicants</span>
-          <span className={styles.metricVal}>{pendingRequests.length}</span>
+          <span className={styles.metricVal}>{hostPendingRequests.length}</span>
           <span className={styles.metricSub}>Require admission review</span>
         </Card>
 
@@ -159,18 +163,18 @@ export default function HostDashboardPage() {
           <section className={styles.section}>
             <div className={styles.queueHeader}>
               <h2 className={styles.sectionHeading}>Pending Admissions</h2>
-              <Badge variant={pendingRequests.length > 0 ? 'primary' : 'neutral'} size="sm">
-                {pendingRequests.length} Waiting
+              <Badge variant={hostPendingRequests.length > 0 ? 'primary' : 'neutral'} size="sm">
+                {hostPendingRequests.length} Waiting
               </Badge>
             </div>
 
-            {pendingRequests.length === 0 ? (
+            {hostPendingRequests.length === 0 ? (
               <Card padding="md" className={styles.emptyCard}>
                 <p className={styles.emptyText}>All applicant requests have been reviewed.</p>
               </Card>
             ) : (
               <div className={styles.applicantsList}>
-                {pendingRequests.map(req => (
+                {hostPendingRequests.map(req => (
                   <Card key={req.id} padding="md" className={styles.applicantCard}>
                     <div className={styles.applicantHeader}>
                       <Avatar

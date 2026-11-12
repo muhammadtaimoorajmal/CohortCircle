@@ -27,19 +27,22 @@ export default function ExplorePage() {
   const [selectedStyle, setSelectedStyle] = useState('All Study Styles');
   const [selectedModality, setSelectedModality] = useState('All Modalities');
   const [selectedCapacity, setSelectedCapacity] = useState('Any Capacity');
+  const [selectedDay, setSelectedDay] = useState('All Days');
+  const [selectedCapacityStatus, setSelectedCapacityStatus] = useState('All Circles');
   const [sortBy, setSortBy] = useState('compat'); // 'compat' | 'members' | 'title'
 
   // Filter circles
   const filteredCircles = useMemo(() => {
     return circles.filter(c => {
-      // Search term
+      // Search term (title, subject, description, tags, charter)
       if (searchTerm.trim()) {
         const term = searchTerm.toLowerCase();
-        const matchesTitle = c.title.toLowerCase().includes(term);
-        const matchesSubject = c.subject.toLowerCase().includes(term);
-        const matchesDesc = c.description.toLowerCase().includes(term);
+        const matchesTitle = c.title?.toLowerCase().includes(term);
+        const matchesSubject = c.subject?.toLowerCase().includes(term);
+        const matchesDesc = c.description?.toLowerCase().includes(term);
+        const matchesCharter = c.charter?.toLowerCase().includes(term);
         const matchesTags = c.tags?.some(t => t.toLowerCase().includes(term));
-        if (!matchesTitle && !matchesSubject && !matchesDesc && !matchesTags) {
+        if (!matchesTitle && !matchesSubject && !matchesDesc && !matchesCharter && !matchesTags) {
           return false;
         }
       }
@@ -59,9 +62,28 @@ export default function ExplorePage() {
         return false;
       }
 
-      // Capacity
+      // Capacity Range
       if (selectedCapacity === 'Micro (2–4)' && c.maxCapacity > 4) return false;
       if (selectedCapacity === 'Standard (5–8)' && (c.maxCapacity < 5 || c.maxCapacity > 8)) return false;
+      if (selectedCapacity === 'Large (8+)' && c.maxCapacity < 8) return false;
+
+      // Meeting Day
+      if (selectedDay !== 'All Days') {
+        const dayPrefix = selectedDay.substring(0, 3).toLowerCase();
+        const matchesScheduleDay = c.schedule?.days?.some(d => d.toLowerCase().startsWith(dayPrefix));
+        const matchesMeetingTime = c.meetingTime?.toLowerCase().includes(dayPrefix);
+        if (!matchesScheduleDay && !matchesMeetingTime) {
+          return false;
+        }
+      }
+
+      // Capacity Status (Open vs Full)
+      if (selectedCapacityStatus === 'Available Seats Only' && c.membersCount >= c.maxCapacity) {
+        return false;
+      }
+      if (selectedCapacityStatus === 'Full Cohorts' && c.membersCount < c.maxCapacity) {
+        return false;
+      }
 
       return true;
     }).sort((a, b) => {
@@ -73,7 +95,17 @@ export default function ExplorePage() {
       }
       return a.title.localeCompare(b.title);
     });
-  }, [circles, searchTerm, selectedCategory, selectedStyle, selectedModality, selectedCapacity, sortBy]);
+  }, [
+    circles,
+    searchTerm,
+    selectedCategory,
+    selectedStyle,
+    selectedModality,
+    selectedCapacity,
+    selectedDay,
+    selectedCapacityStatus,
+    sortBy
+  ]);
 
   function handleResetFilters() {
     setSearchTerm('');
@@ -81,15 +113,19 @@ export default function ExplorePage() {
     setSelectedStyle('All Study Styles');
     setSelectedModality('All Modalities');
     setSelectedCapacity('Any Capacity');
+    setSelectedDay('All Days');
+    setSelectedCapacityStatus('All Circles');
     setSortBy('compat');
   }
 
   const hasActiveFilters =
-    searchTerm ||
+    Boolean(searchTerm) ||
     selectedCategory !== 'All Subjects' ||
     selectedStyle !== 'All Study Styles' ||
     selectedModality !== 'All Modalities' ||
-    selectedCapacity !== 'Any Capacity';
+    selectedCapacity !== 'Any Capacity' ||
+    selectedDay !== 'All Days' ||
+    selectedCapacityStatus !== 'All Circles';
 
   return (
     <div className={styles.page}>
@@ -167,10 +203,37 @@ export default function ExplorePage() {
         />
 
         <Select
-          label="Cohort Capacity"
+          label="Cohort Size"
           value={selectedCapacity}
           onChange={(e) => setSelectedCapacity(e.target.value)}
           options={DEMO_CAPACITIES}
+        />
+
+        <Select
+          label="Meeting Day"
+          value={selectedDay}
+          onChange={(e) => setSelectedDay(e.target.value)}
+          options={[
+            'All Days',
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+            'Sunday'
+          ]}
+        />
+
+        <Select
+          label="Capacity Status"
+          value={selectedCapacityStatus}
+          onChange={(e) => setSelectedCapacityStatus(e.target.value)}
+          options={[
+            'All Circles',
+            'Available Seats Only',
+            'Full Cohorts'
+          ]}
         />
       </div>
 

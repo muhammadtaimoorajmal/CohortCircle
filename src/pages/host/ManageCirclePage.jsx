@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
@@ -19,8 +19,12 @@ export default function ManageCirclePage() {
   const { circleId } = useParams();
   const {
     circles,
-    pendingRequests,
-    handleApplicantAction,
+    memberships,
+    joinRequests,
+    acceptJoinRequest,
+    rejectJoinRequest,
+    removeCircleMember,
+    updateCircle,
     currentUser
   } = useApp();
 
@@ -29,28 +33,114 @@ export default function ManageCirclePage() {
   const [activeTab, setActiveTab] = useState('members'); // 'members' | 'applicants' | 'settings'
   const [removeMemberTarget, setRemoveMemberTarget] = useState(null);
   const [declineTarget, setDeclineTarget] = useState(null);
+  const [feedbackMessage, setFeedbackMessage] = useState(null); // { type: 'success' | 'error', text }
 
-  // Circle members roster
-  const [membersList, setMembersList] = useState([
-    { id: 'usr-current', name: currentUser.name, handle: currentUser.handle, role: 'Circle Facilitator (You)', isHost: true },
-    { id: 'usr-m-01', name: 'Priya Sharma', handle: '@psharma', role: 'Active Contributor', isHost: false },
-    { id: 'usr-m-02', name: 'Daniel Kim', handle: '@dkim', role: 'Active Contributor', isHost: false },
-    { id: 'usr-m-03', name: 'Nadia El-Baz', handle: '@nelbaz', role: 'Active Contributor', isHost: false }
-  ]);
+  // Authoritative Central Roster & Scoped Queue
+  const circleMembers = memberships.filter(m => m.circleId === circle?.id);
+  const circleApplicants = joinRequests.filter(r => r.circleId === circle?.id && r.status === 'pending');
 
-  const circleApplicants = pendingRequests.filter(r => r.circleId === circle.id || circle.isHostedByMe);
+  // Settings form state
+  const [editTitle, setEditTitle] = useState(circle?.title || '');
+  const [editSubject, setEditSubject] = useState(circle?.subject || '');
+  const [editDescription, setEditDescription] = useState(circle?.description || '');
+  const [editCharter, setEditCharter] = useState(circle?.charter || '');
+  const [editMeetingTime, setEditMeetingTime] = useState(circle?.meetingTime || '');
+  const [editModality, setEditModality] = useState(circle?.modality || 'Online');
+  const [editJoiningPolicy, setEditJoiningPolicy] = useState(circle?.joiningPolicy || 'moderated');
+  const [editMaxCapacity, setEditMaxCapacity] = useState(circle?.maxCapacity || 6);
+  const [settingsErrors, setSettingsErrors] = useState({});
 
-  function confirmRemoveMember() {
-    if (removeMemberTarget) {
-      setMembersList(prev => prev.filter(m => m.id !== removeMemberTarget.id));
-      setRemoveMemberTarget(null);
+  useEffect(() => {
+    if (circle) {
+      setEditTitle(circle.title || '');
+      setEditSubject(circle.subject || '');
+      setEditDescription(circle.description || '');
+      setEditCharter(circle.charter || '');
+      setEditMeetingTime(circle.meetingTime || '');
+      setEditModality(circle.modality || 'Online');
+      setEditJoiningPolicy(circle.joiningPolicy || 'moderated');
+      setEditMaxCapacity(circle.maxCapacity || 6);
+    }
+  }, [circle]);
+
+  if (!circle) {
+    return (
+      <div className={styles.page}>
+        <div className={styles.topNav}>
+          <Link to="/app/host" className={styles.backLink}>
+            <IconChevronLeft size={16} />
+            <span>Back to Host Facilitation Console</span>
+          </Link>
+        </div>
+        <Card padding="lg" style={{ textAlign: 'center', margin: '48px auto', maxWidth: '600px' }}>
+          <h2>No Hosted Circles Found</h2>
+          <p style={{ margin: '12px 0 24px', color: 'var(--color-text-secondary, #94a3b8)' }}>
+            You do not currently host this study circle.
+          </p>
+          <Link to="/app/host">
+            <Button variant="primary">Return to Host Console</Button>
+          </Link>
+        </Card>
+      </div>
+    );
+  }
+
+  function handleAcceptApplicant(reqId) {
+    const res = acceptJoinRequest(reqId);
+    if (res.success) {
+      setFeedbackMessage({ type: 'success', text: 'Applicant admitted to the circle!' });
+      setTimeout(() => setFeedbackMessage(null), 3500);
+    } else {
+      setFeedbackMessage({ type: 'error', text: res.error || 'Failed to admit applicant' });
+      setTimeout(() => setFeedbackMessage(null), 4000);
     }
   }
 
   function confirmDeclineApplicant() {
     if (declineTarget) {
-      handleApplicantAction(declineTarget.id, 'decline');
+      rejectJoinRequest(declineTarget.id);
       setDeclineTarget(null);
+      setFeedbackMessage({ type: 'success', text: 'Applicant request declined.' });
+      setTimeout(() => setFeedbackMessage(null), 3500);
+    }
+  }
+
+  function confirmRemoveMember() {
+    if (removeMemberTarget) {
+      const res = removeCircleMember(circle.id, removeMemberTarget.id);
+      if (res.success) {
+        setRemoveMemberTarget(null);
+        setFeedbackMessage({ type: 'success', text: 'Member removed from circle roster.' });
+        setTimeout(() => setFeedbackMessage(null), 3500);
+      } else {
+        setFeedbackMessage({ type: 'error', text: res.error || 'Failed to remove member' });
+        setTimeout(() => setFeedbackMessage(null), 4000);
+      }
+    }
+  }
+
+  function handleSaveSettings(e) {
+    e?.preventDefault();
+    setSettingsErrors({});
+
+    const res = updateCircle(circle.id, {
+      title: editTitle,
+      subject: editSubject,
+      description: editDescription,
+      charter: editCharter,
+      meetingTime: editMeetingTime,
+      modality: editModality,
+      joiningPolicy: editJoiningPolicy,
+      maxCapacity: Number(editMaxCapacity)
+    });
+
+    if (res.success) {
+      setFeedbackMessage({ type: 'success', text: 'Circle settings saved successfully!' });
+      setTimeout(() => setFeedbackMessage(null), 3500);
+    } else {
+      setSettingsErrors(res.errors || { general: res.error });
+      setFeedbackMessage({ type: 'error', text: res.error || 'Please correct the form errors' });
+      setTimeout(() => setFeedbackMessage(null), 4000);
     }
   }
 
@@ -63,6 +153,28 @@ export default function ManageCirclePage() {
           <span>Back to Host Facilitation Console</span>
         </Link>
       </div>
+
+      {feedbackMessage && (
+        <div
+          role="status"
+          style={{
+            padding: '12px 16px',
+            borderRadius: '8px',
+            marginBottom: '16px',
+            backgroundColor: feedbackMessage.type === 'success' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+            border: `1px solid ${feedbackMessage.type === 'success' ? '#10b981' : '#ef4444'}`,
+            color: feedbackMessage.type === 'success' ? '#10b981' : '#ef4444',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            fontSize: '14px',
+            fontWeight: '500'
+          }}
+        >
+          <IconCheck size={16} />
+          <span>{feedbackMessage.text}</span>
+        </div>
+      )}
 
       {/* Circle Header Card */}
       <Card padding="lg" className={styles.headerCard}>
@@ -80,7 +192,7 @@ export default function ManageCirclePage() {
 
         <h1 className={styles.circleTitle}>{circle.title}</h1>
         <p className={styles.circleMeta}>
-          {circle.meetingTime} • {circle.modality} • {membersList.length} of {circle.maxCapacity} members
+          {circle.meetingTime} • {circle.modality} • {circleMembers.length} of {circle.maxCapacity} members
         </p>
 
         {/* Tab Navigation */}
@@ -92,7 +204,7 @@ export default function ManageCirclePage() {
             className={`${styles.tabBtn} ${activeTab === 'members' ? styles.tabActive : ''}`}
             onClick={() => setActiveTab('members')}
           >
-            Cohort Members ({membersList.length})
+            Cohort Members ({circleMembers.length})
           </button>
           <button
             type="button"
@@ -121,15 +233,15 @@ export default function ManageCirclePage() {
           <div className={styles.contentHeader}>
             <h2 className={styles.tabSectionTitle}>Cohort Membership Roster</h2>
             <span className={styles.capacityMeta}>
-              Remaining Seats: <strong>{circle.maxCapacity - membersList.length}</strong>
+              Remaining Seats: <strong>{Math.max(0, circle.maxCapacity - circleMembers.length)}</strong>
             </span>
           </div>
 
           <div className={styles.membersTable}>
-            {membersList.map(member => (
+            {circleMembers.map(member => (
               <div key={member.id} className={styles.memberRow}>
                 <div className={styles.memberInfo}>
-                  <Avatar name={member.name} size="md" />
+                  <Avatar name={member.name} initials={member.initials} color={member.avatarColor} size="md" />
                   <div className={styles.memberMeta}>
                     <span className={styles.memberName}>{member.name}</span>
                     <span className={styles.memberHandle}>{member.handle}</span>
@@ -138,12 +250,12 @@ export default function ManageCirclePage() {
 
                 <div className={styles.memberRole}>
                   <Badge variant={member.isHost ? 'primary' : 'neutral'} size="sm">
-                    {member.role}
+                    {member.role || (member.isHost ? 'Facilitator' : 'Contributor')}
                   </Badge>
                 </div>
 
                 <div className={styles.memberActions}>
-                  {!member.isHost && (
+                  {!member.isHost && member.userId !== currentUser.id && (
                     <Button
                       variant="ghost"
                       size="sm"
@@ -171,12 +283,12 @@ export default function ManageCirclePage() {
               {circleApplicants.map(req => (
                 <Card key={req.id} padding="md" className={styles.applicantCard}>
                   <div className={styles.applicantTop}>
-                    <Avatar name={req.applicant.name} initials={req.applicant.initials} size="md" />
+                    <Avatar name={req.applicant?.name} initials={req.applicant?.initials} size="md" />
                     <div className={styles.applicantMeta}>
-                      <span className={styles.applicantName}>{req.applicant.name}</span>
-                      <span className={styles.applicantHandle}>{req.applicant.handle}</span>
+                      <span className={styles.applicantName}>{req.applicant?.name}</span>
+                      <span className={styles.applicantHandle}>{req.applicant?.handle}</span>
                     </div>
-                    <Badge variant="teal" size="sm">{req.applicant.compatibilityScore}% Match</Badge>
+                    <Badge variant="teal" size="sm">{req.applicant?.compatibilityScore || 85}% Match</Badge>
                   </div>
 
                   <p className={styles.applicantNote}>"{req.introNote}"</p>
@@ -186,7 +298,7 @@ export default function ManageCirclePage() {
                       variant="primary"
                       size="sm"
                       iconLeft={<IconCheck size={14} />}
-                      onClick={() => handleApplicantAction(req.id, 'accept')}
+                      onClick={() => handleAcceptApplicant(req.id)}
                     >
                       Admit to Circle
                     </Button>
@@ -209,21 +321,109 @@ export default function ManageCirclePage() {
       {/* Tab 3: Settings */}
       {activeTab === 'settings' && (
         <Card padding="lg" className={styles.tabContentCard}>
-          <h2 className={styles.tabSectionTitle}>Circle Settings</h2>
-          <div className={styles.settingsForm}>
-            <Input label="Circle Title" defaultValue={circle.title} />
-            <Input label="Meeting Window" defaultValue={circle.meetingTime} />
-            <Select
-              label="Joining Policy"
-              defaultValue={circle.joiningPolicy}
-              options={[
-                { label: 'Moderated Admission', value: 'moderated' },
-                { label: 'Open Enrollment', value: 'open' },
-                { label: 'Closed (No new members)', value: 'closed' }
-              ]}
+          <h2 className={styles.tabSectionTitle}>Circle Settings & Facilitation Rules</h2>
+          {Object.keys(settingsErrors).length > 0 && (
+            <div style={{ color: '#ef4444', backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '10px 14px', borderRadius: '6px', marginBottom: '16px' }} role="alert">
+              {Object.values(settingsErrors).map((e, i) => (
+                <div key={i}>• {e}</div>
+              ))}
+            </div>
+          )}
+          <form onSubmit={handleSaveSettings} className={styles.settingsForm}>
+            <Input
+              label="Circle Title"
+              value={editTitle}
+              onChange={(e) => setEditTitle(e.target.value)}
+              required
             />
-            <Button variant="primary">Save Circle Settings</Button>
-          </div>
+            <Input
+              label="Syllabus / Course Subject"
+              value={editSubject}
+              onChange={(e) => setEditSubject(e.target.value)}
+              required
+            />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <label htmlFor="settings-desc" style={{ fontSize: '13px', fontWeight: '500', color: 'var(--color-text-secondary, #94a3b8)' }}>
+                Description & Core Objectives
+              </label>
+              <textarea
+                id="settings-desc"
+                rows={3}
+                style={{
+                  padding: '10px 12px',
+                  backgroundColor: 'var(--color-bg-secondary, rgba(255,255,255,0.03))',
+                  border: '1px solid var(--color-border, #334155)',
+                  borderRadius: '8px',
+                  color: 'var(--color-text-primary, #f8fafc)',
+                  fontSize: '14px',
+                  fontFamily: 'inherit'
+                }}
+                value={editDescription}
+                onChange={(e) => setEditDescription(e.target.value)}
+              />
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <label htmlFor="settings-charter" style={{ fontSize: '13px', fontWeight: '500', color: 'var(--color-text-secondary, #94a3b8)' }}>
+                Reciprocal Circle Charter
+              </label>
+              <textarea
+                id="settings-charter"
+                rows={3}
+                style={{
+                  padding: '10px 12px',
+                  backgroundColor: 'var(--color-bg-secondary, rgba(255,255,255,0.03))',
+                  border: '1px solid var(--color-border, #334155)',
+                  borderRadius: '8px',
+                  color: 'var(--color-text-primary, #f8fafc)',
+                  fontSize: '14px',
+                  fontFamily: 'inherit'
+                }}
+                value={editCharter}
+                onChange={(e) => setEditCharter(e.target.value)}
+              />
+            </div>
+
+            <Input
+              label="Meeting Window & Cadence"
+              value={editMeetingTime}
+              onChange={(e) => setEditMeetingTime(e.target.value)}
+              required
+            />
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px' }}>
+              <Select
+                label="Meeting Modality"
+                value={editModality}
+                onChange={(e) => setEditModality(e.target.value)}
+                options={['Online', 'In-Person', 'Hybrid']}
+              />
+
+              <Select
+                label="Joining Policy"
+                value={editJoiningPolicy}
+                onChange={(e) => setEditJoiningPolicy(e.target.value)}
+                options={[
+                  { label: 'Moderated Admission', value: 'moderated' },
+                  { label: 'Open Enrollment', value: 'open' },
+                  { label: 'Closed (No new members)', value: 'closed' }
+                ]}
+              />
+
+              <Input
+                label={`Cohort Capacity Cap (Min. ${circleMembers.length})`}
+                type="number"
+                min={circleMembers.length}
+                max={24}
+                value={editMaxCapacity}
+                onChange={(e) => setEditMaxCapacity(e.target.value)}
+              />
+            </div>
+
+            <Button type="submit" variant="primary">
+              Save Circle Settings
+            </Button>
+          </form>
         </Card>
       )}
 
@@ -249,7 +449,7 @@ export default function ManageCirclePage() {
         </p>
       </Modal>
 
-      {/* Decline Applicant Confirmation Modal - Addresses UX-002 */}
+      {/* Decline Applicant Confirmation Modal */}
       <Modal
         isOpen={Boolean(declineTarget)}
         onClose={() => setDeclineTarget(null)}
@@ -267,7 +467,7 @@ export default function ManageCirclePage() {
         }
       >
         <p className={styles.modalText}>
-          Decline admission for <strong>{declineTarget?.applicant.name}</strong>? They will be removed from this circle's review queue.
+          Decline admission for <strong>{declineTarget?.applicant?.name}</strong>? They will be removed from this circle's review queue.
         </p>
       </Modal>
     </div>

@@ -1,7 +1,7 @@
 # Product Requirements Specification: CohortCircle
 
-> **Document Status:** PROPOSED & SPECIFIED (MODULE 01 FOUNDATION)  
-> **Implementation Status:** NOT IMPLEMENTED (Documentation and architectural baseline only. Implementation begins in Module 07/08 following empirical user research and usability evaluations.)  
+> **Document Status:** VERIFIED & IMPLEMENTED (MODULE 08 FUNCTIONAL PRODUCT)<br>
+> **Implementation Status:** FULLY IMPLEMENTED (All 23 Functional Requirements FR-001 through FR-023 implemented with centralized business logic, versioned localStorage persistence, deterministic matching, and 58 automated unit/integration tests.)<br>
 > **Standard Target:** WCAG 2.2 Level AA Accessibility | ISO 9241-11 Usability Ergonomics
 
 ---
@@ -33,70 +33,70 @@ In accordance with user-centered design principles, detailed personas are **not 
 
 ## 2. Functional Requirements (FR)
 
-All functional requirements are assigned stable identifiers (`FR-xxx`) and are designed to be testable and verifiable.
+All 23 functional requirements are assigned stable identifiers (`FR-xxx`) and are verified by automated tests and interactive browser workflows.
 
 ### 2.1 Learner Profile & Study Preferences
 
-| ID | Title | Description | Priority | Testable Acceptance Criteria |
-|---|---|---|---|---|
-| **FR-001** | Profile Creation & Editing | The system shall allow a learner to specify and update their display name, bio, primary study topics, and preferred language. | High | Updates to profile persist and reflect across the platform interface. |
-| **FR-002** | Study Style Specification | The system shall allow a learner to select one or more preferred study styles (e.g., Silent Co-Study, Collaborative Problem-Solving, Discussion-Based, Peer Teaching, Exam Preparation). | High | Selected study styles are saved to the profile and utilized by the matching engine. |
-| **FR-003** | Weekly Availability Matrix | The system shall allow a learner to define their recurring weekly availability blocks across days of the week and time windows (Morning, Afternoon, Evening). | High | Configured availability blocks are stored and compared against circle meeting schedules. |
-| **FR-004** | Modality & Group Size Preferences | The system shall allow a learner to declare preferences for meeting modality (Online, In-Person, Flexible) and preferred group size limits (2–4, 5–8 members). | Medium | Modality preferences filter and score recommended study circles. |
+| ID | Title | Description | Priority | Implementation Status | Automated Verification Reference |
+|---|---|---|---|---|---|
+| **FR-001** | Profile Creation & Editing | The system shall allow a learner to specify and update their display name, handle, bio, learning stage, primary study topics, and preferred language. | High | **Implemented** | `src/test/profileWorkflows.test.jsx`, `src/pages/learner/ProfilePage.jsx` |
+| **FR-002** | Study Style Specification | The system shall allow a learner to select one or more preferred study styles (Silent Co-Study, Collaborative Problem-Solving, Discussion-Based, Peer Teaching, Exam Preparation). | High | **Implemented** | `src/test/profileWorkflows.test.jsx`, `src/services/compatibilityService.js` |
+| **FR-003** | Weekly Availability Matrix | The system shall allow a learner to define their recurring weekly availability blocks across days of the week and time windows (Morning, Afternoon, Evening) with presets and clear-all. | High | **Implemented** | `src/test/profileWorkflows.test.jsx`, `src/services/storageService.js` |
+| **FR-004** | Modality & Group Size Preferences | The system shall allow a learner to declare preferences for meeting modality (Online, In-Person, Flexible) and preferred group size limits (2–4, 5–8 members). | Medium | **Implemented** | `src/test/profileWorkflows.test.jsx`, `src/test/compatibilityService.test.js` |
 
 ---
 
 ### 2.2 Discovery, Search & Filtering
 
-| ID | Title | Description | Priority | Testable Acceptance Criteria |
-|---|---|---|---|---|
-| **FR-005** | Directory Browsing | The system shall display a browsable directory of active study circles with key metadata (title, subject, study style, schedule, member count, format). | High | Directory renders all non-archived circles in responsive card layouts. |
-| **FR-006** | Text-Based Search | The system shall provide a search input that filters study circles in real-time by title, subject keywords, and description terms. | High | Querying "Algorithms" immediately limits the directory to matching circles without page reload. |
-| **FR-007** | Multi-Criteria Filtering | The system shall allow filtering circles by subject domain, study style, meeting modality (Online/In-Person), day of week, and capacity status (Open/Full). | High | Applying multiple filter pills refines results using logical AND operations. |
-| **FR-008** | Filter Reset & Clear | The system shall provide a single-action control to reset all active filters to default state. | Medium | Clicking "Reset Filters" restores the full, unfiltered circle directory. |
+| ID | Title | Description | Priority | Implementation Status | Automated Verification Reference |
+|---|---|---|---|---|---|
+| **FR-005** | Directory Browsing | The system shall display a browsable directory of active study circles with key metadata (title, subject, study style, schedule, member count, format). | High | **Implemented** | `src/test/discoveryWorkflows.test.jsx`, `src/pages/learner/ExplorePage.jsx` |
+| **FR-006** | Text-Based Search | The system shall provide a search input that filters study circles in real-time by title, subject keywords, description terms, charter rules, and syllabus tags. | High | **Implemented** | `src/test/discoveryWorkflows.test.jsx`, `src/pages/learner/ExplorePage.jsx` |
+| **FR-007** | Multi-Criteria Filtering | The system shall allow filtering circles by subject domain, study style, meeting modality (Online/In-Person/Hybrid), meeting day of week, and capacity status (Open/Full). | High | **Implemented** | `src/test/discoveryWorkflows.test.jsx`, `src/pages/learner/ExplorePage.jsx` |
+| **FR-008** | Filter Reset & Clear | The system shall provide a single-action control to reset all active filters (search, category, style, modality, day, capacity, sorting) to default state. | Medium | **Implemented** | `src/test/discoveryWorkflows.test.jsx`, `src/pages/learner/ExplorePage.jsx` |
 
 ---
 
 ### 2.3 Transparent Compatibility Engine
 
-| ID | Title | Description | Priority | Testable Acceptance Criteria |
-|---|---|---|---|---|
-| **FR-009** | Compatibility Score Computation | The system shall compute a transparent percentage score (0–100%) indicating alignment between a learner's profile and a circle's attributes. | High | Matching score is dynamically generated using documented rule weights without opaque algorithms. |
-| **FR-010** | Explainable Compatibility Breakdown | The system shall present an explainable breakdown highlighting exact factors contributing to the score (e.g., "Schedule Overlap: High", "Study Style: Exact Match"). | High | Clicking or inspecting the compatibility badge displays the exact criteria breakdown. |
-| **FR-011** | Sorting by Compatibility | The system shall permit sorting discovery results by highest compatibility score. | Medium | Selecting "Sort by Compatibility" displays circles in descending compatibility order. |
+| ID | Title | Description | Priority | Implementation Status | Automated Verification Reference |
+|---|---|---|---|---|---|
+| **FR-009** | Compatibility Score Computation | The system shall compute a transparent percentage score (0–100%) indicating alignment between a learner's profile and a circle's attributes using a 5-factor weighted formula. | High | **Implemented** | `src/test/compatibilityService.test.js`, `src/services/compatibilityService.js` |
+| **FR-010** | Explainable Compatibility Breakdown | The system shall present an explainable breakdown highlighting exact factors contributing to the score with human-readable rationale tags. | High | **Implemented** | `src/test/compatibilityService.test.js`, `src/components/circles/CompatibilityIndicator.jsx` |
+| **FR-011** | Sorting by Compatibility | The system shall permit sorting discovery results by highest dynamically computed compatibility score. | Medium | **Implemented** | `src/test/discoveryWorkflows.test.jsx`, `src/pages/learner/ExplorePage.jsx` |
 
 ---
 
 ### 2.4 Detailed Circle Profiles & Joining Workflows
 
-| ID | Title | Description | Priority | Testable Acceptance Criteria |
-|---|---|---|---|---|
-| **FR-012** | Detailed Circle View | The system shall provide a dedicated view for each circle detailing full description, syllabus/goals, host identity, member roster, meeting schedule, and rules. | High | Navigating to a circle URL/view loads comprehensive circle metadata cleanly. |
-| **FR-013** | Direct Join Flow | For open circles, the system shall allow an eligible learner to join immediately with a single confirmation. | High | User is added to the active member roster; circle membership counter increments. |
-| **FR-014** | Request-to-Join Flow | For moderated circles, the system shall allow a learner to submit a join request accompanied by an introductory note explaining their goals. | High | A pending `JoinRequest` record is created; host is notified on their management view. |
-| **FR-015** | Leave Circle | The system shall permit an active member to gracefully leave a circle, returning capacity to the group. | Medium | Member is removed from roster; capacity updates; dashboard reflects departure. |
+| ID | Title | Description | Priority | Implementation Status | Automated Verification Reference |
+|---|---|---|---|---|---|
+| **FR-012** | Detailed Circle View | The system shall provide a dedicated view for each circle detailing full description, syllabus/goals, host identity, member roster, meeting schedule, rules, and upcoming sessions. | High | **Implemented** | `src/test/circleWorkflows.test.jsx`, `src/pages/learner/CircleDetailsPage.jsx` |
+| **FR-013** | Direct Join Flow | For open circles, the system shall allow an eligible learner to join immediately with a single confirmation, preventing duplicate membership or exceeding capacity. | High | **Implemented** | `src/test/circleWorkflows.test.jsx`, `src/context/AppContext.jsx` |
+| **FR-014** | Request-to-Join Flow | For moderated circles, the system shall allow a learner to submit a join request with an introductory note (&ge; 15 chars), creating a pending request record. | High | **Implemented** | `src/test/circleWorkflows.test.jsx`, `src/pages/learner/CircleDetailsPage.jsx` |
+| **FR-015** | Leave Circle | The system shall permit an active member to gracefully leave a circle, returning capacity to the group and reconciling future session RSVP records. | Medium | **Implemented** | `src/test/circleWorkflows.test.jsx`, `src/context/AppContext.jsx` |
 
 ---
 
 ### 2.5 Circle Creation & Host Facilitation
 
-| ID | Title | Description | Priority | Testable Acceptance Criteria |
-|---|---|---|---|---|
-| **FR-016** | Circle Creation Wizard | The system shall provide a structured form to create a new circle specifying title, subject, description, objectives, study style, schedule, format, and capacity cap. | High | Form validates required fields and instantiates a new `StudyCircle` with creator as Host. |
-| **FR-017** | Circle Settings Modification | The system shall allow the circle host to edit circle description, objectives, meeting format, and capacity limit. | High | Host saves edits; updated details appear immediately on the circle profile. |
-| **FR-018** | Membership Request Moderation | The system shall provide the host an interface to view pending join requests with notes and accept or reject each request. | High | Approving adds the applicant to members; rejecting updates status to rejected with feedback. |
-| **FR-019** | Member Management | The system shall permit the host to remove inactive or disruptive members from the circle roster. | Medium | Removed member loses circle access; group capacity is freed up. |
+| ID | Title | Description | Priority | Implementation Status | Automated Verification Reference |
+|---|---|---|---|---|---|
+| **FR-016** | Circle Creation Wizard | The system shall provide a 4-step progressive wizard to create a new circle specifying title, subject, description, charter, study style, schedule, modality, and capacity cap. | High | **Implemented** | `src/test/circleWorkflows.test.jsx`, `src/pages/host/CreateCirclePage.jsx` |
+| **FR-017** | Circle Settings Modification | The system shall allow the circle host to edit circle description, objectives, meeting format, and capacity limit (enforcing capacity &ge; current members). | High | **Implemented** | `src/test/circleWorkflows.test.jsx`, `src/pages/host/ManageCirclePage.jsx` |
+| **FR-018** | Membership Request Moderation | The system shall provide the host an interface to view pending join requests with notes and accept or reject each request while preserving status history. | High | **Implemented** | `src/test/circleWorkflows.test.jsx`, `src/pages/host/ManageCirclePage.jsx` |
+| **FR-019** | Member Management | The system shall permit the host to remove non-host members from the circle roster with explicit confirmation, updating capacity and attendee lists. | Medium | **Implemented** | `src/test/circleWorkflows.test.jsx`, `src/pages/host/ManageCirclePage.jsx` |
 
 ---
 
 ### 2.6 Study Session Scheduling & Dashboard
 
-| ID | Title | Description | Priority | Testable Acceptance Criteria |
-|---|---|---|---|---|
-| **FR-020** | Session Creation | The system shall allow a host to schedule a study session with title, date, start time, duration, agenda, and meeting location/URL. | High | New session is saved and appears in the circle's upcoming sessions list. |
-| **FR-021** | Session RSVP Tracking | The system shall allow circle members to set their attendance status (Attending, Tentative, Decline) for upcoming sessions. | High | RSVP counts and member response states update in real-time on session cards. |
-| **FR-022** | Personal Study Dashboard | The system shall provide a centralized dashboard displaying the learner's joined circles, pending requests, and chronological upcoming sessions. | High | Dashboard renders all user-affiliated entities accurately from local state. |
-| **FR-023** | Local Data State Reset / Seed | The system shall provide a mechanism to load sample data or clear local application state for testing and demonstration purposes. | Medium | Data reset utility cleanly restores clean baseline or demo fixture state. |
+| ID | Title | Description | Priority | Implementation Status | Automated Verification Reference |
+|---|---|---|---|---|---|
+| **FR-020** | Session Creation | The system shall allow a host to schedule a study session with title, date, start time, duration, agenda, and location/URL (rejecting past dates). | High | **Implemented** | `src/test/sessionWorkflows.test.jsx`, `src/pages/sessions/SessionsPage.jsx` |
+| **FR-021** | Session RSVP Tracking | The system shall allow circle members to set their attendance status (Attending, Tentative, Decline), keeping attendee records and counts in sync without double-counting. | High | **Implemented** | `src/test/sessionWorkflows.test.jsx`, `src/components/sessions/RSVPControl.jsx` |
+| **FR-022** | Personal Study Dashboard | The system shall provide a centralized dashboard displaying the learner's joined circles, pending requests, and upcoming sessions from authoritative state. | High | **Implemented** | `src/test/integrationWorkflows.test.jsx`, `src/pages/dashboard/DashboardPage.jsx` |
+| **FR-023** | Local Data State Reset / Seed | The system shall provide explicit mechanisms to restore the factory demonstration baseline seed or clear local application state cleanly. | Medium | **Implemented** | `src/test/storageService.test.js`, `src/pages/settings/SettingsPage.jsx` |
 
 ---
 

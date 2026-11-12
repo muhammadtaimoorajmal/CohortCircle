@@ -12,20 +12,40 @@ import {
 import styles from './SettingsPage.module.css';
 
 export default function SettingsPage() {
-  const { resetDemoData } = useApp();
-  const [resetModalOpen, setResetModalOpen] = useState(false);
-  const [resetSuccess, setResetSuccess] = useState(false);
+  const { settings, updateSettings, resetDemoData, clearLocalData } = useApp();
 
-  // Settings State
-  const [emailNotifications, setEmailNotifications] = useState(true);
-  const [sessionReminders, setSessionReminders] = useState(true);
-  const [highContrast, setHighContrast] = useState(false);
+  const [resetModalOpen, setResetModalOpen] = useState(false);
+  const [clearModalOpen, setClearModalOpen] = useState(false);
+  const [feedbackMessage, setFeedbackMessage] = useState(null);
+
+  const highContrast = Boolean(settings?.highContrast);
+  const sessionReminders = settings?.sessionReminders ?? true;
+  const admissionQueueUpdates = settings?.admissionQueueUpdates ?? true;
+
+  function toggleHighContrast() {
+    updateSettings({ highContrast: !highContrast });
+  }
+
+  function toggleSessionReminders() {
+    updateSettings({ sessionReminders: !sessionReminders });
+  }
+
+  function toggleAdmissionQueueUpdates() {
+    updateSettings({ admissionQueueUpdates: !admissionQueueUpdates });
+  }
 
   function confirmReset() {
     resetDemoData();
     setResetModalOpen(false);
-    setResetSuccess(true);
-    setTimeout(() => setResetSuccess(false), 3500);
+    setFeedbackMessage('Demonstration catalog, sessions, and profile have been reset to default baseline seeds!');
+    setTimeout(() => setFeedbackMessage(null), 3500);
+  }
+
+  function confirmClear() {
+    clearLocalData();
+    setClearModalOpen(false);
+    setFeedbackMessage('Local state cleared. Application initialized with safe empty baseline.');
+    setTimeout(() => setFeedbackMessage(null), 3500);
   }
 
   return (
@@ -35,10 +55,10 @@ export default function SettingsPage() {
         subtitle="Manage interface preferences, review accessibility configurations, and administer local test data."
       />
 
-      {resetSuccess && (
+      {feedbackMessage && (
         <div className={styles.alertSuccess} role="status">
           <IconCheck size={18} />
-          <span>Demonstration catalog, sessions, and profile have been reset to default seeds!</span>
+          <span>{feedbackMessage}</span>
         </div>
       )}
 
@@ -52,19 +72,20 @@ export default function SettingsPage() {
               <Badge variant="teal" size="sm">WCAG 2.2 AA</Badge>
             </div>
             <p className={styles.cardSub}>
-              CohortCircle targets WCAG 2.2 Level AA guidelines for digital inclusion.
+              CohortCircle targets WCAG 2.2 Level AA guidelines for digital inclusion and contrast.
             </p>
 
             <div className={styles.toggleRow}>
               <div>
                 <span className={styles.toggleLabel}>High Contrast Mode</span>
-                <span className={styles.toggleDesc}>Enforces high contrast (minimum 7:1) across text and interface cards.</span>
+                <span className={styles.toggleDesc}>Increases visual borders and text contrast across application surfaces.</span>
               </div>
               <button
                 type="button"
                 className={`${styles.toggleSwitch} ${highContrast ? styles.toggleOn : ''}`}
-                onClick={() => setHighContrast(!highContrast)}
+                onClick={toggleHighContrast}
                 aria-pressed={highContrast}
+                aria-label="Toggle High Contrast Mode"
               >
                 <span className={styles.toggleKnob} />
               </button>
@@ -76,23 +97,24 @@ export default function SettingsPage() {
             </div>
           </Card>
 
-          {/* Notifications / Communication */}
+          {/* Notifications / In-App Reminders */}
           <Card padding="lg" className={styles.card}>
-            <h2 className={styles.cardTitle}>Session & RSVP Alerts</h2>
+            <h2 className={styles.cardTitle}>In-App Alerts & Reminders</h2>
             <p className={styles.cardSub}>
-              Configure how you receive cohort updates and agenda reminders.
+              Configure local in-app dashboard indicators and agenda reminders (no external email server).
             </p>
 
             <div className={styles.toggleRow}>
               <div>
                 <span className={styles.toggleLabel}>Session Reminders (24h before)</span>
-                <span className={styles.toggleDesc}>Receive an agenda checklist 24 hours prior to scheduled study times.</span>
+                <span className={styles.toggleDesc}>Highlight upcoming study sessions prominently in your dashboard.</span>
               </div>
               <button
                 type="button"
                 className={`${styles.toggleSwitch} ${sessionReminders ? styles.toggleOn : ''}`}
-                onClick={() => setSessionReminders(!sessionReminders)}
+                onClick={toggleSessionReminders}
                 aria-pressed={sessionReminders}
+                aria-label="Toggle Session Reminders"
               >
                 <span className={styles.toggleKnob} />
               </button>
@@ -100,14 +122,15 @@ export default function SettingsPage() {
 
             <div className={styles.toggleRow}>
               <div>
-                <span className={styles.toggleLabel}>Admission Queue Updates</span>
-                <span className={styles.toggleDesc}>Notifications when applicants request to join your hosted study circles.</span>
+                <span className={styles.toggleLabel}>Admission Queue Badge Alerts</span>
+                <span className={styles.toggleDesc}>Display alert count on host console when new applicants request to join.</span>
               </div>
               <button
                 type="button"
-                className={`${styles.toggleSwitch} ${emailNotifications ? styles.toggleOn : ''}`}
-                onClick={() => setEmailNotifications(!emailNotifications)}
-                aria-pressed={emailNotifications}
+                className={`${styles.toggleSwitch} ${admissionQueueUpdates ? styles.toggleOn : ''}`}
+                onClick={toggleAdmissionQueueUpdates}
+                aria-pressed={admissionQueueUpdates}
+                aria-label="Toggle Admission Queue Alerts"
               >
                 <span className={styles.toggleKnob} />
               </button>
@@ -120,32 +143,42 @@ export default function SettingsPage() {
           <Card padding="lg" className={styles.demoCard}>
             <div className={styles.cardHeader}>
               <h2 className={styles.cardTitle}>Local Demonstration Environment</h2>
-              <Badge variant="primary" size="sm">Prototype Stage</Badge>
+              <Badge variant="primary" size="sm">Persistent Local Store</Badge>
             </div>
 
             <div className={styles.disclosureContent}>
               <p className={styles.disclosureText}>
-                <strong>Notice:</strong> This application is running as a client-side high-fidelity React prototype. All demonstration data (circles, applicants, study sessions, profile details) is maintained in-memory.
+                <strong>Data Architecture:</strong> CohortCircle operates as a client-side, local-first demonstration platform. All application state (circles, rosters, applicants, sessions, profile preferences) is stored persistently in your browser's localStorage under a versioned schema.
               </p>
               <ul className={styles.disclosureList}>
-                <li>• No real student identities or contact records are collected or stored.</li>
-                <li>• Compatibility percentages are calculated via explainable rule-based weights.</li>
-                <li>• Full persistent local database and sync will be established in Module 08.</li>
+                <li>• No real student identities or contact records are collected or transmitted.</li>
+                <li>• Compatibility scores are calculated deterministically using a transparent 5-factor rule model.</li>
+                <li>• Data changes survive full browser reloads and tab navigation.</li>
+                <li>• Single-browser scope: no multi-user cloud backend or remote synchronization is attached.</li>
               </ul>
             </div>
 
             <div className={styles.demoActions}>
-              <h3 className={styles.actionTitle}>Demo State Management</h3>
+              <h3 className={styles.actionTitle}>State Administration</h3>
               <p className={styles.actionDesc}>
-                If you have modified circles, changed applicant statuses, or scheduled sessions and want to restore the initial test seed:
+                Restore the baseline demonstration dataset or clear local browser storage:
               </p>
-              <Button
-                variant="outline"
-                className={styles.resetBtn}
-                onClick={() => setResetModalOpen(true)}
-              >
-                Restore Initial Demo Data
-              </Button>
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '12px' }}>
+                <Button
+                  variant="outline"
+                  className={styles.resetBtn}
+                  onClick={() => setResetModalOpen(true)}
+                >
+                  Restore Initial Demo Data
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => setClearModalOpen(true)}
+                  style={{ color: '#ef4444' }}
+                >
+                  Clear Local State
+                </Button>
+              </div>
             </div>
           </Card>
         </div>
@@ -155,7 +188,7 @@ export default function SettingsPage() {
       <Modal
         isOpen={resetModalOpen}
         onClose={() => setResetModalOpen(false)}
-        title="Restore Initial Demo Data?"
+        title="Restore Initial Demo Baseline?"
         size="sm"
         footer={
           <>
@@ -163,13 +196,35 @@ export default function SettingsPage() {
               Cancel
             </Button>
             <Button variant="danger" onClick={confirmReset}>
-              Yes, Restore Data
+              Yes, Restore Baseline
             </Button>
           </>
         }
       >
         <p className={styles.modalText}>
-          This will reset all circles, session RSVPs, pending applicants, and your learner profile back to their initial factory demonstration state.
+          This will restore all demo circles, session RSVPs, pending applicants, and your learner profile back to their initial factory demonstration seeds.
+        </p>
+      </Modal>
+
+      {/* Clear Confirmation Modal */}
+      <Modal
+        isOpen={clearModalOpen}
+        onClose={() => setClearModalOpen(false)}
+        title="Clear Local Application Data?"
+        size="sm"
+        footer={
+          <>
+            <Button variant="ghost" onClick={() => setClearModalOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={confirmClear}>
+              Confirm Clear
+            </Button>
+          </>
+        }
+      >
+        <p className={styles.modalText}>
+          This will reset browser localStorage and start with a clean empty workspace. You can restore the demonstration baseline at any time.
         </p>
       </Modal>
     </div>

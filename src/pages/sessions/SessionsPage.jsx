@@ -8,6 +8,7 @@ import Select from '../../components/common/Select/Select';
 import SessionCard from '../../components/sessions/SessionCard';
 import { useApp } from '../../context/AppContext';
 import { IconPlus } from '../../components/common/Icons';
+import { getTodayString, isDateInPast } from '../../utils/dateUtils';
 import styles from './SessionsPage.module.css';
 
 export default function SessionsPage() {
@@ -17,19 +18,11 @@ export default function SessionsPage() {
   const {
     sessions,
     circles,
-    handleScheduleSession,
-    handleRSVP,
-    currentUser
+    createSession,
+    updateRSVP
   } = useApp();
 
   const [scheduleModalOpen, setScheduleModalOpen] = useState(false);
-
-  // Auto-open modal if circleId query param passed (e.g. from manage circle)
-  useEffect(() => {
-    if (circleIdParam) {
-      setScheduleModalOpen(true);
-    }
-  }, [circleIdParam]);
 
   // Scheduler Form State
   const defaultCircle = circles.find(c => c.id === circleIdParam) || circles.find(c => c.isHostedByMe) || circles[0];
@@ -45,15 +38,23 @@ export default function SessionsPage() {
   );
   const [errors, setErrors] = useState({});
 
-  // Today string for past-date prevention (UX-003)
-  const todayStr = new Date().toISOString().split('T')[0];
+  // Auto-open modal if circleId query param passed (e.g. from manage circle)
+  useEffect(() => {
+    if (circleIdParam) {
+      setSelectedCircleId(circleIdParam);
+      setScheduleModalOpen(true);
+    }
+  }, [circleIdParam]);
+
+  const todayStr = getTodayString();
 
   function validateScheduler() {
     const errs = {};
     if (!sessionTitle.trim()) errs.title = 'Session title is required';
     if (!sessionDate) errs.date = 'Session date is required';
-    else if (sessionDate < todayStr) errs.date = 'Session date cannot be in the past';
+    else if (isDateInPast(sessionDate)) errs.date = 'Session date cannot be scheduled in the past';
     if (!sessionTime) errs.time = 'Session time is required';
+    if (!agendaNotes.trim()) errs.agenda = 'Please provide at least one agenda topic';
     setErrors(errs);
     return Object.keys(errs).length === 0;
   }
@@ -62,48 +63,25 @@ export default function SessionsPage() {
     e.preventDefault();
     if (!validateScheduler()) return;
 
-    const targetCircle = circles.find(c => c.id === selectedCircleId) || circles[0];
-
-    // Build agenda array from text
-    const parsedAgenda = agendaNotes.split('\n').filter(Boolean).map(line => ({
-      time: 'Agenda Item',
-      item: line
-    }));
-
-    const newSession = {
-      id: `sess-${Date.now().toString(36)}`,
-      circleId: targetCircle.id,
-      circleTitle: targetCircle.title,
+    const res = createSession({
+      circleId: selectedCircleId || circles[0]?.id,
       title: sessionTitle,
       date: sessionDate,
       time: sessionTime,
       duration,
       modality,
       locationOrLink: meetingLocation,
-      hostName: currentUser.name,
-      status: 'scheduled',
-      agenda: parsedAgenda,
-      rsvpSummary: {
-        attending: 1,
-        tentative: 0,
-        declined: 0,
-        currentUserStatus: 'attending'
-      },
-      attendees: [
-        {
-          name: currentUser.name,
-          handle: currentUser.handle,
-          initials: currentUser.initials,
-          status: 'attending'
-        }
-      ]
-    };
+      agenda: agendaNotes
+    });
 
-    handleScheduleSession(newSession);
-    setScheduleModalOpen(false);
-    setSessionTitle('');
-    setSessionDate('');
-    setErrors({});
+    if (res.success) {
+      setScheduleModalOpen(false);
+      setSessionTitle('');
+      setSessionDate('');
+      setErrors({});
+    } else if (res.errors) {
+      setErrors(res.errors);
+    }
   }
 
   return (
@@ -128,7 +106,7 @@ export default function SessionsPage() {
           <SessionCard
             key={session.id}
             session={session}
-            onRSVPChange={handleRSVP}
+            onRSVPChange={updateRSVP}
           />
         ))}
       </div>

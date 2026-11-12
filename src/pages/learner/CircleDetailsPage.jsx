@@ -19,14 +19,48 @@ import styles from './CircleDetailsPage.module.css';
 
 export default function CircleDetailsPage() {
   const { circleId } = useParams();
-  const { circles, handleJoinCircle, handleLeaveCircle } = useApp();
+  const {
+    circles,
+    memberships,
+    joinRequests,
+    sessions,
+    currentUser,
+    joinCircle,
+    createJoinRequest,
+    leaveCircle
+  } = useApp();
 
   const [joinModalOpen, setJoinModalOpen] = useState(false);
   const [introNote, setIntroNote] = useState('');
+  const [joinError, setJoinError] = useState('');
   const [leaveModalOpen, setLeaveModalOpen] = useState(false);
   const [joinedSuccess, setJoinedSuccess] = useState(false);
+  const [requestSubmitted, setRequestSubmitted] = useState(false);
 
-  const circle = circles.find(c => c.id === circleId) || circles[0];
+  const circle = circles.find(c => c.id === circleId);
+
+  if (!circle) {
+    return (
+      <div className={styles.page}>
+        <div className={styles.topNav}>
+          <Link to="/app/explore" className={styles.backLink}>
+            <IconChevronLeft size={16} />
+            <span>Back to Explore Circles</span>
+          </Link>
+        </div>
+        <Card padding="lg" style={{ textAlign: 'center', margin: '48px auto', maxWidth: '600px' }}>
+          <h2 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '8px' }}>Study Circle Not Found</h2>
+          <p style={{ margin: '12px 0 24px', color: 'var(--color-text-secondary, #94a3b8)' }}>
+            The requested study circle does not exist or may have been unlisted.
+          </p>
+          <Link to="/app/explore">
+            <Button variant="primary">Return to Directory</Button>
+          </Link>
+        </Card>
+      </div>
+    );
+  }
+
   const {
     id,
     title,
@@ -49,17 +83,41 @@ export default function CircleDetailsPage() {
   } = circle;
 
   const isFull = membersCount >= maxCapacity;
+  const circleMembers = memberships.filter(m => m.circleId === id);
+  const circleSessions = sessions.filter(s => s.circleId === id);
+  const hasPendingRequest = joinRequests.some(
+    r => r.circleId === id && r.applicant?.handle === currentUser.handle && r.status === 'pending'
+  );
 
   function submitJoin() {
-    handleJoinCircle(id, introNote);
-    setJoinModalOpen(false);
-    setJoinedSuccess(true);
-    setTimeout(() => setJoinedSuccess(false), 4000);
+    setJoinError('');
+    if (joiningPolicy === 'open') {
+      const res = joinCircle(id);
+      if (res.success) {
+        setJoinModalOpen(false);
+        setJoinedSuccess(true);
+        setTimeout(() => setJoinedSuccess(false), 4000);
+      } else {
+        setJoinError(res.error || 'Failed to join circle');
+      }
+    } else if (joiningPolicy === 'moderated') {
+      const res = createJoinRequest(id, introNote);
+      if (res.success) {
+        setJoinModalOpen(false);
+        setIntroNote('');
+        setRequestSubmitted(true);
+        setTimeout(() => setRequestSubmitted(false), 4000);
+      } else {
+        setJoinError(res.error || 'Failed to submit request');
+      }
+    }
   }
 
   function submitLeave() {
-    handleLeaveCircle(id);
-    setLeaveModalOpen(false);
+    const res = leaveCircle(id);
+    if (res.success) {
+      setLeaveModalOpen(false);
+    }
   }
 
   return (
@@ -76,6 +134,13 @@ export default function CircleDetailsPage() {
         <div className={styles.alertSuccess} role="status">
           <IconCheck size={18} />
           <span>You have successfully joined <strong>{title}</strong>!</span>
+        </div>
+      )}
+
+      {requestSubmitted && (
+        <div className={styles.alertSuccess} role="status">
+          <IconCheck size={18} />
+          <span>Your admission request has been delivered to <strong>{host?.name}</strong>!</span>
         </div>
       )}
 
@@ -146,6 +211,14 @@ export default function CircleDetailsPage() {
                 Leave Circle
               </Button>
             </div>
+          ) : hasPendingRequest ? (
+            <Badge variant="warning" size="md">
+              ⏳ Application Pending Review
+            </Badge>
+          ) : joiningPolicy === 'closed' ? (
+            <Button variant="ghost" size="lg" disabled>
+              Cohort Closed (No New Members)
+            </Button>
           ) : isFull ? (
             <Button variant="ghost" size="lg" disabled>
               Cohort Full (Capacity Reached)
@@ -154,7 +227,10 @@ export default function CircleDetailsPage() {
             <Button
               variant="primary"
               size="lg"
-              onClick={() => setJoinModalOpen(true)}
+              onClick={() => {
+                setJoinError('');
+                setJoinModalOpen(true);
+              }}
             >
               {joiningPolicy === 'open' ? 'Join Study Circle' : 'Request to Join Circle'}
             </Button>
@@ -164,7 +240,7 @@ export default function CircleDetailsPage() {
 
       {/* 2-Column Content Grid */}
       <div className={styles.contentGrid}>
-        {/* Left Column: Charter, Objectives, Format */}
+        {/* Left Column: Charter, Objectives, Format, Members */}
         <div className={styles.leftCol}>
           {/* Group Charter Card */}
           <Card padding="lg" className={styles.sectionCard}>
@@ -201,6 +277,74 @@ export default function CircleDetailsPage() {
               </div>
             </div>
           </Card>
+
+          {/* Cohort Members Roster */}
+          <Card padding="lg" className={styles.sectionCard}>
+            <h2 className={styles.sectionTitle}>Current Members ({circleMembers.length})</h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '12px', marginTop: '16px' }}>
+              {circleMembers.map(member => (
+                <div
+                  key={member.id}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '10px 12px',
+                    backgroundColor: 'var(--color-bg-secondary, rgba(255,255,255,0.03))',
+                    borderRadius: '8px',
+                    border: '1px solid var(--color-border, #334155)'
+                  }}
+                >
+                  <Avatar name={member.name} initials={member.initials} color={member.avatarColor} size="sm" />
+                  <div style={{ overflow: 'hidden' }}>
+                    <div style={{ fontSize: '14px', fontWeight: '600', color: 'var(--color-text-primary, #f8fafc)', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                      {member.name}
+                    </div>
+                    <div style={{ fontSize: '12px', color: 'var(--color-text-secondary, #94a3b8)' }}>
+                      {member.isHost ? 'Facilitator' : 'Contributor'}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          {/* Upcoming Sessions */}
+          {circleSessions.length > 0 && (
+            <Card padding="lg" className={styles.sectionCard}>
+              <h2 className={styles.sectionTitle}>Scheduled Study Sessions ({circleSessions.length})</h2>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '12px' }}>
+                {circleSessions.map(sess => (
+                  <div
+                    key={sess.id}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      padding: '12px 16px',
+                      backgroundColor: 'var(--color-bg-secondary, rgba(255,255,255,0.03))',
+                      borderRadius: '8px',
+                      border: '1px solid var(--color-border, #334155)'
+                    }}
+                  >
+                    <div>
+                      <div style={{ fontWeight: '600', color: 'var(--color-text-primary, #f8fafc)' }}>
+                        {sess.title}
+                      </div>
+                      <div style={{ fontSize: '13px', color: 'var(--color-text-secondary, #94a3b8)', marginTop: '2px' }}>
+                        {sess.date} at {sess.time} ({sess.duration}) • {sess.modality}
+                      </div>
+                    </div>
+                    <Link to={`/app/sessions/${sess.id}`}>
+                      <Button variant="outline" size="sm">
+                        View Details
+                      </Button>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
         </div>
 
         {/* Right Column: Compatibility Breakdown & Host Card */}
@@ -210,15 +354,15 @@ export default function CircleDetailsPage() {
             <h3 className={styles.sideHeading}>Circle Facilitator</h3>
             <div className={styles.hostInfo}>
               <Avatar
-                name={host.name}
-                initials={host.initials}
-                color={host.avatarColor}
+                name={host?.name}
+                initials={host?.initials}
+                color={host?.avatarColor}
                 size="lg"
               />
               <div className={styles.hostDetails}>
-                <span className={styles.hostName}>{host.name}</span>
-                <span className={styles.hostHandle}>{host.handle}</span>
-                <Badge variant="neutral" size="sm">{host.role}</Badge>
+                <span className={styles.hostName}>{host?.name}</span>
+                <span className={styles.hostHandle}>{host?.handle}</span>
+                <Badge variant="neutral" size="sm">{host?.role || 'Circle Facilitator'}</Badge>
               </div>
             </div>
             <p className={styles.hostBio}>
@@ -287,6 +431,12 @@ export default function CircleDetailsPage() {
           <p className={styles.modalSub}>
             You are applying to join <strong>{title}</strong>.
           </p>
+
+          {joinError && (
+            <div style={{ color: '#ef4444', backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '10px 14px', borderRadius: '6px', marginBottom: '14px', fontSize: '13px' }} role="alert">
+              {joinError}
+            </div>
+          )}
 
           {joiningPolicy === 'moderated' && (
             <div className={styles.noteField}>
