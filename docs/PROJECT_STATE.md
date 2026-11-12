@@ -18,7 +18,7 @@
 | **Module 05 Low-Fidelity Prototype**| 100% Completed & Pushed (`4d07e45`) | Standalone Wireframe, 12 Screens, 8 Specs | COMPLETED |
 | **Module 06 Formative Evaluation**| 100% Inspected & Remediated (`1958c45`) | 10 Heuristics, 5 Walkthroughs, 13 Issues | COMPLETED |
 | **Module 07 React Foundation** | 100% Completed & Verified (`42e2044`) | React 19, Vite 6, 12 Routes | COMPLETED |
-| **Module 08 Functional Product** | 100% Completed & Verified | Full logic for 23 FRs, Local Persistence | COMPLETED |
+| **Module 08 Functional Product** | 100% Completed & Verified (`3718249`) | Full logic for 23 FRs, Local Persistence | COMPLETED |
 | **Application Launch URL** | `http://localhost:5173` | Instant local ESM development server (336ms) | OPERATIONAL |
 | **Automated Test Suite** | 58 of 58 Tests Passing | 9 Test Suites (Vitest 3.0 + Testing Library) | 100% PASS |
 | **Production Build** | Clean build (`dist/`) in 2.98s | Zero-warning tree-shaken ESM bundle (122 modules) | VERIFIED |
@@ -56,7 +56,7 @@
 | [`docs/handovers/MODULE_05_HANDOFF.md`](handovers/MODULE_05_HANDOFF.md) | Module 05 low-fidelity prototype handoff report | COMPLETE |
 | [`docs/handovers/MODULE_06_HANDOFF.md`](handovers/MODULE_06_HANDOFF.md) | Module 06 formative usability evaluation handoff report | COMPLETE |
 | [`docs/handovers/MODULE_07_HANDOFF.md`](handovers/MODULE_07_HANDOFF.md) | Module 07 React application foundation handoff report (SHA: `42e2044`) | COMPLETE |
-| [`docs/handovers/MODULE_08_HANDOFF.md`](handovers/MODULE_08_HANDOFF.md) | Module 08 functional product & business logic handoff report | COMPLETE |
+| [`docs/handovers/MODULE_08_HANDOFF.md`](handovers/MODULE_08_HANDOFF.md) | Module 08 functional product & business logic handoff report (SHA: `3718249`) | COMPLETE |
 | [`docs/DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md) | High-fidelity design tokens, WCAG contrast audits & component anatomy | COMPLETE |
 | [`docs/TESTING.md`](TESTING.md) | Automated testing strategy, 9 Vitest suites & build report | COMPLETE |
 
