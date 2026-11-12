@@ -19,7 +19,7 @@
 | **Module 06 Formative Evaluation**| 100% Inspected & Remediated (`1958c45`) | 10 Heuristics, 5 Walkthroughs, 13 Issues | COMPLETED |
 | **Module 07 React Foundation** | 100% Completed & Verified (`42e2044`) | React 19, Vite 6, 12 Routes | COMPLETED |
 | **Module 08 Functional Product** | 100% Completed & Verified (`3718249`) | Full logic for 23 FRs, Local Persistence | COMPLETED |
-| **Module 09 Summative Study** | 100% Prepared & Verified | 15 Study Specs, Analysis Tool, Latin-Square | TOOLKIT PREPARED (FIELDWORK PENDING) |
+| **Module 09 Summative Study** | 100% Prepared & Verified (`e92d396`) | 15 Study Specs, Analysis Tool, Latin-Square | TOOLKIT PREPARED (FIELDWORK PENDING) |
 | **Application Launch URL** | `http://localhost:5173` | Instant local ESM development server (336ms) | OPERATIONAL |
 | **Automated Test Suite** | 75 of 75 Tests Passing | 10 Test Suites (Vitest 3.0 + Testing Library) | 100% PASS |
 | **Production Build** | Clean build (`dist/`) in 2.87s | Zero-warning tree-shaken ESM bundle (122 modules) | VERIFIED |
@@ -58,7 +58,7 @@
 | [`docs/handovers/MODULE_06_HANDOFF.md`](handovers/MODULE_06_HANDOFF.md) | Module 06 formative usability evaluation handoff report | COMPLETE |
 | [`docs/handovers/MODULE_07_HANDOFF.md`](handovers/MODULE_07_HANDOFF.md) | Module 07 React application foundation handoff report (SHA: `42e2044`) | COMPLETE |
 | [`docs/handovers/MODULE_08_HANDOFF.md`](handovers/MODULE_08_HANDOFF.md) | Module 08 functional product & business logic handoff report (SHA: `3718249`) | COMPLETE |
-| [`docs/handovers/MODULE_09_HANDOFF.md`](handovers/MODULE_09_HANDOFF.md) | Module 09 summative evaluation toolkit handoff report | COMPLETE |
+| [`docs/handovers/MODULE_09_HANDOFF.md`](handovers/MODULE_09_HANDOFF.md) | Module 09 summative evaluation toolkit handoff report (SHA: `e92d396`) | COMPLETE |
 | [`docs/DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md) | High-fidelity design tokens, WCAG contrast audits & component anatomy | COMPLETE |
 | [`docs/TESTING.md`](TESTING.md) | Automated testing strategy, 10 Vitest suites (75 tests) & build report | COMPLETE |
 
